@@ -1,12 +1,14 @@
-import { IonPage } from "@ionic/react"
+import { IonContent, IonPage } from "@ionic/react"
 import AuthBanner from "../components/AuthBanner"
 
 const Login = () => {
   return (
     <IonPage>
-      <div className="container">
-        <AuthBanner/>
-      </div>
+      <IonContent>
+        <div className="container auth__container">
+          <AuthBanner/>
+        </div>
+      </IonContent>
     </IonPage>
   )
 }
