@@ -28,6 +28,7 @@ import { collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
 import { IUser } from './types/types';
 import { useDispatch } from 'react-redux';
 import { addUser } from './app/feautures/userSlice';
+import AppNavigation from './components/AppNavigation';
 
 /* Theme variables */
 // import './theme/variables.css';
@@ -68,20 +69,7 @@ const App:FC = () => {
 
   return (
     <IonApp>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/login">
-          <Login/>
-        </Route>
-        <Route exact path="/register">
-          <Register/>
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
+      <AppNavigation/>
     </IonApp>
   )
 }
