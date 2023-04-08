@@ -1,9 +1,9 @@
 import { useState, FormEvent, FC } from 'react'
-import cl from '../styles/loginForm.module.scss'
+import cl from '../styles/authForm.module.scss'
 import PasswordVisible from './PasswordVisible/PasswordVisible';
 import MainButton from './MainButton/MainButton';
 import { useForm } from 'react-hook-form';
-import loginConfig from '../formValidation/formValidation';
+import { loginConfig } from '../formValidation/formValidation';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 
 interface LoginFormProps {

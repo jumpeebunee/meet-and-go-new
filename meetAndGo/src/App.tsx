@@ -21,6 +21,7 @@ import '@ionic/react/css/core.css';
 import './styles/normolize.css';
 import './styles/app.scss'
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 /* Theme variables */
 // import './theme/variables.css';
@@ -36,6 +37,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/login">
           <Login/>
+        </Route>
+        <Route exact path="/register">
+          <Register/>
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
