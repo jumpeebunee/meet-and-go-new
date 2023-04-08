@@ -31,7 +31,7 @@ const Register = () => {
       }
       await setDoc(doc(db, "users", response.user.uid), userContent);
       dispatch(addUser(userContent));
-      navigate('/home', 'back');
+      navigate('/home', 'forward');
     } catch (error: any) {
       setServerError(error.message);
     }
@@ -43,10 +43,10 @@ const Register = () => {
         <div className="container auth__container">
           <div className={cl.loginPageContent}>
             <AuthBanner/>
-            <RegisterForm handleRegister={handleRegister}/>
+            <RegisterForm handleRegister={handleRegister} serverError={serverError}/>
             <p className={cl.loginPageToggle}>
               Уже есть профиль?
-              <IonRouterLink routerLink="/login"><span> Войти</span></IonRouterLink>
+              <IonRouterLink  routerDirection="back" routerLink="/login"><span> Войти</span></IonRouterLink>
             </p>
           </div>
         </div>

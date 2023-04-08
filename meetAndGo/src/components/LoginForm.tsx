@@ -5,12 +5,14 @@ import MainButton from './MainButton/MainButton';
 import { useForm } from 'react-hook-form';
 import { loginConfig } from '../formValidation/formValidation';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
+import { ILogin } from '../types/types';
 
 interface LoginFormProps {
-  handleLogin: () => void;
+  handleLogin: (data: ILogin) => void;
+  serverError: string;
 }
 
-const LoginForm:FC<LoginFormProps> = ({handleLogin}) => {
+const LoginForm:FC<LoginFormProps> = ({handleLogin, serverError}) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const {register, handleSubmit, formState: {errors}} = useForm({});
@@ -21,7 +23,7 @@ const LoginForm:FC<LoginFormProps> = ({handleLogin}) => {
   }
 
   const onSubmit = (data: any) => {
-    handleLogin();
+    handleLogin(data);
   }
 
   return (
@@ -46,7 +48,7 @@ const LoginForm:FC<LoginFormProps> = ({handleLogin}) => {
          {errors?.password?.message && <ErrorMessage styles={{marginTop: 15}}>{errors?.password?.message as string}</ErrorMessage>}
         <PasswordVisible isVisible={isVisible} handleChange={handleChange}/>
       </div>
-      {/* <ErrorMessage>Неверный логин или пароль</ErrorMessage> */}
+      {serverError && <ErrorMessage styles={{marginTop: -5}}>Неверная почта или пароль</ErrorMessage>}
       <MainButton>Войти</MainButton>
     </form>
   )

@@ -1,3 +1,8 @@
+export type ILogin = {
+  email: string;
+  password: string;
+}
+
 export type IRegister = {
   email: string;
   password: string;

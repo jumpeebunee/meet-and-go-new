@@ -9,9 +9,10 @@ import { IRegister } from '../types/types';
 
 interface RegisterFormProps {
   handleRegister: (data: IRegister) => void;
+  serverError: string;
 }
 
-const RegisterForm:FC<RegisterFormProps> = ({handleRegister}) => {
+const RegisterForm:FC<RegisterFormProps> = ({handleRegister, serverError}) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const {register, handleSubmit, formState: {errors}} = useForm({});
@@ -56,6 +57,7 @@ const RegisterForm:FC<RegisterFormProps> = ({handleRegister}) => {
           {errors?.password?.message && <ErrorMessage styles={{marginTop: 15}}>{errors?.password?.message as string}</ErrorMessage>}
           <PasswordVisible isVisible={isVisible} handleChange={handleChange}/>
       </div>
+      {serverError && <ErrorMessage styles={{marginTop: -5}}>Что-то пошло не так</ErrorMessage>}
       <MainButton>Создать аккаунт</MainButton>
     </form>
   )
