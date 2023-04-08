@@ -1,6 +1,4 @@
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, NavContext, setupIonicReact } from '@ionic/react';
-import Home from './pages/Home';
+import { IonApp, NavContext, setupIonicReact } from '@ionic/react';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -19,9 +17,7 @@ import '@ionic/react/css/core.css';
 // import '@ionic/react/css/display.css';
 import './styles/normolize.css';
 import './styles/app.scss'
-import Login from './pages/Login';
-import Register from './pages/Register';
-import { FC, useContext, useEffect } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from './firebase';
 import { collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
@@ -29,6 +25,7 @@ import { IUser } from './types/types';
 import { useDispatch } from 'react-redux';
 import { addUser } from './app/feautures/userSlice';
 import AppNavigation from './components/AppNavigation';
+import AppLoading from './components/AppLoading';
 
 /* Theme variables */
 // import './theme/variables.css';
@@ -39,8 +36,10 @@ const App:FC = () => {
   
   const dispatch = useDispatch();
   const { navigate } = useContext(NavContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     onAuthStateChanged(auth, async(user) => {
       if (user) {
         if (user.email && user.uid && user.displayName) {
@@ -57,6 +56,7 @@ const App:FC = () => {
       } else {
         navigate('/login', 'forward');
       }
+      setIsLoading(false);
     })
   }, [])
 
@@ -66,10 +66,12 @@ const App:FC = () => {
     });
   }
 
-
   return (
     <IonApp>
-      <AppNavigation/>
+      {isLoading
+        ? <AppLoading/>
+        : <AppNavigation/>
+      }
     </IonApp>
   )
 }
