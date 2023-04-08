@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, IonRouterOutlet, NavContext, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -22,16 +22,52 @@ import './styles/normolize.css';
 import './styles/app.scss'
 import Login from './pages/Login';
 import Register from './pages/Register';
-import { store } from './app/store';
-import { Provider } from 'react-redux';
+import { FC, useContext, useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth, db } from './firebase';
+import { collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
+import { IUser } from './types/types';
+import { useDispatch } from 'react-redux';
+import { addUser } from './app/feautures/userSlice';
 
 /* Theme variables */
 // import './theme/variables.css';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <Provider store={store}>
+const App:FC = () => {
+  
+  const { navigate } = useContext(NavContext);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, async(user) => {
+      if (user) {
+        if (user.email && user.uid && user.displayName) {
+          const querySnapshot = await getDocs(collection(db, "users"));
+          querySnapshot.forEach((doc) => {
+            if (doc.data().uid === user.uid) {
+              const data = doc.data() as IUser;
+              dispatch(addUser(data));
+            }
+          });
+          subscribeUserUpdates(user.uid);
+        }
+        navigate('/home', 'forward');
+      } else {
+        navigate('/login', 'forward');
+      }
+    })
+  }, [])
+
+  const subscribeUserUpdates = (id: string) => {
+    onSnapshot(doc(db, "users", id), (doc) => {
+      dispatch(addUser(doc.data() as IUser));
+    });
+  }
+
+
+  return (
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
@@ -50,7 +86,6 @@ const App: React.FC = () => (
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
-  </Provider>
-);
-
+  )
+}
 export default App;

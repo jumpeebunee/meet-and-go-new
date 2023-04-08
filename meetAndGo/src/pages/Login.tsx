@@ -6,7 +6,6 @@ import { ILogin } from "../types/types"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebase"
 import { useContext, useState } from "react"
-import ErrorMessage from "../components/ErrorMessage/ErrorMessage"
 
 const Login = () => {
 
