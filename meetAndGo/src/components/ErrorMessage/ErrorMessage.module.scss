@@ -3,3 +3,11 @@
   line-height: 17px;
   color: #D77575;
 }
+
+
+@media (max-width: 414px) {
+  .errorMessage {
+    font-size: 3.38vw;
+    line-height: 4.11vw;
+  }
+}

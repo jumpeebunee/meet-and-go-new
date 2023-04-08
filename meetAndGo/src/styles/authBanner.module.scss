@@ -18,3 +18,21 @@
     color: #FFFFFF;
   }
 }
+
+@media (max-width: 414px) {
+  .authBanner {
+    padding: 22.71vw 7.25vw 9.66vw 7.25vw;
+    border-radius: 6.04vw;
+  
+    h2 {
+      font-size: 8.70vw;
+      line-height: 10.63vw;
+    }
+  
+    p {
+      margin-top: 3.14vw;
+      font-size: 4.35vw;
+      line-height: 5.31vw;
+    }
+  }
+}

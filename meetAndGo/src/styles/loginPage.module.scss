@@ -8,3 +8,11 @@
     color: #75D7A1;
   }
 }
+
+@media (max-width: 414px) {
+  .loginPageToggle {
+    margin-top: 6.04vw;
+    font-size: 3.86vw;
+    line-height: 4.59vw;
+  }
+}

@@ -35,6 +35,42 @@ body {
   padding: 40px 30px;
 }
 
+.app__container {
+  padding: 0px 0px;
+  height: 100%;
+}
+
 .auth__container {
   padding-bottom: 90px;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 414px) {
+  .app-input {
+    padding: 4.83vw 4.83vw;
+    font-size: 4.35vw;
+    line-height: 5.31vw;
+    border-radius: 2.42vw;
+  
+    &::placeholder {
+      font-size: 4.35vw;
+      line-height: 5.31vw;
+    }
+  
+    &:focus {
+      outline: 0.97vw #75D7A166 solid;
+    }
+  }
+  
+  .container {
+    padding: 9.66vw 7.25vw;
+  }
+  
+  .auth__container {
+    padding-bottom: 21.74vw;
+  }
 }

@@ -16,3 +16,13 @@
     color: #FFFFFF;
   }
 }
+
+@media (max-width: 414px) {
+  .appLoading {
+    h2 {
+      font-size: 10.14vw;
+      line-height: 12.32vw;
+    }
+  }
+  
+}

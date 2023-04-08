@@ -8,3 +8,10 @@
 .loginFormWrapper {
   position: relative;
 }
+
+@media (max-width: 414px) {
+  .loginForm {
+    gap: 4.83vw;
+    margin-top: 9.66vw;
+  }
+}

@@ -13,3 +13,12 @@
     opacity: .9;
   }
 }
+
+@media (max-width: 414px) {
+  .mainButton {
+    padding: 4.83vw 9.66vw;
+    border-radius: 9.66vw;
+    font-size: 4.35vw;
+    line-height: 5.31vw;
+  }
+}

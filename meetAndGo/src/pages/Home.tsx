@@ -1,5 +1,7 @@
 import { IonPage } from '@ionic/react';
+import { YMaps, Map } from '@pbe/react-yandex-maps';
 import { useHistory } from 'react-router';
+import AppMap from '../components/AppMap';
 
 const Home: React.FC = () => {
 
@@ -11,8 +13,9 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <div>qq</div>
-      <button onClick={handleTest}>test</button>
+      <div className='container app__container'>
+        <AppMap/>
+      </div>
     </IonPage>
   );
 };
