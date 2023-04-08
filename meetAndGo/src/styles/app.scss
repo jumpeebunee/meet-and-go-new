@@ -11,6 +11,25 @@ body {
   background-color: #fff;
 }
 
+.app-input {
+  width: 100%;
+  padding: 20px 20px;
+  font-size: 18px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.7);
+  background: rgba(217, 217, 217, 0.2);
+  border-radius: 10px;
+
+  &::placeholder {
+    font-size: 18px;
+    line-height: 22px;
+    color: #AAAAAA;
+  }
+
+  &:focus {
+    outline: 4px #75D7A166 solid;
+  }
+}
 
 .container {
   padding: 0px 30px;
@@ -19,3 +38,4 @@ body {
 .auth__container {
   padding-top: 40px;
 }
+
