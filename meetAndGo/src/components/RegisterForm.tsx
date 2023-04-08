@@ -1,12 +1,17 @@
-import { FormEvent, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import cl from '../styles/authForm.module.scss'
 import MainButton from './MainButton/MainButton'
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import PasswordVisible from './PasswordVisible/PasswordVisible';
 import { emailConfig, nameConfig, passwordConfig } from '../formValidation/formValidation';
+import { IRegister } from '../types/types';
 
-const RegisterForm = () => {
+interface RegisterFormProps {
+  handleRegister: (data: IRegister) => void;
+}
+
+const RegisterForm:FC<RegisterFormProps> = ({handleRegister}) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const {register, handleSubmit, formState: {errors}} = useForm({});
@@ -17,7 +22,7 @@ const RegisterForm = () => {
   }
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    handleRegister(data);
   }
 
   return (
