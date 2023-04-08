@@ -7,4 +7,9 @@
   font-size: 18px;
   line-height: 22px;
   color: #FFFFFF;
+  transition: opacity ease .2s;
+
+  &:active {
+    opacity: .9;
+  }
 }
