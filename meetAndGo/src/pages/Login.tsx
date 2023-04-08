@@ -4,13 +4,18 @@ import LoginForm from "../components/LoginForm"
 import cl from '../styles/loginPage.module.scss'
 
 const Login = () => {
+
+  const handleLogin = async() => {
+    console.log('login!');
+  }
+
   return (
     <IonPage>
       <IonContent>
         <div className="container auth__container">
           <div className={cl.loginPageContent}>
             <AuthBanner/>
-            <LoginForm/>
+            <LoginForm handleLogin={handleLogin}/>
             <p className={cl.loginPageToggle}>
               Первый раз?
               <IonRouterLink routerLink="/register"><span> Создать аккаунт</span></IonRouterLink>

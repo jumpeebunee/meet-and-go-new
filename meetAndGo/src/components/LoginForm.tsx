@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, FC } from 'react'
 import cl from '../styles/loginForm.module.scss'
 import PasswordVisible from './PasswordVisible/PasswordVisible';
 import MainButton from './MainButton/MainButton';
@@ -6,7 +6,11 @@ import { useForm } from 'react-hook-form';
 import loginConfig from '../formValidation/formValidation';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 
-const LoginForm = () => {
+interface LoginFormProps {
+  handleLogin: () => void;
+}
+
+const LoginForm:FC<LoginFormProps> = ({handleLogin}) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const {register, handleSubmit, formState: {errors}} = useForm({});
@@ -17,7 +21,7 @@ const LoginForm = () => {
   }
 
   const onSubmit = (data: any) => {
-    console.log(data)
+    handleLogin();
   }
 
   return (
@@ -37,7 +41,9 @@ const LoginForm = () => {
           className='app-input'
           placeholder='Пароль'
           autoComplete='true'
+          {...register('password', loginConfig())}
         />
+         {errors?.password?.message && <ErrorMessage styles={{marginTop: 15}}>{errors?.password?.message as string}</ErrorMessage>}
         <PasswordVisible isVisible={isVisible} handleChange={handleChange}/>
       </div>
       {/* <ErrorMessage>Неверный логин или пароль</ErrorMessage> */}
