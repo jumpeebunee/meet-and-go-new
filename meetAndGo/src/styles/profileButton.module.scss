@@ -22,4 +22,30 @@
   height: 46px;
   outline: 1px solid #E4E0EB;
   border-radius: 50%;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 414px) {
+  .profileBtn {
+    gap: 3.62vw;
+    padding: 1.69vw;
+    width: 42.51vw;
+    height: 14.49vw;
+    top: 9.66vw;
+    right: 7.25vw;
+    outline: 0.24vw solid rgba(26, 26, 26, 0.05);
+    box-shadow: 2.42vw 2.42vw 3.62vw rgba(0, 0, 0, 0.05);
+    border-radius: 9.66vw;
+    font-size: 3.86vw;
+    line-height: 4.59vw;
+  }
+  
+  .profileBtnImage {
+    width: 11.11vw;
+    height: 11.11vw;
+    outline: 0.24vw solid #E4E0EB;
+  }
 }
