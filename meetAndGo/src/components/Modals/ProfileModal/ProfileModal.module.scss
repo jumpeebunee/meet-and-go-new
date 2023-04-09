@@ -1,0 +1,66 @@
+.profileModal {
+  padding: 50px 40px 40px 40px;
+}
+
+.profileModalUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    margin-top: 20px;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 29px;
+    color: #1A1A1A;
+  }
+}
+
+.profileModalImage {
+  width: 172px;
+  height: 172px;
+}
+
+.profileModalRaiting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3px;
+}
+
+.profileModalRaitingWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.profileModalRatingHeading {
+  font-size: 14px;
+  line-height: 17px;
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.profileModalRatingIcon {
+  display: block;
+  width: 17px;
+  height: 17px;
+  background-image: url(../../../assets/star.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.profileModalRaitingHow {
+  margin-top: 3px;
+  font-size: 10px;
+  line-height: 12px;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.profileModalRaitingLine {
+  margin-top: 25px;
+  width: 129px;
+  height: 2px;
+  background-color: #FF906D;
+}

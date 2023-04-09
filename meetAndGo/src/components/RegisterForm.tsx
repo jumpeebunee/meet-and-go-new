@@ -1,9 +1,9 @@
 import { FC, FormEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import cl from '../styles/authForm.module.scss'
-import MainButton from './MainButton/MainButton'
-import ErrorMessage from './ErrorMessage/ErrorMessage';
-import PasswordVisible from './PasswordVisible/PasswordVisible';
+import MainButton from './UI/MainButton/MainButton'
+import ErrorMessage from './UI/ErrorMessage/ErrorMessage';
+import PasswordVisible from './UI/PasswordVisible/PasswordVisible';
 import { emailConfig, nameConfig, passwordConfig } from '../formValidation/formValidation';
 import { IRegister } from '../types/types';
 

@@ -9,6 +9,6 @@ export const baseUserContent = {
   totalMeets: 0,
   currentCreated: 0,
   createdMeets: 0,
-  image: 'https://i.yapx.ru/VnCFB.jpg',
+  image: 'https://i.yapx.cc/V3vi3.png',
   activeMeets: [],
 }

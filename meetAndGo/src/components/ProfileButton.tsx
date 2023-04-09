@@ -1,17 +1,17 @@
 import cl from '../styles/profileButton.module.scss'
-import avatar from '../assets/avatar.png'
 import { FC } from 'react'
 
 interface ProfileButtonProps {
+  image: string;
   setIsProfileOpen: (arg: boolean) => void;
 }
 
-const ProfileButton:FC<ProfileButtonProps> = ({setIsProfileOpen}) => {
+const ProfileButton:FC<ProfileButtonProps> = ({image, setIsProfileOpen}) => {
   return (
     <button onClick={() => setIsProfileOpen(true)} className={cl.profileBtn}>
       <div>Профиль</div>
       <div className={cl.profileBtnImage}>
-        <img src={avatar} alt="Ваш аватар"/>
+        <img src={image} alt="Ваш аватар"/>
       </div>
     </button>
   )

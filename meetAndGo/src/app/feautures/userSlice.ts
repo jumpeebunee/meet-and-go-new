@@ -23,3 +23,4 @@ const userSlice = createSlice({
 export default userSlice.reducer;
 export const {addUser} = userSlice.actions;
 export const user = ((state: RootState) => state.user.user);
+export const userImage = ((state: RootState) => state.user.user.image);
