@@ -1,0 +1,25 @@
+.profileBtn {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 15px;
+  padding: 7px;
+  width: 176px;
+  height: 60px;
+  background-color: #fff;
+  position: absolute;
+  top: 40px;
+  right: 30px;
+  outline: 1px solid rgba(26, 26, 26, 0.05);
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 40px;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.profileBtnImage {
+  width: 46px;
+  height: 46px;
+  outline: 1px solid #E4E0EB;
+  border-radius: 50%;
+}
