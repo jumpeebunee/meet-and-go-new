@@ -1,0 +1,11 @@
+.profileModalItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h3, p {
+    font-size: 16px;
+    line-height: 19px;
+    color:#1A1A1A;
+  }
+}

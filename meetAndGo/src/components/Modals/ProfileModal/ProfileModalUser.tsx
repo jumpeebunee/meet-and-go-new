@@ -39,8 +39,7 @@ const ProfileModalUser:FC<ProfileModalUserProps> = ({image, username, raiting}) 
               const userRef = doc(db, "users", userUid);
               await updateDoc(userRef, { image: downloadURL, });
             }
-          } catch (error) {
-            
+          } catch (error: any) {
           } finally {
             setIsLoading(false);
           }

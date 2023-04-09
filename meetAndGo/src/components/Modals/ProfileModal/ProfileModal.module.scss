@@ -126,3 +126,11 @@
 ion-spinner {
   color: #fff;
 }
+
+.profileModalList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 33px;
+  padding-bottom: 33px;
+}
