@@ -4,13 +4,18 @@ import cl from '../styles/AppMap.module.scss'
 import EventsButton from './EventsButton'
 import SearchButton from './SearchButton'
 import ProfileButton from './ProfileButton'
+import { FC } from 'react'
 
-const AppMap = () => {
+interface AppMapProps {
+  setIsProfileOpen: (arg: boolean) => void;
+}
+
+const AppMap:FC<AppMapProps> = ({setIsProfileOpen}) => {
   return (
     <YMaps query={{apikey: API_KEY}}>
       <Map className={cl.appMap} defaultState={MAP_CENTER}/>
       <EventsButton/>
-      <ProfileButton/>
+      <ProfileButton setIsProfileOpen={setIsProfileOpen}/>
       <SearchButton/>
     </YMaps>
   )

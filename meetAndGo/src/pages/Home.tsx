@@ -1,20 +1,19 @@
 import { IonPage } from '@ionic/react';
-import { YMaps, Map } from '@pbe/react-yandex-maps';
-import { useHistory } from 'react-router';
 import AppMap from '../components/AppMap';
+import AppModal from '../components/AppModal/AppModal';
+import { useState } from 'react';
 
 const Home: React.FC = () => {
 
-  const history = useHistory();
-
-  const handleTest = () => {
-    history.push('/login');
-  }
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
     <IonPage>
       <div className='container app__container'>
-        <AppMap/>
+        <AppMap
+          setIsProfileOpen={setIsProfileOpen}
+        />
+        <AppModal isOpen={isProfileOpen} setIsOpen={setIsProfileOpen}/>
       </div>
     </IonPage>
   );
