@@ -1,0 +1,20 @@
+.searchButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  background: #1A1A1A;
+  border-radius: 50%;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  span {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-image: url(../assets/search.svg);
+  }
+}
