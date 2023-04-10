@@ -9,6 +9,7 @@ import { db } from '../../../firebase';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import ProfileUser from './ProfileUser';
 import ProfileList from './ProfileList';
+import SecondButton from '../../UI/SecondButton/SecondButton';
 
 interface ProfileModalProps {
   isOpen: boolean;
@@ -84,6 +85,7 @@ const ProfileModal:FC<ProfileModalProps> = ({isOpen, setIsOpen}) => {
         </div>
         <div className={cl.profileModalBtns}>
           <MainButton onClick={handleEdit}>{isEdit ? 'Сохранить' : 'Изменить'}</MainButton>
+          <SecondButton onClick={() => setIsOpen(false)}>Назад</SecondButton>
         </div>
       </div>
     </AppModal>
