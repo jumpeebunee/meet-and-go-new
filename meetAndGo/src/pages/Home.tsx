@@ -1,6 +1,5 @@
-import { IonModal, IonPage } from '@ionic/react';
+import { IonPage } from '@ionic/react';
 import AppMap from '../components/AppMap';
-import AppModal from '../components/UI/AppModal/AppModal';
 import { useState } from 'react';
 import ProfileModal from '../components/Modals/Profile/ProfileModal';
 
@@ -18,10 +17,6 @@ const Home: React.FC = () => {
           isOpen={isProfileOpen} 
           setIsOpen={setIsProfileOpen}
         />
-        {/* <AppModal 
-          isOpen={isProfileOpen} 
-          setIsOpen={setIsProfileOpen}
-        /> */}
       </div>
     </IonPage>
   );

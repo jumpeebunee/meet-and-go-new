@@ -157,6 +157,18 @@ ion-spinner {
   gap: 15px;
 }
 
+//* Logout
+
+.profileModalLogout {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 50px;
+  right: 40px;
+  background: url(../../assets/logout.svg) no-repeat transparent;
+  background-size: contain;
+}
+
 @media (max-width: 414px) {
   .profileModal {
     padding: 12.08vw 12.08vw 12.08vw 12.08vw;

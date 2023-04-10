@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { user } from '../../../app/feautures/userSlice';
 import MainButton from '../../UI/MainButton/MainButton';
 import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../../../firebase';
+import { auth, db } from '../../../firebase';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import ProfileUser from './ProfileUser';
 import ProfileList from './ProfileList';
@@ -54,6 +54,10 @@ const ProfileModal:FC<ProfileModalProps> = ({isOpen, setIsOpen}) => {
     });
   }
 
+  const handleLogout = async() => {
+    auth.signOut();
+  }
+
   useMemo(() => {
     if (!isOpen && isEdit) {
       setTownField(currentUser.town);
@@ -73,14 +77,15 @@ const ProfileModal:FC<ProfileModalProps> = ({isOpen, setIsOpen}) => {
             raiting={currentUser.reputation}
           />
           <ProfileList
-              totalMeets={currentUser.totalMeets}
-              createdMeets={currentUser.createdMeets}
-              townField={townField}
-              phoneField={phoneField}
-              isEdit={isEdit}
-              setTownField={setTownField}
-              setPhoneField={setPhoneField}
+            totalMeets={currentUser.totalMeets}
+            createdMeets={currentUser.createdMeets}
+            townField={townField}
+            phoneField={phoneField}
+            isEdit={isEdit}
+            setTownField={setTownField}
+            setPhoneField={setPhoneField}
           />
+          <button onClick={handleLogout} className={cl.profileModalLogout}></button>
           {isError && <ErrorMessage>Некорректный номер или город</ErrorMessage>}
         </div>
         <div className={cl.profileModalBtns}>

@@ -11,7 +11,7 @@ const ProfileButton:FC<ProfileButtonProps> = ({image, setIsProfileOpen}) => {
     <button onClick={() => setIsProfileOpen(true)} className={cl.profileBtn}>
       <div>Профиль</div>
       <div className={cl.profileBtnImage}>
-        <img src={image} alt="Ваш аватар"/>
+        <img src={image}/>
       </div>
     </button>
   )
