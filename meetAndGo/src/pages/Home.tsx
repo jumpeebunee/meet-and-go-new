@@ -2,10 +2,12 @@ import { IonPage } from '@ionic/react';
 import AppMap from '../components/AppMap';
 import { useState } from 'react';
 import ProfileModal from '../components/Modals/Profile/ProfileModal';
+import RaitingModal from '../components/Modals/Raiting/RaitingModal';
 
 const Home: React.FC = () => {
 
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isRaitingOpen, setIsRaitngOpen] = useState(false);
 
   return (
     <IonPage>
@@ -16,6 +18,11 @@ const Home: React.FC = () => {
         <ProfileModal
           isOpen={isProfileOpen} 
           setIsOpen={setIsProfileOpen}
+          setIsRaitngOpen={setIsRaitngOpen}
+        />
+        <RaitingModal
+          isOpen={isRaitingOpen} 
+          setIsOpen={setIsRaitngOpen}
         />
       </div>
     </IonPage>

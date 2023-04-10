@@ -4,9 +4,10 @@ import cl from '../../../styles/ProfileModal/profileModal.module.scss'
 interface ProfileInfoProps {
   username: string;
   raiting: number;
+  setIsRaitngOpen: (arg: boolean) => void;
 }
 
-const ProfileInfo:FC<ProfileInfoProps> = ({username, raiting}) => {
+const ProfileInfo:FC<ProfileInfoProps> = ({username, raiting, setIsRaitngOpen}) => {
   return (
     <>
       <h3>{username}</h3>
@@ -15,7 +16,7 @@ const ProfileInfo:FC<ProfileInfoProps> = ({username, raiting}) => {
           <div className={cl.profileModalRatingHeading}>Моя репутация: {raiting}</div>
           <span className={cl.profileModalRatingIcon}></span>
         </div>
-        <div className={cl.profileModalRaitingHow}>Как повысить?</div>
+        <button onClick={() => setIsRaitngOpen(true)} className={cl.profileModalRaitingHow}>Как повысить?</button>
         <div className={cl.profileModalRaitingLine}></div>
       </div>
     </>

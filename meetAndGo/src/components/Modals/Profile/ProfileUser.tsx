@@ -13,9 +13,10 @@ interface ProfileUserProps {
   image: string;
   username: string;
   raiting: number;
+  setIsRaitngOpen: (arg: boolean) => void;
 }
 
-const ProfileUser:FC<ProfileUserProps> = ({image, username, raiting}) => {
+const ProfileUser:FC<ProfileUserProps> = ({image, username, raiting, setIsRaitngOpen}) => {
 
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -59,6 +60,7 @@ const ProfileUser:FC<ProfileUserProps> = ({image, username, raiting}) => {
       <ProfileInfo
         username={username}
         raiting={raiting}
+        setIsRaitngOpen={setIsRaitngOpen}
       />
     </div>
   )

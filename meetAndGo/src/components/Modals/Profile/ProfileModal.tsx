@@ -14,12 +14,13 @@ import SecondButton from '../../UI/SecondButton/SecondButton';
 interface ProfileModalProps {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
+  setIsRaitngOpen: (arg: boolean) => void;
 }
 
 const phoneRegExp = /^\d{11,11}$/;
 const townRegExp = /^[а-яА-Я]{1,15}$/;
 
-const ProfileModal:FC<ProfileModalProps> = ({isOpen, setIsOpen}) => {
+const ProfileModal:FC<ProfileModalProps> = ({isOpen, setIsOpen, setIsRaitngOpen}) => {
 
   const currentUser = useSelector(user);
 
@@ -55,6 +56,7 @@ const ProfileModal:FC<ProfileModalProps> = ({isOpen, setIsOpen}) => {
   }
 
   const handleLogout = async() => {
+    setIsOpen(false);
     auth.signOut();
   }
 
@@ -75,6 +77,7 @@ const ProfileModal:FC<ProfileModalProps> = ({isOpen, setIsOpen}) => {
             image={currentUser.image} 
             username={currentUser.username}
             raiting={currentUser.reputation}
+            setIsRaitngOpen={setIsRaitngOpen}
           />
           <ProfileList
             totalMeets={currentUser.totalMeets}

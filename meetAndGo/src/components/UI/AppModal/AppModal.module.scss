@@ -28,15 +28,15 @@
   position: relative;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 414px) {
 
   .appModal {
     min-height: 181.16vw;
   }
-
+  
   .appModalContent {
     width: 88.89vw;
-    height: 171.16vw;
+    height: 181.16vw;
     border-radius: 12.08vw;
-  }
+  }  
 }

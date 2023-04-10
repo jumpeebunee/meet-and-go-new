@@ -1,0 +1,19 @@
+.raitingModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.raitingModalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+@media (max-width: 414px) {
+  .raitingModalContent {
+    gap: 3.62vw;
+    margin-top: 4.83vw;
+  }
+}

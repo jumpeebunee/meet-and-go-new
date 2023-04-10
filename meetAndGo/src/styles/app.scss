@@ -54,6 +54,24 @@ body {
   height: 100%;
 }
 
+.heading {
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 34px;
+  color: #1A1A1A;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 19px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-container {
+  height: 100%;
+  padding: 40px 30px;
+}
+
 @media (max-width: 414px) {
   .app-input {
     padding: 4.83vw 4.83vw;
@@ -82,5 +100,19 @@ body {
   
   .auth__container {
     padding-bottom: 21.74vw;
+  }
+
+  .heading {
+    font-size: 6.76vw;
+    line-height: 8.21vw;
+  }
+  
+  .description {
+    font-size: 3.86vw;
+    line-height: 4.59vw;
+  }
+  
+  .modal-container {
+    padding: 9.66vw 7.25vw;
   }
 }
