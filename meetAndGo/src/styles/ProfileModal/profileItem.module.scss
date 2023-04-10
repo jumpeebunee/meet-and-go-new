@@ -16,8 +16,28 @@
     line-height: 19px;
     color:#1A1A1A;
     text-align: right;
-    width: 155px;
+    width: 37.44vw;
     padding-bottom: 5px;
     border-bottom: 1px solid #D9D9D9;
+  }
+}
+
+
+@media (max-width: 414px) {
+  .profileModalItem {
+    gap: 3.62vw;
+  
+    h3, p {
+      font-size: 3.86vw;
+      line-height: 4.59vw;
+    }
+  
+    input {
+      font-size: 3.86vw;
+      line-height: 4.59vw;
+      width: 37.44vw;
+      padding-bottom: 1.21vw;
+      border-bottom: 0.24vw solid #D9D9D9;
+    }
   }
 }

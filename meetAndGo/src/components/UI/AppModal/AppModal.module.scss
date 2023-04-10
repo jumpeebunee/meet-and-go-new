@@ -25,3 +25,12 @@
   background-color: #fff;
   border-radius: 50px;
 }
+
+@media (max-width: 450px) {
+
+  .appModalContent {
+    width: 88.89vw;
+    height: 171.16vw;
+    border-radius: 12.08vw;
+  }
+}
