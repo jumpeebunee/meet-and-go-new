@@ -23,13 +23,13 @@ const ProfileModalUser:FC<ProfileModalUserProps> = ({image, username, raiting}) 
     const file = e.target.files?.[0];
     if (!file) return;
  
+    setIsLoading(true);
     const storageRef = ref(storage, username);
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on('state_changed', 
       (snapshot) => {},
       (error) => {}, 
       () => {
-        setIsLoading(true);
         getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
           try {
             const userUid = auth.currentUser?.uid;
