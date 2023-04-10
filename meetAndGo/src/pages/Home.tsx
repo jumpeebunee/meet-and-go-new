@@ -2,7 +2,7 @@ import { IonModal, IonPage } from '@ionic/react';
 import AppMap from '../components/AppMap';
 import AppModal from '../components/UI/AppModal/AppModal';
 import { useState } from 'react';
-import ProfileModal from '../components/Modals/ProfileModal/ProfileModal';
+import ProfileModal from '../components/Modals/Profile/ProfileModal';
 
 const Home: React.FC = () => {
 

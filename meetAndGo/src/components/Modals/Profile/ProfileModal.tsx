@@ -1,15 +1,14 @@
 import { FC, useMemo, useState } from 'react'
 import AppModal from '../../UI/AppModal/AppModal';
-import cl from './ProfileModal.module.scss'
+import cl from '../../../styles/ProfileModal/profileModal.module.scss'
 import { useSelector } from 'react-redux';
 import { user } from '../../../app/feautures/userSlice';
-import ProfileModalUser from './ProfileModalUser';
-import ProfileModalItem from './ProfileModalItem';
-import ProfileModalItemEdit from './ProfileModalItemEdit';
 import MainButton from '../../UI/MainButton/MainButton';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
+import ProfileUser from './ProfileUser';
+import ProfileList from './ProfileList';
 
 interface ProfileModalProps {
   isOpen: boolean;
@@ -67,17 +66,20 @@ const ProfileModal:FC<ProfileModalProps> = ({isOpen, setIsOpen}) => {
     <AppModal isOpen={isOpen} setIsOpen={setIsOpen}>
       <div className={cl.profileModal}>
         <div>
-          <ProfileModalUser 
+          <ProfileUser 
             image={currentUser.image} 
             username={currentUser.username}
             raiting={currentUser.reputation}
           />
-          <ul className={cl.profileModalList}>
-            <ProfileModalItem title="Количество встреч:" body={currentUser.totalMeets}/>
-            <ProfileModalItem title="Организовано встреч:" body={currentUser.createdMeets}/>
-            <ProfileModalItemEdit handleChange={setTownField} title="Город:" current={townField} isEdit={isEdit} placeholder='Не указан'/> 
-            <ProfileModalItemEdit handleChange={setPhoneField} title="Телефон:" current={phoneField} isEdit={isEdit} placeholder='Не указан'/> 
-          </ul>
+          <ProfileList
+              totalMeets={currentUser.totalMeets}
+              createdMeets={currentUser.createdMeets}
+              townField={townField}
+              phoneField={phoneField}
+              isEdit={isEdit}
+              setTownField={setTownField}
+              setPhoneField={setPhoneField}
+          />
           {isError && <ErrorMessage>Некорректный номер или город</ErrorMessage>}
         </div>
         <div className={cl.profileModalBtns}>

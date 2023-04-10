@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import cl from './ProfileModalItem.module.scss'
+import cl from '../../../styles/ProfileModal/profileItem.module.scss'
 
-interface ProfileModalItemEditProps {
+interface ProfileItemEditableProps {
   title: string;
   isEdit: boolean;
   current: string,
@@ -9,7 +9,7 @@ interface ProfileModalItemEditProps {
   handleChange: (arg: string) => void;
 }
 
-const ProfileModalItemEdit:FC<ProfileModalItemEditProps> = ({title, isEdit, current, placeholder, handleChange}) => {
+const ProfileItemEditable:FC<ProfileItemEditableProps> = ({title, isEdit, current, placeholder, handleChange}) => {
   return (
     <li className={cl.profileModalItem}>
       <h3 className={cl.profileModalHeadingEdit}>{title}</h3>
@@ -21,4 +21,4 @@ const ProfileModalItemEdit:FC<ProfileModalItemEditProps> = ({title, isEdit, curr
   )
 }
 
-export default ProfileModalItemEdit
+export default ProfileItemEditable

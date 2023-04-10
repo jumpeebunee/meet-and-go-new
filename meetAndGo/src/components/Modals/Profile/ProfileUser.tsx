@@ -1,20 +1,21 @@
 import { FC, useState } from 'react'
-import cl from './ProfileModal.module.scss'
+import cl from '../../../styles/ProfileModal/profileModal.module.scss'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { auth, db, storage } from '../../../firebase';
 import { updateProfile } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
 import { updateImage } from '../../../app/feautures/userSlice';
-import { IonSpinner } from '@ionic/react';
+import ProfileImage from './ProfileImage';
+import ProfileInfo from './ProfileInfo';
 
-interface ProfileModalUserProps {
+interface ProfileUserProps {
   image: string;
   username: string;
   raiting: number;
 }
 
-const ProfileModalUser:FC<ProfileModalUserProps> = ({image, username, raiting}) => {
+const ProfileUser:FC<ProfileUserProps> = ({image, username, raiting}) => {
 
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -50,27 +51,17 @@ const ProfileModalUser:FC<ProfileModalUserProps> = ({image, username, raiting}) 
 
   return (
     <div className={cl.profileModalUser}>
-      <div className={isLoading ? `${cl.profileModalImageWrapperLoading} ${cl.profileModalImageWrapper}` : cl.profileModalImageWrapper }>
-        <img className={cl.profileModalImage} src={image} alt="Ваш аватар"/>
-        <span className={cl.profileModalImageUpload}></span>
-        <input disabled={isLoading} accept="image/png, image/jpeg" onChange={(e) => handleFileChange(e)} type="file"/>
-        {isLoading && 
-          <div className={cl.profileModalImageLoading}>
-            <IonSpinner name="crescent"></IonSpinner>
-          </div>
-        }
-      </div>
-      <h3>{username}</h3>
-      <div className={cl.profileModalRaiting}>
-        <div className={cl.profileModalRaitingWrapper}>
-          <div className={cl.profileModalRatingHeading}>Моя репутация: {raiting}</div>
-          <span className={cl.profileModalRatingIcon}></span>
-        </div>
-        <div className={cl.profileModalRaitingHow}>Как повысить?</div>
-        <div className={cl.profileModalRaitingLine}></div>
-      </div>
+      <ProfileImage
+        image={image}
+        isLoading={isLoading}
+        handleFileChange={handleFileChange}
+      />
+      <ProfileInfo
+        username={username}
+        raiting={raiting}
+      />
     </div>
   )
 }
 
-export default ProfileModalUser
+export default ProfileUser
