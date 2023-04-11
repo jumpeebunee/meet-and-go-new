@@ -10,15 +10,16 @@ import { userImage } from '../app/feautures/userSlice'
 
 interface AppMapProps {
   setIsProfileOpen: (arg: boolean) => void;
+  setIsCreateEventOpen: (arg: boolean) => void;
 }
 
-const AppMap:FC<AppMapProps> = ({setIsProfileOpen}) => {
+const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen}) => {
 
   const image = useSelector(userImage);
 
   return (
     <YMaps query={{apikey: API_KEY}}>
-      <Map className={cl.appMap} defaultState={MAP_CENTER}/>
+      <Map onClick={() => setIsCreateEventOpen(true)} className={cl.appMap} defaultState={MAP_CENTER}/>
       <EventsButton/>
       <ProfileButton image={image} setIsProfileOpen={setIsProfileOpen}/>
       <SearchButton/>

@@ -253,3 +253,9 @@ ion-spinner {
     right: 9.66vw;
   }
 }
+
+@media (max-height: 700px) {
+  .profileModal {
+    padding: 5.08vw 5.08vw 5.08vw 5.08vw;
+  }
+}

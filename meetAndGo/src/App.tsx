@@ -27,9 +27,6 @@ import { addUser } from './app/feautures/userSlice';
 import AppNavigation from './components/AppNavigation';
 import AppLoading from './components/AppLoading';
 
-/* Theme variables */
-// import './theme/variables.css';
-
 setupIonicReact();
 
 const App:FC = () => {

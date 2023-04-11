@@ -1,0 +1,49 @@
+.createEventStages {
+  font-size: 22px;
+  line-height: 27px;
+  color: rgba(26, 26, 26, 0.6);
+
+  span {
+    color: #FF906D;
+  }
+}
+
+.createEventContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.createEventButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.createEventList {
+  margin-top: 30px;
+}
+
+.createEventNamesList {
+  margin-top: 13px;
+  display: flex;
+  gap: 10px;
+}
+
+.createEventNamesItem {
+  display: inline-block;
+  padding: 8px 10px;
+  background-color: #75D7A1;
+  border-radius: 4px;
+  
+  button {
+    font-weight: 600;
+    color: #FFFFFF;
+    background-color: transparent;
+  }
+}
+
+.createEventLabel {
+  display: block;
+  margin-bottom: 5px;
+}

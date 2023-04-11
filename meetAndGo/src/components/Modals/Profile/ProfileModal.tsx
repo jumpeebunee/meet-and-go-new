@@ -10,6 +10,7 @@ import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import ProfileUser from './ProfileUser';
 import ProfileList from './ProfileList';
 import SecondButton from '../../UI/SecondButton/SecondButton';
+import { IonModal } from '@ionic/react';
 
 interface ProfileModalProps {
   isOpen: boolean;
@@ -70,7 +71,7 @@ const ProfileModal:FC<ProfileModalProps> = ({isOpen, setIsOpen, setIsRaitngOpen}
   }, [isOpen])
 
   return (
-    <AppModal isOpen={isOpen} setIsOpen={setIsOpen}>
+    <IonModal isOpen={isOpen}>
       <div className={cl.profileModal}>
         <div>
           <ProfileUser 
@@ -96,7 +97,34 @@ const ProfileModal:FC<ProfileModalProps> = ({isOpen, setIsOpen, setIsRaitngOpen}
           <SecondButton onClick={() => setIsOpen(false)}>Назад</SecondButton>
         </div>
       </div>
-    </AppModal>
+    </IonModal>
+    // <AppModal isOpen={isOpen} setIsOpen={setIsOpen}>
+    //   <div className={cl.profileModal}>
+    //     <div>
+    //       <ProfileUser 
+    //         image={currentUser.image} 
+    //         username={currentUser.username}
+    //         raiting={currentUser.reputation}
+    //         setIsRaitngOpen={setIsRaitngOpen}
+    //       />
+    //       <ProfileList
+    //         totalMeets={currentUser.totalMeets}
+    //         createdMeets={currentUser.createdMeets}
+    //         townField={townField}
+    //         phoneField={phoneField}
+    //         isEdit={isEdit}
+    //         setTownField={setTownField}
+    //         setPhoneField={setPhoneField}
+    //       />
+    //       <button onClick={handleLogout} className={cl.profileModalLogout}></button>
+    //       {isError && <ErrorMessage>Некорректный номер или город</ErrorMessage>}
+    //     </div>
+    //     <div className={cl.profileModalBtns}>
+    //       <MainButton onClick={handleEdit}>{isEdit ? 'Сохранить' : 'Изменить'}</MainButton>
+    //       <SecondButton onClick={() => setIsOpen(false)}>Назад</SecondButton>
+    //     </div>
+    //   </div>
+    // </AppModal>
   )
 }
 
