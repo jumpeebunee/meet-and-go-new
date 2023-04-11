@@ -8,6 +8,14 @@
   }
 }
 
+.createEventHeading {
+  margin-top: 25px;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 29px;
+  color: #1A1A1A;
+}
+
 .createEventContent {
   display: flex;
   flex-direction: column;
@@ -27,7 +35,11 @@
 .createEventNamesList {
   margin-top: 13px;
   display: flex;
-  gap: 10px;
+  column-gap: 10px;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 }
 
 .createEventNamesItem {
@@ -40,10 +52,11 @@
     font-weight: 600;
     color: #FFFFFF;
     background-color: transparent;
+    font-size: 14px;
   }
 }
 
 .createEventLabel {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }

@@ -19,7 +19,7 @@ const FirstStageEvent:FC<FirstStageEventProps> = ({eventName, setEventName}) => 
           id="name"
           placeholder="Название события"
         />
-        <EventNamesList/>
+        <EventNamesList setName={setEventName}/>
       </div>
     </div>
 

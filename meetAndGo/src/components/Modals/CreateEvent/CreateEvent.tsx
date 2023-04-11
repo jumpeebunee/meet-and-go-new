@@ -29,6 +29,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
       <div className={`modal-container ${cl.createEventContent}`}>
         <div>
           <div className={cl.createEventStages}><span>{createStage}</span>/{MAX_STAGES}</div>
+          <h2 className={cl.createEventHeading}>Создать новое событие</h2>
           {createStage === 1 
             && 
             <FirstStageEvent
@@ -45,26 +46,6 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
         </div>
       </div>
     </IonModal>
-    // <AppModal isOpen={isOpen} setIsOpen={setIsOpen}>
-    //   <div className={`modal-container ${cl.createEventContent}`}>
-    //     <div>
-    //       <div className={cl.createEventStages}><span>{createStage}</span>/{MAX_STAGES}</div>
-    //       {createStage === 1 
-    //         && 
-    //         <FirstStageEvent
-    //           eventName={eventName}
-    //           setEventName={setEventName}
-    //         />
-    //       }
-    //       {createStage === 2 && <div>Информация о эвенте</div>}
-    //       {createStage === 3 && <div>Подтверждение эвента</div>}
-    //     </div>
-    //     <div className={cl.createEventButtons}>
-    //       <MainButton onClick={() => setCreateStage(prev => prev + 1)}>Продолжить</MainButton>
-    //       <SecondButton onClick={handleClose}>Отменить</SecondButton>
-    //     </div>
-    //   </div>
-    // </AppModal>
   )
 }
 
