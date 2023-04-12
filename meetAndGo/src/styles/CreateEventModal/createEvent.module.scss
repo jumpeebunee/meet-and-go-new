@@ -20,12 +20,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 50px;
+  padding-bottom: 0px;
 }
 
 .createEventButtons {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding-bottom: 40px;
 }
 
 .createEventList {
@@ -50,6 +53,7 @@
   
   .createEventButtons {
     gap: 3.62vw;
+    padding-bottom: 9.66vw;
   }
   
   .createEventList {

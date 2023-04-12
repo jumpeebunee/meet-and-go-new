@@ -3,7 +3,7 @@ import MainButton from '../../UI/MainButton/MainButton';
 import SecondButton from '../../UI/SecondButton/SecondButton';
 import cl from '@/styles/CreateEventModal/createEvent.module.scss';
 import FirstStageEvent from './FirstStageEvent';
-import { IonDatetime, IonModal } from '@ionic/react';
+import { IonContent, IonDatetime, IonModal } from '@ionic/react';
 import { getIsoDate } from '../../../helpers/getIsoDate';
 import { format } from 'date-fns';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
@@ -50,35 +50,37 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
 
   return (
     <IonModal isOpen={isOpen}>
-      <div className={`modal-container ${cl.createEventContent}`}>
-        <div>
-          <div className={cl.createEventStages}><span>{createStage}</span>/{MAX_STAGES}</div>
-          <h2 className={cl.createEventHeading}>Создать новое событие</h2>
-          {createStage === 1 
-            && 
-            <>
-              <FirstStageEvent
-                eventName={eventName}
-                eventDate={eventDate}
-                eventLocation={eventLocation}
-                setEventName={setEventName}
-                setEventDate={setEventDate}
-                setEventLocation={setEventLocation}
-              />
-              {isError && <ErrorMessage styles={{marginTop: 10}}>{isError}</ErrorMessage>}
-            </>
+      <IonContent>
+        <div className={`modal-container ${cl.createEventContent}`}>
+          <div>
+            <div className={cl.createEventStages}><span>{createStage}</span>/{MAX_STAGES}</div>
+            <h2 className={cl.createEventHeading}>Создать новое событие</h2>
+            {createStage === 1 
+              && 
+              <>
+                <FirstStageEvent
+                  eventName={eventName}
+                  eventDate={eventDate}
+                  eventLocation={eventLocation}
+                  setEventName={setEventName}
+                  setEventDate={setEventDate}
+                  setEventLocation={setEventLocation}
+                />
+                {isError && <ErrorMessage styles={{marginTop: 10}}>{isError}</ErrorMessage>}
+              </>
+              }
+            {createStage === 2 && <div>Ничего тут нету</div>}
+            {createStage === 3 && <div>Подтверждение эвента</div>}
+          </div>
+          <div className={cl.createEventButtons}>
+            <MainButton onClick={checkValidity}>Продолжить</MainButton>
+            {createStage > 1 
+            ? <SecondButton onClick={() => setCreateStage(prev => prev - 1)}>Назад</SecondButton>
+            : <SecondButton onClick={handleClose}>Отменить</SecondButton>
             }
-          {createStage === 2 && <div>Ничего тут нету</div>}
-          {createStage === 3 && <div>Подтверждение эвента</div>}
+          </div>
         </div>
-        <div className={cl.createEventButtons}>
-          <MainButton onClick={checkValidity}>Продолжить</MainButton>
-          {createStage > 1 
-          ? <SecondButton onClick={() => setCreateStage(prev => prev - 1)}>Назад</SecondButton>
-          : <SecondButton onClick={handleClose}>Отменить</SecondButton>
-          }
-        </div>
-      </div>
+      </IonContent>
     </IonModal>
   )
 }
