@@ -19,6 +19,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
   const [createStage, setCreateStage] = useState(1);
   const [eventName, setEventName] = useState('');
   const [eventDate, setEventDate] = useState(getIsoDate());
+  const [eventLocation, setEventLocation] = useState('');
 
   const handleClose = () => {
     setCreateStage(1);
@@ -36,8 +37,10 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
             <FirstStageEvent
               eventName={eventName}
               eventDate={eventDate}
+              eventLocation={eventLocation}
               setEventName={setEventName}
               setEventDate={setEventDate}
+              setEventLocation={setEventLocation}
             />
           }
           {createStage === 2 && <div>Ничего тут нету</div>}
