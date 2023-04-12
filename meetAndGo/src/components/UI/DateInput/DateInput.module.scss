@@ -13,3 +13,16 @@
   background-color: #1A1A1A;
   border-radius: 10px;
 }
+
+@media (max-width: 414px) {
+  .dateInput {
+    gap: 2.42vw;
+  }
+  
+  .dateInputBtn {
+    padding: 3.62vw 4.83vw;
+    font-size: 3.86vw;
+    line-height: 4.59vw;
+    border-radius: 2.42vw;
+  }
+}

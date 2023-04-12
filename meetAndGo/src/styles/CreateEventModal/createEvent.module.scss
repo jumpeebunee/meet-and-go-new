@@ -34,3 +34,26 @@
   gap: 25px;
   margin-top: 30px;
 }
+
+
+@media (max-width: 414px) {
+  .createEventStages {
+    font-size: 5.31vw;
+    line-height: 6.52vw;
+  }
+  
+  .createEventHeading {
+    margin-top: 6.52vw;
+    font-size: 5.80vw;
+    line-height: 7.00vw;
+  }
+  
+  .createEventButtons {
+    gap: 3.62vw;
+  }
+  
+  .createEventList {
+    gap: 6.52vw;
+    margin-top: 7.25vw;
+  }
+}

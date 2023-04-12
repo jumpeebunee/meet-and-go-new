@@ -94,6 +94,19 @@ body {
 }
 
 @media (max-width: 414px) {
+
+  .label {
+    font-size: 4.35vw;
+    line-height: 5.31vw;
+  }
+  
+  .input {
+    padding: 3.86vw 4.11vw;
+    border-radius: 2.42vw;
+    font-size: 3.86vw;
+    line-height: 4.59vw;
+  }
+
   .app-input {
     padding: 4.83vw 4.83vw;
     font-size: 4.35vw;

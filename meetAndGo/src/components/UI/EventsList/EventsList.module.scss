@@ -22,3 +22,20 @@
     font-size: 14px;
   }
 }
+
+
+@media (max-width: 414px) {
+  .eventsList {
+    margin-top: 3.14vw;
+    column-gap: 2.42vw;
+  }
+  
+  .eventsItem {
+    padding: 1.93vw 2.42vw;
+    border-radius: 1.93vw;
+    
+    button {
+      font-size: 3.38vw;
+    }
+  }
+}
