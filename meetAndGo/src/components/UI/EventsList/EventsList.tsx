@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import cl from '@/styles/CreateEventModal/createEvent.module.scss';
+import cl from './EventsList.module.scss';
 
 const BASE_EVENT_NAMES = [
   {
@@ -29,15 +29,15 @@ const BASE_EVENT_NAMES = [
   },
 ]
 
-interface EventNamesListProps {
+interface EventsListProps {
   setName: (name: string) => void;
 }
 
-const EventNamesList:FC<EventNamesListProps> = ({setName}) => {
+const EventsList:FC<EventsListProps> = ({setName}) => {
   return (
-    <ul className={cl.createEventNamesList}>
+    <ul className={cl.eventsList}>
       {BASE_EVENT_NAMES.map(event => 
-        <li className={cl.createEventNamesItem} key={event.id}>
+        <li className={cl.eventsItem} key={event.id}>
           <button onClick={() => setName(event.value)}>{event.title}</button>
         </li>
       )}
@@ -45,4 +45,4 @@ const EventNamesList:FC<EventNamesListProps> = ({setName}) => {
   )
 }
 
-export default EventNamesList
+export default EventsList

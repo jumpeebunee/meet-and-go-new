@@ -1,0 +1,23 @@
+.eventsList {
+  margin-top: 13px;
+  display: flex;
+  column-gap: 10px;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+.eventsItem {
+  display: inline-block;
+  padding: 8px 10px;
+  background-color: #75D7A1;
+  border-radius: 4px;
+  
+  button {
+    font-weight: 600;
+    color: #FFFFFF;
+    background-color: transparent;
+    font-size: 14px;
+  }
+}
