@@ -1,10 +1,11 @@
 import { FC, useState } from 'react'
-import AppModal from '../../UI/AppModal/AppModal';
 import MainButton from '../../UI/MainButton/MainButton';
 import SecondButton from '../../UI/SecondButton/SecondButton';
 import cl from '@/styles/CreateEventModal/createEvent.module.scss';
 import FirstStageEvent from './FirstStageEvent';
-import { IonModal } from '@ionic/react';
+import { IonDatetime, IonModal } from '@ionic/react';
+import { getIsoDate } from '../../../helpers/getIsoDate';
+import { format } from 'date-fns';
 
 interface CreateEventProps {
   isOpen: boolean;
@@ -16,8 +17,8 @@ const MAX_STAGES = 3;
 const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
 
   const [createStage, setCreateStage] = useState(1);
-
   const [eventName, setEventName] = useState('');
+  const [eventDate, setEventDate] = useState(getIsoDate());
 
   const handleClose = () => {
     setCreateStage(1);
@@ -34,10 +35,12 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
             && 
             <FirstStageEvent
               eventName={eventName}
+              eventDate={eventDate}
               setEventName={setEventName}
+              setEventDate={setEventDate}
             />
           }
-          {createStage === 2 && <div>Информация о эвенте</div>}
+          {createStage === 2 && <div>Ничего тут нету</div>}
           {createStage === 3 && <div>Подтверждение эвента</div>}
         </div>
         <div className={cl.createEventButtons}>
