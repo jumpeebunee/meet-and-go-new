@@ -10,6 +10,7 @@ const Home: React.FC = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isRaitingOpen, setIsRaitngOpen] = useState(false);
   const [isCreateEventOpen, setIsCreateEventOpen] = useState(false);
+  const [eventCords, setEventCords] = useState([]);
   
   return (
     <IonPage>
@@ -17,6 +18,7 @@ const Home: React.FC = () => {
         <AppMap
           setIsProfileOpen={setIsProfileOpen}
           setIsCreateEventOpen={setIsCreateEventOpen}
+          setEventCords={setEventCords}
         />
         <ProfileModal
           isOpen={isProfileOpen} 
@@ -29,6 +31,7 @@ const Home: React.FC = () => {
         />
         <CreateEvent
           isOpen={isCreateEventOpen} 
+          eventCords={eventCords}
           setIsOpen={setIsCreateEventOpen}
         />
       </div>

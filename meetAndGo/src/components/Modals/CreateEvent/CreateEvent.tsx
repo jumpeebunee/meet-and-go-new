@@ -7,20 +7,24 @@ import { IonContent, IonDatetime, IonModal } from '@ionic/react';
 import { getIsoDate } from '../../../helpers/getIsoDate';
 import { format } from 'date-fns';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
+import SecondStageEvent from './SecondStageEvent';
 
 interface CreateEventProps {
   isOpen: boolean;
+  eventCords: string[];
   setIsOpen: (arg: boolean) => void;
 }
 
 const MAX_STAGES = 3;
 
-const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
+const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
 
-  const [createStage, setCreateStage] = useState(1);
+  const [createStage, setCreateStage] = useState(2);
   const [eventName, setEventName] = useState('');
   const [eventDate, setEventDate] = useState(getIsoDate());
   const [eventLocation, setEventLocation] = useState('');
+  const [eventAddress, setEventAddress] = useState('');
+  const [eventUsers, setEventUsers] = useState(2);
   const [isError, setIsError] = useState('');
 
   const handleClose = () => {
@@ -69,7 +73,16 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
                 {isError && <ErrorMessage styles={{marginTop: 10}}>{isError}</ErrorMessage>}
               </>
               }
-            {createStage === 2 && <div>Ничего тут нету</div>}
+            {createStage === 2 
+            && 
+              <SecondStageEvent
+                eventCords={eventCords}
+                eventAddress={eventAddress}
+                eventUsers={eventUsers}
+                setEventUsers={setEventUsers}
+                setEventAddress={setEventAddress}
+              />
+            }
             {createStage === 3 && <div>Подтверждение эвента</div>}
           </div>
           <div className={cl.createEventButtons}>
