@@ -24,3 +24,22 @@
     line-height: 19px;
   }
 }
+
+@media (max-width: 414px) {
+  .UsersCounterInput {
+    margin-top: 4.83vw;
+  
+    button {
+      width: 7.73vw;
+      height: 7.73vw;
+      border-radius: 0.97vw;
+      font-size: 4.11vw;
+      line-height: 5.07vw;
+    }
+  
+    span {
+      font-size: 3.86vw;
+      line-height: 4.59vw;
+    }
+  }
+}
