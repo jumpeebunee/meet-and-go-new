@@ -8,6 +8,7 @@ import { getIsoDate } from '../../../helpers/getIsoDate';
 import { format } from 'date-fns';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import SecondStageEvent from './SecondStageEvent';
+import { validateAddressInput, validateLocationInput, validateNameInput } from '../../../helpers/validateInput';
 
 interface CreateEventProps {
   isOpen: boolean;
@@ -37,17 +38,25 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
     const validName = /^[а-яА-ЯёЁ\s]{3,20}$/.test(eventName);
     const validLocation = /^[а-яА-ЯёЁ\s]{3,20}$/.test(eventLocation);
     const validDate = new Date(eventDate).getTime() > Date.now();
+    const validAddress = /^[а-яА-ЯёЁ\s]{3,40}$/.test(eventAddress);
 
     if (createStage === 1) {
       if (!validName) {
-        setIsError('Неккоректное название события');
+        setIsError(validateNameInput(eventName));
       } else if (!validLocation) {
-        setIsError('Неккоректная локация события ');
+        setIsError(validateLocationInput(eventLocation));
       } else if (!validDate) {
         setIsError('Неверная дата события');
       } else {
         setIsError('');
         setCreateStage(prev => prev += 1);
+      }
+    } else if (createStage === 2) {
+      
+      if (validAddress) {
+        setCreateStage(prev => prev + 1);
+      } else {
+        setIsError(validateAddressInput(eventAddress));
       }
     }
     
@@ -75,16 +84,19 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
               </>
               }
             {createStage === 2 
-            && 
-              <SecondStageEvent
-                eventCords={eventCords}
-                eventAddress={eventAddress}
-                eventUsers={eventUsers}
-                eventPrice={eventPrice}
-                setEventUsers={setEventUsers}
-                setEventAddress={setEventAddress}
-                setEventPrice={setEventPrice}
-              />
+              && 
+              <>
+                <SecondStageEvent
+                  eventCords={eventCords}
+                  eventAddress={eventAddress}
+                  eventUsers={eventUsers}
+                  eventPrice={eventPrice}
+                  setEventUsers={setEventUsers}
+                  setEventAddress={setEventAddress}
+                  setEventPrice={setEventPrice}
+                />
+                {isError && <ErrorMessage styles={{marginTop: 10}}>{isError}</ErrorMessage>}
+              </>
             }
             {createStage === 3 && <div>Подтверждение эвента</div>}
           </div>
