@@ -1,6 +1,6 @@
-import { IonModal, IonPage } from '@ionic/react';
+import { IonPage } from '@ionic/react';
 import AppMap from '../components/AppMap';
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import ProfileModal from '../components/Modals/Profile/ProfileModal';
 import RaitingModal from '../components/Modals/Raiting/RaitingModal';
 import CreateEvent from '../components/Modals/CreateEvent/CreateEvent';

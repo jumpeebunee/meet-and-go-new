@@ -19,7 +19,7 @@ const UsersCounter:FC<UsersCounterProps> = ({eventUsers, setEventUsers}) => {
   return (
     <div className={cl.UsersCounter}>
       <label className='label'>Участники</label>
-      <span className={cl.UsersCounterAbout}>Количество участников</span>
+      <span className='label_description'>Количество участников</span>
       <div className={cl.UsersCounterInput}>
         <button disabled={eventUsers === 2} onClick={() => increment()}>-</button>
         <span>{eventUsers}</span>

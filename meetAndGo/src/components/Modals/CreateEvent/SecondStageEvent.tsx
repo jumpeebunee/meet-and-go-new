@@ -3,19 +3,22 @@ import LabelInput from '../../UI/LabelInput/LabelInput';
 import { FC, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import UsersCounter from '../../UI/UsersCounter/UsersCounter';
+import RangeInput from '../../UI/RangeInput/RangeInput';
 
 interface SecondStageProps {
   eventAddress: string;
   eventUsers: number;
+  eventPrice: string;
   setEventUsers: (arg: number) => void;
   setEventAddress: (arg: string) => void;
+  setEventPrice: (arg: string) => void;
   eventCords: string[];
 }
 
 const BASE_GEOCODE_URL = 'https://api.geocodify.com/v2/reverse';
 const BASE_GEOCODE_KEY = '9164b0a5c6f2637aa65ef1a4285ca68779bfc9e2&lat'
 
-const SecondStageEvent:FC<SecondStageProps> = ({eventAddress, eventUsers, setEventUsers, setEventAddress, eventCords}) => {
+const SecondStageEvent:FC<SecondStageProps> = ({eventAddress, eventUsers, eventPrice, setEventPrice, setEventUsers, setEventAddress, eventCords}) => {
 
   useEffect(() => {
     setAddress();
@@ -40,6 +43,10 @@ const SecondStageEvent:FC<SecondStageProps> = ({eventAddress, eventUsers, setEve
       <UsersCounter
         eventUsers={eventUsers}
         setEventUsers={setEventUsers}
+      />
+      <RangeInput
+        inputValue={eventPrice}
+        changeInputValue={setEventPrice}
       />
     </div>
   )

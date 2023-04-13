@@ -24,6 +24,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
   const [eventDate, setEventDate] = useState(getIsoDate());
   const [eventLocation, setEventLocation] = useState('');
   const [eventAddress, setEventAddress] = useState('');
+  const [eventPrice, setEventPrice] = useState('');
   const [eventUsers, setEventUsers] = useState(2);
   const [isError, setIsError] = useState('');
 
@@ -79,8 +80,10 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
                 eventCords={eventCords}
                 eventAddress={eventAddress}
                 eventUsers={eventUsers}
+                eventPrice={eventPrice}
                 setEventUsers={setEventUsers}
                 setEventAddress={setEventAddress}
+                setEventPrice={setEventPrice}
               />
             }
             {createStage === 3 && <div>Подтверждение эвента</div>}
