@@ -12,7 +12,7 @@ interface SecondStageProps {
   setEventUsers: (arg: number) => void;
   setEventAddress: (arg: string) => void;
   setEventPrice: (arg: string) => void;
-  eventCords: string[];
+  eventCords: number[];
 }
 
 const BASE_GEOCODE_URL = 'https://api.geocodify.com/v2/reverse';
@@ -34,6 +34,7 @@ const SecondStageEvent:FC<SecondStageProps> = ({eventAddress, eventUsers, eventP
 
   return (
     <div className={cl.createEventList}>
+      <h2 className={cl.createEventHeading}>О новом событии</h2>
       <LabelInput
         title="Адрес"
         placeholder='Адрес события'

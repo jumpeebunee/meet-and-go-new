@@ -20,6 +20,7 @@ const FirstStageEvent:FC<FirstStageEventProps> = ({eventName, eventDate, eventLo
 
   return (
     <div className={cl.createEventList}>
+      <h2 className={cl.createEventHeading}>Создать новое событие</h2>
       <EventNameInput eventName={eventName} setEventName={setEventName}/>
       <DateInput eventDate={eventDate} setIsOpenDate={setIsOpenDate}/>
       <LabelInput

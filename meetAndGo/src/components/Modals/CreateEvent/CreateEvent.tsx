@@ -9,10 +9,11 @@ import { format } from 'date-fns';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import SecondStageEvent from './SecondStageEvent';
 import { validateAddressInput, validateLocationInput, validateNameInput } from '../../../helpers/validateInput';
+import ThirdStageEvent from './ThirdStageEvent';
 
 interface CreateEventProps {
   isOpen: boolean;
-  eventCords: string[];
+  eventCords: number[];
   setIsOpen: (arg: boolean) => void;
 }
 
@@ -20,9 +21,9 @@ const MAX_STAGES = 3;
 
 const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
 
-  const [createStage, setCreateStage] = useState(2);
-  const [eventName, setEventName] = useState('');
-  const [eventDate, setEventDate] = useState(getIsoDate());
+  const [createStage, setCreateStage] = useState(3);
+  const [eventName, setEventName] = useState('Игра в майнкрафт');
+  const [eventDate, setEventDate] = useState("2023-04-25T19:39:00"); // getIsoDate()
   const [eventLocation, setEventLocation] = useState('');
   const [eventAddress, setEventAddress] = useState('');
   const [eventPrice, setEventPrice] = useState('0');
@@ -38,7 +39,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
     const validName = /^[а-яА-ЯёЁ\s]{3,20}$/.test(eventName);
     const validLocation = /^[а-яА-ЯёЁ\s]{3,20}$/.test(eventLocation);
     const validDate = new Date(eventDate).getTime() > Date.now();
-    const validAddress = /^[а-яА-ЯёЁ\s]{3,40}$/.test(eventAddress);
+    const validAddress = /^[a-zA-Zа-яА-ЯёЁ\s]{3,40}$/.test(eventAddress);
 
     if (createStage === 1) {
       if (!validName) {
@@ -52,7 +53,6 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
         setCreateStage(prev => prev += 1);
       }
     } else if (createStage === 2) {
-      
       if (validAddress) {
         setCreateStage(prev => prev + 1);
       } else {
@@ -68,7 +68,6 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
         <div className={`modal-container ${cl.createEventContent}`}>
           <div>
             <div className={cl.createEventStages}><span>{createStage}</span>/{MAX_STAGES}</div>
-            <h2 className={cl.createEventHeading}>Создать новое событие</h2>
             {createStage === 1 
               && 
               <>
@@ -98,7 +97,16 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
                 {isError && <ErrorMessage styles={{marginTop: 10}}>{isError}</ErrorMessage>}
               </>
             }
-            {createStage === 3 && <div>Подтверждение эвента</div>}
+            {createStage === 3 
+              &&
+              <>
+                <ThirdStageEvent
+                  eventName={eventName}
+                  eventDate={eventDate}
+                  eventCords={eventCords}
+                />
+              </>
+            }
           </div>
           <div className={cl.createEventButtons}>
             <MainButton onClick={checkValidity}>Продолжить</MainButton>
