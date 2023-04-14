@@ -26,7 +26,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
   const [eventDate, setEventDate] = useState("2023-04-25T19:39:00"); // getIsoDate()
   const [eventLocation, setEventLocation] = useState('');
   const [eventAddress, setEventAddress] = useState('');
-  const [eventPrice, setEventPrice] = useState('0');
+  const [eventPrice, setEventPrice] = useState('2000');
   const [eventUsers, setEventUsers] = useState(20);
   const [isError, setIsError] = useState('');
 
@@ -105,6 +105,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
                   eventDate={eventDate}
                   eventCords={eventCords}
                   eventUsers={eventUsers}
+                  eventPrice={eventPrice}
                 />
               </>
             }
