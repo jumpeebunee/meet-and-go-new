@@ -4,9 +4,11 @@ import cl from '../styles/AppMap.module.scss'
 import EventsButton from './EventsButton'
 import SearchButton from './SearchButton'
 import ProfileButton from './ProfileButton'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { userImage } from '../app/feautures/userSlice'
+import { collection, onSnapshot } from 'firebase/firestore'
+import { db } from '../firebase'
 
 interface AppMapProps {
   setIsProfileOpen: (arg: boolean) => void;
@@ -22,7 +24,7 @@ const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setEven
     setIsCreateEventOpen(true);
     setEventCords(e.get('coords'));
   }
-
+  
   return (
     <YMaps query={{apikey: API_KEY}}>
       <Map onClick={(e: any) => createEvent(e)} className={cl.appMap} defaultState={MAP_CENTER}/>

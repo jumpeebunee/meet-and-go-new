@@ -3,7 +3,7 @@ import MainButton from '../../UI/MainButton/MainButton';
 import SecondButton from '../../UI/SecondButton/SecondButton';
 import cl from '@/styles/CreateEventModal/createEvent.module.scss';
 import FirstStageEvent from './FirstStageEvent';
-import { IonContent, IonModal, IonSpinner } from '@ionic/react';
+import { IonContent, IonModal } from '@ionic/react';
 import { getIsoDate } from '../../../helpers/getIsoDate';;
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import SecondStageEvent from './SecondStageEvent';
@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { user } from '../../../app/feautures/userSlice';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
+import { getRandomColor } from '../../../helpers/getRandomColor';
 
 interface CreateEventProps {
   isOpen: boolean;
@@ -52,6 +53,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
       const eventId = nanoid();
       const userEvent = {
         id: eventId,
+        placemark: getRandomColor(),
         leader: currentUser.uid,
         title: eventName,
         location: eventLocation,

@@ -21,9 +21,10 @@ import { FC, useContext, useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from './firebase';
 import { collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
-import { IUser } from './types/types';
+import { IEvent, IUser } from './types/types';
 import { useDispatch } from 'react-redux';
 import { addUser } from './app/feautures/userSlice';
+import { addEvents } from './app/feautures/eventsSlice';
 import AppNavigation from './components/AppNavigation';
 import AppLoading from './components/AppLoading';
 
@@ -57,10 +58,18 @@ const App:FC = () => {
     })
   }, [])
 
+
   const subscribeUserUpdates = (id: string) => {
     onSnapshot(doc(db, "users", id), (doc) => {
       dispatch(addUser(doc.data() as IUser));
     });
+    onSnapshot(collection(db, "events"), doc => {
+      const data: IEvent[] = []
+      doc.forEach((d) => {
+        data.push(d.data() as IEvent);
+      })
+      dispatch(addEvents(data));
+    })
   }
 
   return (

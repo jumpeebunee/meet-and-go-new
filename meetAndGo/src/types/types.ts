@@ -23,3 +23,17 @@ export type IUser = {
   image: string,
   activeMeets: string[],
 }
+
+export type IEvent = {
+  activeUsers: string[];
+  address: string;
+  contribution: string;
+  coords: number[];
+  date: string;
+  id: string;
+  leader: string;
+  location: string;
+  placemark: number;
+  title: string;
+  totalUsers: number;
+}
