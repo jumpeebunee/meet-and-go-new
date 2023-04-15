@@ -3,13 +3,17 @@ import MainButton from '../../UI/MainButton/MainButton';
 import SecondButton from '../../UI/SecondButton/SecondButton';
 import cl from '@/styles/CreateEventModal/createEvent.module.scss';
 import FirstStageEvent from './FirstStageEvent';
-import { IonContent, IonDatetime, IonModal } from '@ionic/react';
-import { getIsoDate } from '../../../helpers/getIsoDate';
-import { format } from 'date-fns';
+import { IonContent, IonModal } from '@ionic/react';
+import { getIsoDate } from '../../../helpers/getIsoDate';;
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import SecondStageEvent from './SecondStageEvent';
 import { validateAddressInput, validateLocationInput, validateNameInput } from '../../../helpers/validateInput';
 import ThirdStageEvent from './ThirdStageEvent';
+import { nanoid } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
+import { user } from '../../../app/feautures/userSlice';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../../../firebase';
 
 interface CreateEventProps {
   isOpen: boolean;
@@ -30,12 +34,32 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
   const [eventUsers, setEventUsers] = useState(20);
   const [isError, setIsError] = useState('');
 
+  const currentUser = useSelector(user);
+
   const handleClose = () => {
     setCreateStage(1);
     setIsOpen(false);
   }
 
-  const handleCreate = () => {
+  const handleCreate = async() => {
+    const eventId = nanoid();
+    const userEvent = {
+      id: eventId,
+      leader: currentUser.uid,
+      title: eventName,
+      location: eventLocation,
+      address: eventAddress,
+      date: eventDate,
+      totalUsers: eventUsers,
+      contribution: eventPrice,
+      coords: eventCords,
+      activeUsers: [currentUser.uid]
+    }
+    await setDoc(doc(db, "events", eventId), userEvent);
+    handleClear();
+  }
+
+  const handleClear = () => {
     setCreateStage(1);
     setEventName('');
     setEventLocation('');
@@ -48,27 +72,27 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
   }
 
   const checkValidity = () => {
-    const validName = /^[а-яА-ЯёЁ\s]{3,20}$/.test(eventName);
-    const validLocation = /^[а-яА-ЯёЁ\s]{3,20}$/.test(eventLocation);
+    const validName = /^[а-яА-ЯёЁ\s]{3,20}$/.test(eventName.trim());
+    const validLocation = /^[а-яА-ЯёЁ\s]{3,20}$/.test(eventLocation.trim());
     const validDate = new Date(eventDate).getTime() > Date.now();
-    const validAddress = /^[a-zA-Zа-яА-ЯёЁ\s]{3,40}$/.test(eventAddress);
+    const validAddress = /^[a-zA-Zа-яА-ЯёЁ\s]{3,40}$/.test(eventAddress.trim());
 
     if (createStage === 1) {
       if (!validName) {
-        setIsError(validateNameInput(eventName));
+        setIsError(validateNameInput(eventName.trim()));
       } else if (!validLocation) {
-        setIsError(validateLocationInput(eventLocation));
+        setIsError(validateLocationInput(eventLocation.trim()));
       } else if (!validDate) {
         setIsError('Неверная дата события');
       } else {
         setIsError('');
         setCreateStage(prev => prev += 1);
       }
-    } else if (createStage === 2) {
+    } else if (createStage === 2) { 
       if (validAddress) {
         setCreateStage(prev => prev + 1);
       } else {
-        setIsError(validateAddressInput(eventAddress));
+        setIsError(validateAddressInput(eventAddress.trim()));
       }
     }
     
