@@ -12,9 +12,10 @@ interface ThirdStageProps {
   eventPrice: string;
   eventAddress: string;
   eventLocation: string;
+  isLoading: boolean;
 }
 
-const ThirdStageEvent:FC<ThirdStageProps> = ({eventName, eventPrice, eventUsers, eventDate, eventCords, eventLocation, eventAddress}) => {
+const ThirdStageEvent:FC<ThirdStageProps> = ({eventName, eventPrice, eventUsers, eventDate, eventCords, eventLocation, eventAddress, isLoading}) => {
 
   const currentDate = new Date(eventDate).toLocaleDateString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'});
 

@@ -3,7 +3,7 @@ import MainButton from '../../UI/MainButton/MainButton';
 import SecondButton from '../../UI/SecondButton/SecondButton';
 import cl from '@/styles/CreateEventModal/createEvent.module.scss';
 import FirstStageEvent from './FirstStageEvent';
-import { IonContent, IonModal } from '@ionic/react';
+import { IonContent, IonModal, IonSpinner } from '@ionic/react';
 import { getIsoDate } from '../../../helpers/getIsoDate';;
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import SecondStageEvent from './SecondStageEvent';
@@ -32,6 +32,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
   const [eventAddress, setEventAddress] = useState('ул.Пятницкая, 2/38, Москва');
   const [eventPrice, setEventPrice] = useState('2000');
   const [eventUsers, setEventUsers] = useState(20);
+  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState('');
 
   const currentUser = useSelector(user);
@@ -42,21 +43,32 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
   }
 
   const handleCreate = async() => {
-    const eventId = nanoid();
-    const userEvent = {
-      id: eventId,
-      leader: currentUser.uid,
-      title: eventName,
-      location: eventLocation,
-      address: eventAddress,
-      date: eventDate,
-      totalUsers: eventUsers,
-      contribution: eventPrice,
-      coords: eventCords,
-      activeUsers: [currentUser.uid]
+    if (isLoading) return;
+
+    setIsLoading(true);
+    setIsError('');
+
+    try {
+      const eventId = nanoid();
+      const userEvent = {
+        id: eventId,
+        leader: currentUser.uid,
+        title: eventName,
+        location: eventLocation,
+        address: eventAddress,
+        date: eventDate,
+        totalUsers: eventUsers,
+        contribution: eventPrice,
+        coords: eventCords,
+        activeUsers: [currentUser.uid]
+      }
+      await setDoc(doc(db, "events", eventId), userEvent);
+      handleClear();
+    } catch (error) {
+      setIsError('Ошибка при создании события');
+    } finally {
+      setIsLoading(false);
     }
-    await setDoc(doc(db, "events", eventId), userEvent);
-    handleClear();
   }
 
   const handleClear = () => {
@@ -69,6 +81,11 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
     setEventDate(getIsoDate());
     setIsError('');
     setIsOpen(false);
+  }
+
+  const changeStage = () => {
+    if (isLoading) return;
+    setCreateStage(prev => prev - 1);
   }
 
   const checkValidity = () => {
@@ -144,7 +161,9 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
                   eventPrice={eventPrice}
                   eventLocation={eventLocation}
                   eventAddress={eventAddress}
+                  isLoading={isLoading}
                 />
+                {isError && <ErrorMessage styles={{marginTop: 10}}>{isError}</ErrorMessage>}
               </>
             }
           </div>
@@ -154,7 +173,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
             : <MainButton onClick={checkValidity}>Продолжить</MainButton>
             }
             {createStage > 1 
-            ? <SecondButton onClick={() => setCreateStage(prev => prev - 1)}>Назад</SecondButton>
+            ? <SecondButton onClick={changeStage}>Назад</SecondButton>
             : <SecondButton onClick={handleClose}>Отменить</SecondButton>
             }
           </div>
