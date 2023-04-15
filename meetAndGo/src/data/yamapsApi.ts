@@ -6,6 +6,17 @@ export const MAP_APP_LOCATION = {
   iconImageSize: [52, 60],
 }
 
+export const getMapAppLocation = (value: number) => {
+
+  const image = `../mark${value}.png`;
+
+  return {
+    iconLayout: 'default#image',
+    iconImageHref: '../point-small.png',
+    iconImageSize: [52, 60],
+  }
+}
+
 export const getMapAppMark = (value: number) => {
 
   const image = `../mark${value}.png`;

@@ -2,14 +2,15 @@ import { IonContent, IonPage, IonRouterLink, NavContext } from '@ionic/react'
 import AuthBanner from '../components/AuthBanner'
 import cl from '../styles/loginPage.module.scss'
 import RegisterForm from '../components/RegisterForm'
-import { IRegister } from '../types/types'
+import { IEvent, IRegister, IUser } from '../types/types'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { setDoc, doc } from "firebase/firestore"; 
+import { setDoc, doc, onSnapshot, collection } from "firebase/firestore"; 
 import { auth, db } from '../firebase'
 import { useContext, useState } from 'react'
 import { baseUserContent } from '../data/baseUserContent'
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../app/feautures/userSlice'
+import { addEvents } from '../app/feautures/eventsSlice'
 
 const Register = () => {
 
@@ -35,6 +36,20 @@ const Register = () => {
     } catch (error: any) {
       setServerError(error.message);
     }
+  }
+
+
+  const subscribeUserUpdates = (id: string) => {
+    onSnapshot(doc(db, "users", id), (doc) => {
+      dispatch(addUser(doc.data() as IUser));
+    });
+    onSnapshot(collection(db, "events"), doc => {
+      const data: IEvent[] = []
+      doc.forEach((d) => {
+        data.push(d.data() as IEvent);
+      })
+      dispatch(addEvents(data));
+    })
   }
 
   return (

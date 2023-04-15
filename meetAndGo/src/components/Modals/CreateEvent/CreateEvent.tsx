@@ -26,13 +26,14 @@ const MAX_STAGES = 3;
 
 const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
 
-  const [createStage, setCreateStage] = useState(3);
-  const [eventName, setEventName] = useState('Игра в майнкрафт');
-  const [eventDate, setEventDate] = useState("2023-04-25T19:39:00"); // getIsoDate()
-  const [eventLocation, setEventLocation] = useState('Устричный бар - Lure Oystebar');
-  const [eventAddress, setEventAddress] = useState('ул.Пятницкая, 2/38, Москва');
-  const [eventPrice, setEventPrice] = useState('2000');
-  const [eventUsers, setEventUsers] = useState(20);
+  const [createStage, setCreateStage] = useState(1);
+  const [eventName, setEventName] = useState('');
+  const [eventDate, setEventDate] = useState(getIsoDate());
+  const [eventLocation, setEventLocation] = useState('');
+  const [eventAddress, setEventAddress] = useState('');
+  const [eventPrice, setEventPrice] = useState('');
+  const [eventUsers, setEventUsers] = useState(2);
+  const [eventColor, setEventColor] = useState(getRandomColor());
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState('');
 
@@ -53,7 +54,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
       const eventId = nanoid();
       const userEvent = {
         id: eventId,
-        placemark: getRandomColor(),
+        placemark: eventColor,
         leader: currentUser.uid,
         title: eventName,
         location: eventLocation,
@@ -162,6 +163,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
                   eventUsers={eventUsers}
                   eventPrice={eventPrice}
                   eventLocation={eventLocation}
+                  eventColor={eventColor}
                   eventAddress={eventAddress}
                   isLoading={isLoading}
                 />
