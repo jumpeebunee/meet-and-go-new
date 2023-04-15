@@ -1,9 +1,9 @@
 export const API_KEY = "bb874fcf-3722-4db8-8062-76756ffbcd45";
 
-export const MAP_DEFAULT_OPTIONS = {
+export const MAP_APP_LOCATION = {
   iconLayout: 'default#image',
-  iconImageHref: '../point.png',
-  iconImageSize: [32, 40],
+  iconImageHref: '../point-small.png',
+  iconImageSize: [52, 60],
 }
 
 export const MAP_CENTER = {

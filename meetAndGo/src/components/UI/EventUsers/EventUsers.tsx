@@ -7,13 +7,13 @@ interface EventUsersProps {
   style?: React.CSSProperties;
 }
 
-const usersColors = ['#75D7A1', '#FF9458', '#6E8EFF', '#EB66A2', '#D3E854', '#A481E2', '#5CC7D6', '#FF6969', '#4EE4AE', '#E86DE3'];
+const usersColors = ['#1A1A1A', '#75D7A1', '#FF906D', '#67A4FF'];
 
 const EventUsers:FC<EventUsersProps> = ({users, usersAvatars, style}) => {
 
   const eventUsers = [];
 
-  for (let i = 0; i < users; i++) {
+  for (let i = 0; i < 4; i++) {
     eventUsers.push(<li style={{background: usersColors[i % 10]}} className={cl.EventUsersAvatar}></li>)
   }
 

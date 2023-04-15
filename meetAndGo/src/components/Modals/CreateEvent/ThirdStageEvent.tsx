@@ -10,9 +10,11 @@ interface ThirdStageProps {
   eventUsers: number;
   eventCords: number[];
   eventPrice: string;
+  eventAddress: string;
+  eventLocation: string;
 }
 
-const ThirdStageEvent:FC<ThirdStageProps> = ({eventName, eventPrice, eventUsers, eventDate, eventCords}) => {
+const ThirdStageEvent:FC<ThirdStageProps> = ({eventName, eventPrice, eventUsers, eventDate, eventCords, eventLocation, eventAddress}) => {
 
   const currentDate = new Date(eventDate).toLocaleDateString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'});
 
@@ -20,7 +22,7 @@ const ThirdStageEvent:FC<ThirdStageProps> = ({eventName, eventPrice, eventUsers,
     <div>
       <h2 className={cl.createEventHeading}>{eventName}</h2>
       <div style={{marginTop: 5, marginBottom: 30}} className='label_description'>{currentDate}</div>
-      <AppLocation eventCords={eventCords}/>
+      <AppLocation location={eventLocation} address={eventAddress} eventCords={eventCords}/>
       <EventUsers style={{marginTop: 25}} users={eventUsers}/>
       <EventPrice price={eventPrice} style={{marginTop: 20}}/>
     </div>

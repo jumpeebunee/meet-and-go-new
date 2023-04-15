@@ -24,14 +24,26 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
   const [createStage, setCreateStage] = useState(3);
   const [eventName, setEventName] = useState('Игра в майнкрафт');
   const [eventDate, setEventDate] = useState("2023-04-25T19:39:00"); // getIsoDate()
-  const [eventLocation, setEventLocation] = useState('');
-  const [eventAddress, setEventAddress] = useState('');
+  const [eventLocation, setEventLocation] = useState('Устричный бар - Lure Oystebar');
+  const [eventAddress, setEventAddress] = useState('ул.Пятницкая, 2/38, Москва');
   const [eventPrice, setEventPrice] = useState('2000');
   const [eventUsers, setEventUsers] = useState(20);
   const [isError, setIsError] = useState('');
 
   const handleClose = () => {
     setCreateStage(1);
+    setIsOpen(false);
+  }
+
+  const handleCreate = () => {
+    setCreateStage(1);
+    setEventName('');
+    setEventLocation('');
+    setEventAddress('');
+    setEventPrice('');
+    setEventUsers(2);
+    setEventDate(getIsoDate());
+    setIsError('');
     setIsOpen(false);
   }
 
@@ -106,12 +118,17 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
                   eventCords={eventCords}
                   eventUsers={eventUsers}
                   eventPrice={eventPrice}
+                  eventLocation={eventLocation}
+                  eventAddress={eventAddress}
                 />
               </>
             }
           </div>
           <div className={cl.createEventButtons}>
-            <MainButton onClick={checkValidity}>Продолжить</MainButton>
+            {createStage === 3
+            ? <MainButton onClick={handleCreate}>Создать</MainButton>
+            : <MainButton onClick={checkValidity}>Продолжить</MainButton>
+            }
             {createStage > 1 
             ? <SecondButton onClick={() => setCreateStage(prev => prev - 1)}>Назад</SecondButton>
             : <SecondButton onClick={handleClose}>Отменить</SecondButton>

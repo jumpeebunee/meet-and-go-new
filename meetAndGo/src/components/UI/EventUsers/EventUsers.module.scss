@@ -1,5 +1,5 @@
 
-@for $i from 1 through 20 {
+@for $i from 1 through 4 {
   .EventUsersAvatar:nth-child( #{$i}) {
     right: 10px * $i;
   }
