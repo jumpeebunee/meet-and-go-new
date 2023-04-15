@@ -20,11 +20,15 @@ const ThirdStageEvent:FC<ThirdStageProps> = ({eventName, eventPrice, eventUsers,
 
   return (
     <div>
-      <h2 className={cl.createEventHeading}>{eventName}</h2>
-      <div style={{marginTop: 5, marginBottom: 30}} className='label_description'>{currentDate}</div>
+      <div className={cl.createEventThirdHeader}>
+        <h2 className={cl.createEventHeading}>{eventName}</h2>
+        <div className='label_description'>{currentDate}</div>
+      </div>
       <AppLocation location={eventLocation} address={eventAddress} eventCords={eventCords}/>
-      <EventUsers style={{marginTop: 25}} users={eventUsers}/>
-      <EventPrice price={eventPrice} style={{marginTop: 20}}/>
+      <div className={cl.createEventThirdContent}>
+        <EventUsers users={eventUsers}/>
+        <EventPrice price={eventPrice}/>
+      </div>
     </div>
   )
 }

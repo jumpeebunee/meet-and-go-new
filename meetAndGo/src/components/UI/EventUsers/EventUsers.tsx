@@ -28,7 +28,7 @@ const EventUsers:FC<EventUsersProps> = ({users, usersAvatars, style}) => {
           </ul>
         : <ul></ul>
         }
-        <div>1/{users}</div>
+        <div className={cl.EventUsersValue}>1/{users}</div>
       </div>
     </div>
   )

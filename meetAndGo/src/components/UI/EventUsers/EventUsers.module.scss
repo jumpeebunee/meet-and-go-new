@@ -29,3 +29,30 @@
   right: 0;
   object-fit: cover;
 }
+
+.EventUsersValue {
+  font-size: 16px;
+}
+
+
+@media (max-width: 414px) {
+  @for $i from 1 through 4 {
+    .EventUsersAvatar:nth-child( #{$i}) {
+      right: 2.42vw * $i;
+    }
+  }
+  
+  .EventUsersList {
+    height: 6.04vw;
+
+  }
+  
+  .EventUsersAvatar {
+    width: 6.04vw;
+    height: 6.04vw;
+  }
+
+  .EventUsersValue {
+    font-size: 3.86vw;
+  }
+}
