@@ -9,13 +9,14 @@ type IAvatar = {
 
 interface EventUsersProps {
   users: number;
+  currentUsers?: number | null;
   usersAvatars: IActive[];
   style?: React.CSSProperties;
 }
 
 const usersColors = ['#1A1A1A', '#75D7A1', '#FF906D', '#67A4FF'];
 
-const EventUsers:FC<EventUsersProps> = ({users, usersAvatars, style}) => {
+const EventUsers:FC<EventUsersProps> = ({users, currentUsers, usersAvatars, style}) => {
 
   const eventUsers = [];
 
@@ -38,7 +39,7 @@ const EventUsers:FC<EventUsersProps> = ({users, usersAvatars, style}) => {
             )}
           </ul>
         }
-        <div className={cl.EventUsersValue}>1/{users}</div>
+        <div className={cl.EventUsersValue}>{currentUsers || '1'}/{users}</div>
       </div>
     </div>
   )

@@ -3,12 +3,13 @@ import cl from './MainButton.module.scss'
 
 interface MainButtonProps {
   children?: ReactNode;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
-const MainButton:FC<MainButtonProps> = ({children, ...rest}) => {
+const MainButton:FC<MainButtonProps> = ({children, disabled, ...rest}) => {
   return (
-    <button className={cl.mainButton} {...rest}>{children}</button>
+    <button disabled={disabled} className={cl.mainButton} {...rest}>{children}</button>
   )
 }
 

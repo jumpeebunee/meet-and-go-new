@@ -9,6 +9,10 @@
   color: #FFFFFF;
   transition: opacity ease .2s;
 
+  &:disabled {
+    opacity: 0.6;
+  }
+
   &:active {
     opacity: .9;
   }
