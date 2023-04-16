@@ -31,13 +31,13 @@ const Register = () => {
         email: data.email,
       }
       await setDoc(doc(db, "users", response.user.uid), userContent);
+      subscribeUserUpdates(response.user.uid);
       dispatch(addUser(userContent));
       navigate('/home', 'forward');
     } catch (error: any) {
       setServerError(error.message);
     }
   }
-
 
   const subscribeUserUpdates = (id: string) => {
     onSnapshot(doc(db, "users", id), (doc) => {

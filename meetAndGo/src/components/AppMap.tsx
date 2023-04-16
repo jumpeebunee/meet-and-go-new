@@ -8,14 +8,17 @@ import { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { events } from '../app/feautures/eventsSlice'
 import { userImage } from '../app/feautures/userSlice'
+import { IEvent } from '../types/types'
 
 interface AppMapProps {
   setIsProfileOpen: (arg: boolean) => void;
   setIsCreateEventOpen: (arg: boolean) => void;
+  setIsOpenEvent: (arg: boolean) => void;
+  setOpenedEvent: (arg: IEvent) => void;
   setEventCords: (arg: []) => void;
 }
 
-const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setEventCords}) => {
+const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setEventCords, setIsOpenEvent, setOpenedEvent}) => {
 
   const image = useSelector(userImage);
   const currentEvents = useSelector(events);
@@ -24,12 +27,17 @@ const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setEven
     setIsCreateEventOpen(true);
     setEventCords(e.get('coords'));
   }
+
+  const openEvent = (event: IEvent) => {
+    setIsOpenEvent(true);
+    setOpenedEvent(event);
+  }
   
   return (
     <YMaps query={{apikey: API_KEY}}>
       <Map onClick={(e: any) => createEvent(e)} className={cl.appMap} defaultState={MAP_CENTER}>
         {currentEvents.map(event => 
-          <Placemark key={event.id} options={getMapAppMark(event.placemark)} geometry={event.coords}/>
+          <Placemark onClick={() => openEvent(event)} key={event.id} options={getMapAppMark(event.placemark)} geometry={event.coords}/>
         )}
       </Map>
       <EventsButton/>

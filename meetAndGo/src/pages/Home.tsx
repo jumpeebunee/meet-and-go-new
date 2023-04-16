@@ -4,19 +4,25 @@ import { useState } from 'react';
 import ProfileModal from '../components/Modals/Profile/ProfileModal';
 import RaitingModal from '../components/Modals/Raiting/RaitingModal';
 import CreateEvent from '../components/Modals/CreateEvent/CreateEvent';
+import { IEvent } from '../types/types';
+import OpenedEvent from '../components/Modals/OpenedEvent/OpenedEvent';
 
 const Home: React.FC = () => {
 
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isRaitingOpen, setIsRaitngOpen] = useState(false);
   const [isCreateEventOpen, setIsCreateEventOpen] = useState(false);
+  const [isOpenEvent, setIsOpenEvent] = useState(false);
   const [eventCords, setEventCords] = useState([]);
+  const [openedEvent, setOpenedEvent] = useState<IEvent>({} as IEvent);
   
   return (
     <IonPage>
       <div className='container app__container'>
         <AppMap
           setIsProfileOpen={setIsProfileOpen}
+          setIsOpenEvent={setIsOpenEvent}
+          setOpenedEvent={setOpenedEvent}
           setIsCreateEventOpen={setIsCreateEventOpen}
           setEventCords={setEventCords}
         />
@@ -33,6 +39,11 @@ const Home: React.FC = () => {
           isOpen={isCreateEventOpen} 
           eventCords={eventCords}
           setIsOpen={setIsCreateEventOpen}
+        />
+        <OpenedEvent
+          isOpen={isOpenEvent}
+          setIsOpen={setIsOpenEvent}
+          event={openedEvent}
         />
       </div>
     </IonPage>

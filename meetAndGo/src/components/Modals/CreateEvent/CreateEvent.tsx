@@ -63,7 +63,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
         totalUsers: eventUsers,
         contribution: eventPrice,
         coords: eventCords,
-        activeUsers: [currentUser.uid]
+        activeUsers: [{id: currentUser.uid, image: currentUser.image}]
       }
       await setDoc(doc(db, "events", eventId), userEvent);
       handleClear();
@@ -96,6 +96,8 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
     const validLocation = /^[а-яА-ЯёЁ\s]{3,20}$/.test(eventLocation.trim());
     const validDate = new Date(eventDate).getTime() > Date.now();
     const validAddress = /^[a-zA-Zа-яА-ЯёЁ\s]{3,40}$/.test(eventAddress.trim());
+
+    setIsError('');
 
     if (createStage === 1) {
       if (!validName) {

@@ -1,0 +1,21 @@
+.openedEventHeader {
+  margin-top: 30px;
+}
+
+.openedEventHeading {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+}
+
+.openedEventContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.openedEventBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

@@ -1,9 +1,14 @@
 import { FC } from 'react'
 import cl from './EventUsers.module.scss'
 
+type IAvatar = {
+  id: string;
+  image: string;
+}
+
 interface EventUsersProps {
   users: number;
-  usersAvatars?: string[];
+  usersAvatars: string[];
   style?: React.CSSProperties;
 }
 
@@ -26,7 +31,12 @@ const EventUsers:FC<EventUsersProps> = ({users, usersAvatars, style}) => {
           <ul className={cl.EventUsersList}>
             {...eventUsers}
           </ul>
-        : <ul></ul>
+        : <ul>
+            {usersAvatars.map(user =>
+            <li>Test</li>
+              // <li style={{background: `url(${user?.image})`}} className={cl.EventUsersAvatar}></li>  
+            )}
+          </ul>
         }
         <div className={cl.EventUsersValue}>1/{users}</div>
       </div>
