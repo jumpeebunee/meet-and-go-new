@@ -27,15 +27,17 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, event}) => {
               <h2 className={cl.openedEventHeading}>{event.title}</h2>
               <div className='label_description'>{currentDate}</div>
             </div>
-            <AppLocation 
-              location={event.location}
-              address={event.address}
-              eventCords={event.coords}
-              eventColor={event.placemark}
-            />
-            <div className={cl.createEventThirdContent}>
-              <EventUsers usersAvatars={event.activeUsers} users={event.totalUsers}/>
-              <EventPrice price={event.contribution}/>
+            <div className={cl.openedEventContent}>
+              <AppLocation 
+                location={event.location}
+                address={event.address}
+                eventCords={event.coords}
+                eventColor={event.placemark}
+              />
+              <div className={cl.openedEventInputs}>
+                <EventUsers usersAvatars={event.activeUsers} users={event.totalUsers}/>
+                <EventPrice price={event.contribution}/>
+              </div>
             </div>
           </div>
           <div className={cl.openedEventBtns}>

@@ -12,10 +12,53 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 50px;
 }
 
 .openedEventBtns {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding-bottom: 50px;
+}
+
+.openedEventInputs {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.openedEventContent {
+  margin-top: 30px;
+}
+
+@media (max-width: 414px) {
+
+  .openedEventContainer {
+    gap: 12.08vw;
+  }
+
+  .openedEventHeader {
+    margin-top: 7.25vw;
+  }
+  
+  .openedEventHeading {
+    font-size: 7.73vw;
+    line-height: 9.42vw;
+  }
+
+  .openedEventBtns {
+    gap: 3.62vw;
+    padding-bottom: 12.08vw;
+  }
+  
+  .openedEventInputs {
+    margin-top: 6.04vw;
+    gap: 4.83vw;
+  }
+  
+  .openedEventContent {
+    margin-top: 7.25vw;
+  }
 }

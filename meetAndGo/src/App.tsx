@@ -39,6 +39,7 @@ const App:FC = () => {
   useEffect(() => {
     setIsLoading(true);
     onAuthStateChanged(auth, async(user) => {
+      console.log(user)
       if (user) {
         if (user.email && user.uid && user.displayName) {
           const querySnapshot = await getDocs(collection(db, "users"));
