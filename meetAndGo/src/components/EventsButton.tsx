@@ -1,8 +1,13 @@
+import { FC } from 'react'
 import cl from '../styles/eventsButton.module.scss'
 
-const EventsButton = () => {
+interface EventsButtonProps {
+  handle: Function;
+}
+
+const EventsButton:FC<EventsButtonProps> = ({handle}) => {
   return (
-    <button className={cl.eventsButton}>
+    <button onClick={() => handle()} className={cl.eventsButton}>
       <span></span>
     </button>
   )

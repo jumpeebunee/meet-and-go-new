@@ -16,9 +16,10 @@ interface AppMapProps {
   setIsOpenEvent: (arg: boolean) => void;
   setOpenedEvent: (arg: IEvent) => void;
   setEventCords: (arg: []) => void;
+  setIsEventsOpen: (arg: boolean) => void;
 }
 
-const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setEventCords, setIsOpenEvent, setOpenedEvent}) => {
+const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setEventCords, setIsOpenEvent, setOpenedEvent, setIsEventsOpen}) => {
 
   const image = useSelector(userImage);
   const currentEvents = useSelector(events);
@@ -40,7 +41,7 @@ const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setEven
           <Placemark onClick={() => openEvent(event)} key={event.id} options={getMapAppMark(event.placemark)} geometry={event.coords}/>
         )}
       </Map>
-      <EventsButton/>
+      <EventsButton handle={() => setIsEventsOpen(true)}/>
       <ProfileButton image={image} setIsProfileOpen={setIsProfileOpen}/>
       <SearchButton/>
     </YMaps>
