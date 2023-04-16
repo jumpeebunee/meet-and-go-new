@@ -7,10 +7,11 @@ import SecondButton from '../../UI/SecondButton/SecondButton';
 import AppLocation from '../../UI/AppLocation/AppLocation';
 import EventUsers from '../../UI/EventUsers/EventUsers';
 import EventPrice from '../../UI/EventPrice/EventPrice';
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { useSelector } from 'react-redux';
 import { user } from '../../../app/feautures/userSlice';
+import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 
 interface OpenedEventProps {
   isOpen: boolean;
@@ -24,20 +25,8 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, event}) => {
   const currentUser = useSelector(user);
 
   const [activeEvent, setActiveEvent] = useState(false);
-
-  const handleEnter = async() => {
-    const eventRef = doc(db, "events", event.id);
-    const userRef = doc(db, "users", currentUser.uid);
-    await updateDoc(eventRef, {
-      activeUsers: arrayUnion({id: currentUser.uid, image: currentUser.image}),
-    });
-    await updateDoc(userRef, {
-      activeMeets: arrayUnion(event.id),
-    });
-    setIsOpen(false);
-  }
-
-  const totalActiveUsers = (event.activeUsers) ? event.activeUsers.length : null;
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState('');
 
   useEffect(() => {
     if (isOpen) {
@@ -48,7 +37,61 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, event}) => {
         setActiveEvent(false);
       }
     }
-  },[isOpen])
+  }, [isOpen])
+
+  const handleEnter = async() => {
+    const eventRef = doc(db, "events", event.id);
+    const userRef = doc(db, "users", currentUser.uid);
+
+    setIsLoading(true);
+    setIsError('');
+
+    try {
+      await updateDoc(eventRef, {
+        activeUsers: arrayUnion({id: currentUser.uid, image: currentUser.image}),
+      });
+      await updateDoc(userRef, {
+        activeMeets: arrayUnion(event.id),
+      });
+      setIsOpen(false);
+    } catch (error) {
+      setIsError('Что-то пошло не так :(');
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const handleLeave = async() => {
+    const eventRef = doc(db, "events", event.id);
+    const userRef = doc(db, "users", currentUser.uid);
+
+    setIsLoading(true);
+    setIsError('');
+
+    try {
+      if (event.leader === currentUser.uid) {
+        for (let user of event.activeUsers) {
+          const ref = doc(db, "users", user.id);
+          await updateDoc(ref, {activeMeets: arrayRemove(event.id)});
+        }
+        await deleteDoc(doc(db, "events", event.id));
+      } else {
+        await updateDoc(eventRef, {
+          activeUsers: arrayRemove({id: currentUser.uid, image: currentUser.image}),
+        });
+      }
+      await updateDoc(userRef, {
+        activeMeets: arrayRemove(event.id),
+      })
+      setIsOpen(false);
+    } catch (error) {
+      setIsError('Что-то пошло не так :(');
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const totalActiveUsers = (event.activeUsers) ? event.activeUsers.length : null;
 
   return (
     <IonModal isOpen={isOpen}>
@@ -71,15 +114,16 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, event}) => {
                 <EventPrice price={event.contribution}/>
               </div>
             </div>
+            {isError && <ErrorMessage>{isError}</ErrorMessage>}
           </div>
           <div className={cl.openedEventBtns}>
             {activeEvent
-            ? <MainButton onClick={handleEnter}>Покинуть</MainButton>
+            ? <MainButton disabled={isLoading} onClick={handleLeave}>Покинуть</MainButton>
             : 
               <>
                 {totalActiveUsers === event.totalUsers
                   ? <></>
-                  : <MainButton onClick={handleEnter}>Присоединиться</MainButton>
+                  : <MainButton disabled={isLoading} onClick={handleEnter}>Присоединиться</MainButton>
                 }
               </>
             }
