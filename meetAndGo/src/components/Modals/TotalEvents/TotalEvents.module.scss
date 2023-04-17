@@ -2,4 +2,51 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+}
+
+.TotalEventsLoading {
+  ion-spinner {
+      color: #54dc98;
+  }
+}
+
+.TotalEventsHeading {
+  margin-top: 30px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+  color: #1A1A1A;
+}
+
+.TotalEventsContent {
+  margin-top: 35px;
+}
+
+.TotalEventList {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.TotalEventsBtns, .TotalEventsMain {
+  width: 100%;
+}
+
+@media (max-width: 414px) {
+  .TotalEventsHeading {
+    margin-top: 7.25vw;
+    font-size: 7.73vw;
+    line-height: 9.42vw;
+  }
+  
+  .TotalEventsContent {
+    margin-top: 8.45vw;
+  }
+  
+  .TotalEventList {
+    margin-top: 7.25vw;
+    gap: 4.83vw;
+  }
 }

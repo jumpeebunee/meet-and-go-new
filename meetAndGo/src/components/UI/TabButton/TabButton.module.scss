@@ -1,0 +1,50 @@
+.TabButton {
+  display: flex;
+  align-items: start;
+  gap: 25px;
+  padding-bottom: 10px;
+  border-bottom: solid 2px #F4F4F4;
+}
+
+.TabButtonBtn {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #1A1A1A;
+  background-color: transparent;
+  position: relative;
+}
+
+.TabButtonBtnActive {
+  &::before {
+    content: '';
+    display: block;
+    background: #75D7A1;
+    height: 2px;
+    width: 100%;
+    left: 0;
+    bottom: -12px;
+    position: absolute;
+  }
+}
+
+@media (max-width: 414px) {
+  .TabButton {
+    gap: 6.04vw;
+    padding-bottom: 2.42vw;
+    border-bottom: solid 0.48vw #F4F4F4;
+  }
+  
+  .TabButtonBtn {
+    font-size: 3.86vw;
+    line-height: 4.59vw;
+  }
+  
+  .TabButtonBtnActive {
+    &::before {
+      content: '';
+      height: 0.48vw;
+      bottom: -2.90vw;
+    }
+  }
+}
