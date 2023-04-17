@@ -49,6 +49,7 @@ const Home: React.FC = () => {
           isOpen={isUsersOpen} 
           setIsOpen={setIsUsersOpen}
           eventUsers={openedEvent.activeUsers}
+          eventTitle={openedEvent.title}
         />
         <OpenedEvent
           isOpen={isOpenEvent}

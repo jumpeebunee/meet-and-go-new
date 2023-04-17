@@ -21,3 +21,10 @@
     color: rgba(0, 0, 0, 0.6);
   }
 }
+
+.UsersModalList {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 40px;
+}

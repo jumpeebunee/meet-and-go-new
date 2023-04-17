@@ -5,14 +5,16 @@ import cl from './UsersModal.module.scss'
 import { IActive, IUser } from '../../../types/types';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
+import UserItem from '../../UI/UserItem/UserItem';
 
 interface UsersModalProps {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
   eventUsers: IActive[];
+  eventTitle: string;
 }
 
-const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers}) => {
+const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers, eventTitle}) => {
 
   const [users, setUsers] = useState<IUser[]>([]);
 
@@ -41,15 +43,11 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers}) => {
         <div className={`modal-container ${cl.UsersModalContainer}`}>
           <div className={cl.UsersModalHeader}>
             <h2>Участники</h2>
-            <p>Устричный бар - Lure Oystebar</p>
-            <ul>
-              <li>
-                <div></div>
-                <div>
-                  <h3>Михаил Малинин</h3>
-                  <p>+79646357281</p>
-                </div>
-              </li>
+            <p>{eventTitle}</p>
+            <ul className={cl.UsersModalList}>
+              {users.map(user =>
+                <UserItem user={user}/>
+              )}
             </ul>
           </div>
           <div>
