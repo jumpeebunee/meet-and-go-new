@@ -12,9 +12,10 @@ interface UsersModalProps {
   setIsOpen: (arg: boolean) => void;
   eventUsers: IActive[];
   eventTitle: string;
+  eventLeader: string;
 }
 
-const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers, eventTitle}) => {
+const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers, eventTitle, eventLeader}) => {
 
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +34,11 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers, eventTit
       let user = eventUsers[i];
       const docRef = doc(db, "users", user.id);
       const docSnap = await getDoc(docRef);
-      result.push(docSnap.data() as IUser);
+      if (user.id === eventLeader) {
+        result.unshift(docSnap.data() as IUser);
+      } else {
+        result.push(docSnap.data() as IUser);
+      }
     }
 
     setIsLoading(false);
@@ -50,7 +55,7 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers, eventTit
             {!isLoading &&
               <ul className={cl.UsersModalList}>
                 {users.map(user =>
-                  <UserItem user={user}/>
+                  <UserItem isLeader={eventLeader === user.uid} user={user}/>
                 )}
               </ul>
             }

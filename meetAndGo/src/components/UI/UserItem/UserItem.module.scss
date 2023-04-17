@@ -4,6 +4,10 @@
   gap: 20px;
 }
 
+.UserItemImageLeader {
+  outline: solid 2px #FFC56D;
+}
+
 .UserItemHeading {
   font-size: 18px;
   line-height: 22px;
@@ -21,4 +25,11 @@
   font-size: 14px;
   line-height: 17px;
   color: rgba(26, 26, 26, 0.6); 
+}
+
+.UserItemLeader {
+  margin-bottom: 2px;
+  font-size: 14px;
+  line-height: 17px;
+  color: #E1992D;
 }

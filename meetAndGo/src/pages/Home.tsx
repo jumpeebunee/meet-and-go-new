@@ -50,6 +50,7 @@ const Home: React.FC = () => {
           setIsOpen={setIsUsersOpen}
           eventUsers={openedEvent.activeUsers}
           eventTitle={openedEvent.title}
+          eventLeader={openedEvent.leader}
         />
         <OpenedEvent
           isOpen={isOpenEvent}
