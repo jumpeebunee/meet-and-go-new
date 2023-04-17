@@ -1,4 +1,4 @@
-import { IonContent, IonModal } from '@ionic/react'
+import { IonContent, IonModal, IonSpinner } from '@ionic/react'
 import { FC, useEffect, useState } from 'react'
 import SecondButton from '../../UI/SecondButton/SecondButton';
 import cl from './UsersModal.module.scss'
@@ -17,6 +17,7 @@ interface UsersModalProps {
 const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers, eventTitle}) => {
 
   const [users, setUsers] = useState<IUser[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -26,6 +27,7 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers, eventTit
 
   const getUsers = async() => {
     const result:IUser[] = [];
+    setIsLoading(true);
 
     for (let i = 0; i < eventUsers.length; i++) {
       let user = eventUsers[i];
@@ -34,6 +36,7 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers, eventTit
       result.push(docSnap.data() as IUser);
     }
 
+    setIsLoading(false);
     setUsers(result);
   }
 
@@ -44,13 +47,16 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers, eventTit
           <div className={cl.UsersModalHeader}>
             <h2>Участники</h2>
             <p>{eventTitle}</p>
-            <ul className={cl.UsersModalList}>
-              {users.map(user =>
-                <UserItem user={user}/>
-              )}
-            </ul>
+            {!isLoading &&
+              <ul className={cl.UsersModalList}>
+                {users.map(user =>
+                  <UserItem user={user}/>
+                )}
+              </ul>
+            }
           </div>
-          <div>
+          {isLoading && <IonSpinner name='circular' style={{color: '#75D7A1'}}></IonSpinner>}
+          <div className={cl.UsersModalBtns}>
             <SecondButton onClick={() => setIsOpen(false)}>Назад</SecondButton>
           </div>
         </div>
