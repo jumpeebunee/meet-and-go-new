@@ -1,0 +1,68 @@
+.ProfileAbout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ProfileAboutHeading {
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 29px;
+  color: #1A1A1A;
+}
+
+.ProfileAboutRep {
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  p {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgba(26, 26, 26, 0.6);
+  }
+  span {
+    display: block;
+    width: 17px;
+    height: 17px;
+    background-image: url(../../../assets/star.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+.ProfileAboutBorder {
+  margin-top: 15px;
+  width: 129px;
+  height: 2px;
+  background: #FF906D;
+}
+
+@media (max-width: 414px) {
+  .ProfileAboutHeading {
+    font-size: 5.80vw;
+    line-height: 7.00vw;
+  }
+  
+  .ProfileAboutRep {
+    margin-top: 0.72vw;
+    gap: 0.72vw;
+  
+    p {
+      font-size: 3.38vw;
+      line-height: 4.11vw;
+    }
+    span {
+      width: 4.11vw;
+      height: 4.11vw;
+    }
+  }
+  
+  .ProfileAboutBorder {
+    margin-top: 3.62vw;
+    width: 31.16vw;
+    height: 0.48vw;
+  }
+}

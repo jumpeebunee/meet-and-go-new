@@ -1,0 +1,14 @@
+.ProfileAvatar {
+  width: 172px;
+  height: 172px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+@media (max-width: 414px) {
+  .ProfileAvatar {
+    width: 41.55vw;
+    height: 41.55vw;
+  }
+}

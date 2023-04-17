@@ -4,10 +4,11 @@ import { useState } from 'react';
 import ProfileModal from '../components/Modals/Profile/ProfileModal';
 import RaitingModal from '../components/Modals/Raiting/RaitingModal';
 import CreateEvent from '../components/Modals/CreateEvent/CreateEvent';
-import { IEvent } from '../types/types';
+import { IEvent, IUser } from '../types/types';
 import OpenedEvent from '../components/Modals/OpenedEvent/OpenedEvent';
 import TotalEvents from '../components/Modals/TotalEvents/TotalEvents';
 import UsersModal from '../components/Modals/UsersModal/UsersModal';
+import UserModal from '../components/Modals/UserModal/UserModal';
 
 const Home: React.FC = () => {
 
@@ -17,8 +18,10 @@ const Home: React.FC = () => {
   const [isOpenEvent, setIsOpenEvent] = useState(false);
   const [isEventsOpen, setIsEventsOpen] = useState(false);
   const [isUsersOpen, setIsUsersOpen] = useState(false);
+  const [isUserOpen, setIsUserOpen] = useState(false);
   const [eventCords, setEventCords] = useState([]);
   const [openedEvent, setOpenedEvent] = useState<IEvent>({} as IEvent);
+  const [openedUser, setOpenedUser] = useState<IUser>({} as IUser);
 
   return (
     <IonPage>
@@ -48,9 +51,17 @@ const Home: React.FC = () => {
         <UsersModal
           isOpen={isUsersOpen} 
           setIsOpen={setIsUsersOpen}
+          setIsUserOpen={setIsUserOpen}
           eventUsers={openedEvent.activeUsers}
           eventTitle={openedEvent.title}
           eventLeader={openedEvent.leader}
+          setOpenedUser={setOpenedUser}
+        />
+        <UserModal
+          isOpen={isUserOpen}
+          setIsOpen={setIsUserOpen}
+          openedUser={openedUser}
+          setOpenedUser={setOpenedUser}
         />
         <OpenedEvent
           isOpen={isOpenEvent}

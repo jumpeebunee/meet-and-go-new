@@ -5,11 +5,12 @@ import { IUser } from '../../../types/types';
 interface UserItemProps {
   user: IUser;
   isLeader: boolean;
+  handle: () => void;
 }
 
-const UserItem:FC<UserItemProps> = ({user, isLeader}) => {
+const UserItem:FC<UserItemProps> = ({user, isLeader, handle}) => {
   return (
-    <li className={cl.UserItem}>
+    <li onClick={() => handle()} className={cl.UserItem}>
       <img className={`${cl.UserItemImage} ${isLeader ? cl.UserItemImageLeader : ''}`} src={user.image} alt=""/>
       <div>
         {isLeader && <div className={cl.UserItemLeader}>создатель</div>}

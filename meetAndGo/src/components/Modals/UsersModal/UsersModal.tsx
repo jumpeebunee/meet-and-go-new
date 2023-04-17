@@ -10,12 +10,14 @@ import UserItem from '../../UI/UserItem/UserItem';
 interface UsersModalProps {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
+  setIsUserOpen: (arg: boolean) => void;
+  setOpenedUser: (arg: IUser) => void;
   eventUsers: IActive[];
   eventTitle: string;
   eventLeader: string;
 }
 
-const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers, eventTitle, eventLeader}) => {
+const UsersModal:FC<UsersModalProps> = ({isOpen, setIsUserOpen, setOpenedUser, setIsOpen, eventUsers, eventTitle, eventLeader}) => {
 
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +47,11 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers, eventTit
     setUsers(result);
   }
 
+  const handleOpen = (user: IUser) => {
+    setIsUserOpen(true)
+    setOpenedUser(user);
+  }
+
   return (
     <IonModal isOpen={isOpen}>
       <IonContent>
@@ -55,7 +62,7 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsOpen, eventUsers, eventTit
             {!isLoading &&
               <ul className={cl.UsersModalList}>
                 {users.map(user =>
-                  <UserItem isLeader={eventLeader === user.uid} user={user}/>
+                  <UserItem handle={() => handleOpen(user)} key={user.uid} isLeader={eventLeader === user.uid} user={user}/>
                 )}
               </ul>
             }
