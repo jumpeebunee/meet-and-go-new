@@ -16,10 +16,11 @@ import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 interface OpenedEventProps {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
+  setIsUsersOpen: (arg: boolean) => void;
   event: IEvent;
 }
 
-const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, event}) => {
+const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, event}) => {
   
   const currentDate = new Date(event.date).toLocaleDateString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'});
   const currentUser = useSelector(user);
@@ -110,7 +111,7 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, event}) => {
                 eventColor={event.placemark}
               />
               <div className={cl.openedEventInputs}>
-                <EventUsers usersAvatars={event.activeUsers} currentUsers={totalActiveUsers} users={event.totalUsers}/>
+                <EventUsers handle={() => setIsUsersOpen(true)} usersAvatars={event.activeUsers} currentUsers={totalActiveUsers} users={event.totalUsers}/>
                 <EventPrice price={event.contribution}/>
               </div>
             </div>

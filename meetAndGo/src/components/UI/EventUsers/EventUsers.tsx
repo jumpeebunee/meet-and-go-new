@@ -12,11 +12,12 @@ interface EventUsersProps {
   currentUsers?: number | null;
   usersAvatars: IActive[];
   style?: React.CSSProperties;
+  handle?: () => void;
 }
 
 const usersColors = ['#1A1A1A', '#75D7A1', '#FF906D', '#67A4FF'];
 
-const EventUsers:FC<EventUsersProps> = ({users, currentUsers, usersAvatars, style}) => {
+const EventUsers:FC<EventUsersProps> = ({users, currentUsers, usersAvatars, style, handle}) => {
 
   const eventUsers = [];
 
@@ -27,7 +28,7 @@ const EventUsers:FC<EventUsersProps> = ({users, currentUsers, usersAvatars, styl
   return (
     <div style={style} className={cl.EventUsers}>
       <div className='label'>Участники</div>
-      <div className={cl.EventUsersTotal}>
+      <div onClick={handle} className={cl.EventUsersTotal}>
         {!usersAvatars
         ? 
           <ul className={cl.EventUsersList}>

@@ -1,0 +1,23 @@
+.UsersModalContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.UsersModalHeader {
+
+  margin-top: 30px;
+
+  h2 {
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 39px;  
+  }
+
+  p {
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}

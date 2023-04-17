@@ -7,6 +7,7 @@ import CreateEvent from '../components/Modals/CreateEvent/CreateEvent';
 import { IEvent } from '../types/types';
 import OpenedEvent from '../components/Modals/OpenedEvent/OpenedEvent';
 import TotalEvents from '../components/Modals/TotalEvents/TotalEvents';
+import UsersModal from '../components/Modals/UsersModal/UsersModal';
 
 const Home: React.FC = () => {
 
@@ -15,9 +16,10 @@ const Home: React.FC = () => {
   const [isCreateEventOpen, setIsCreateEventOpen] = useState(false);
   const [isOpenEvent, setIsOpenEvent] = useState(false);
   const [isEventsOpen, setIsEventsOpen] = useState(false);
+  const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [eventCords, setEventCords] = useState([]);
   const [openedEvent, setOpenedEvent] = useState<IEvent>({} as IEvent);
-  
+
   return (
     <IonPage>
       <div className='container app__container'>
@@ -43,10 +45,16 @@ const Home: React.FC = () => {
           eventCords={eventCords}
           setIsOpen={setIsCreateEventOpen}
         />
+        <UsersModal
+          isOpen={isUsersOpen} 
+          setIsOpen={setIsUsersOpen}
+          eventUsers={openedEvent.activeUsers}
+        />
         <OpenedEvent
           isOpen={isOpenEvent}
           setIsOpen={setIsOpenEvent}
           event={openedEvent}
+          setIsUsersOpen={setIsUsersOpen}
         />
         <TotalEvents
           isOpen={isEventsOpen}
