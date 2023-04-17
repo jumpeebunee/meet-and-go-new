@@ -13,9 +13,11 @@ import EventItem from '../EventItem/EventItem';
 interface TotalEventsProps {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
+  setIsOpenEvent: (arg: boolean) => void;
+  setOpenedEvent: (arg: IEvent) => void;
 }
 
-const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen}) => {
+const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent, setOpenedEvent}) => {
 
   const currentUser = useSelector(user);
 
@@ -60,9 +62,9 @@ const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen}) => {
             <ul className={cl.TotalEventList}>
               {events.map(event => 
                 <EventItem
-                  title={event.title}
-                  address={event.address}
-                  location={event.location} 
+                  setIsOpenEvent={setIsOpenEvent}
+                  setOpenedEvent={setOpenedEvent}
+                  event={event}
                   key={event.id}
                 />  
               )}

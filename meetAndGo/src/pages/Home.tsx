@@ -61,6 +61,8 @@ const Home: React.FC = () => {
         <TotalEvents
           isOpen={isEventsOpen}
           setIsOpen={setIsEventsOpen}
+          setIsOpenEvent={setIsOpenEvent}
+          setOpenedEvent={setOpenedEvent}
         />
       </div>
     </IonPage>
