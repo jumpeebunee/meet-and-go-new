@@ -33,3 +33,34 @@
   line-height: 17px;
   color: #E1992D;
 }
+
+@media (max-width: 414px) {
+  .UserItem {
+    gap: 4.83vw;
+  }
+  
+  .UserItemImageLeader {
+    outline: solid 0.48vw #FFC56D;
+  }
+  
+  .UserItemHeading {
+    font-size: 4.35vw;
+    line-height: 5.31vw;
+  }
+  
+  .UserItemImage {
+    width: 14.49vw;
+    height: 14.49vw;
+  }
+  
+  .UserItemPhone {
+    font-size: 3.38vw;
+    line-height: 4.11vw;
+  }
+  
+  .UserItemLeader {
+    margin-bottom: 0.48vw;
+    font-size: 3.38vw;
+    line-height: 4.11vw;
+  }
+}
