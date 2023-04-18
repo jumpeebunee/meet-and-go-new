@@ -11,4 +11,5 @@ export const baseUserContent = {
   createdMeets: 0,
   image: 'https://i.yapx.cc/V3vi3.png',
   activeMeets: [],
+  archive: [],
 }

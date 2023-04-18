@@ -21,6 +21,7 @@ export type IUser = {
   currentCreated: number
   createdMeets: number,
   image: string,
+  archive: IEvent[],
   activeMeets: string[],
 }
 

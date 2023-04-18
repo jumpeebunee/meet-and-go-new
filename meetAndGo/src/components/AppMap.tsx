@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { events } from '../app/feautures/eventsSlice'
 import { userImage } from '../app/feautures/userSlice'
 import { IEvent } from '../types/types'
+import AppPlacemark from './AppPlacemark'
 
 interface AppMapProps {
   setIsProfileOpen: (arg: boolean) => void;
@@ -38,7 +39,11 @@ const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setEven
     <YMaps query={{apikey: API_KEY}}>
       <Map onClick={(e: any) => createEvent(e)} className={cl.appMap} defaultState={MAP_CENTER}>
         {currentEvents.map(event => 
-          <Placemark onClick={() => openEvent(event)} key={event.id} options={getMapAppMark(event.placemark)} geometry={event.coords}/>
+          <AppPlacemark
+            key={event.id}
+            event={event}
+            openEvent={openEvent}
+          />
         )}
       </Map>
       <EventsButton handle={() => setIsEventsOpen(true)}/>

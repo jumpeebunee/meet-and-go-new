@@ -27,6 +27,7 @@ import { addUser } from './app/feautures/userSlice';
 import { addEvents } from './app/feautures/eventsSlice';
 import AppNavigation from './components/AppNavigation';
 import AppLoading from './components/AppLoading';
+import { unactiveEvents } from './helpers/unactiveEvents';
 
 setupIonicReact();
 
@@ -59,14 +60,15 @@ const App:FC = () => {
   }, [])
 
 
-  const subscribeUserUpdates = (id: string) => {
+  const subscribeUserUpdates = async(id: string) => {
     onSnapshot(doc(db, "users", id), (doc) => {
       dispatch(addUser(doc.data() as IUser));
     });
     onSnapshot(collection(db, "events"), doc => {
       const data: IEvent[] = []
       doc.forEach((d) => {
-        data.push(d.data() as IEvent);
+        const event = d.data() as IEvent;
+        data.push(event);
       })
       dispatch(addEvents(data));
     })
