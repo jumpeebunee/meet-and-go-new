@@ -42,19 +42,21 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, ev
       } else {
         setActiveEvent(false);
       }
-    }
+    } 
   }, [isOpen])
 
   const checkIsValid = () => {
     const eventDate = new Date(event.date).getTime();
-    setIsEnded(false);
-    setIsError('');
 
     if (eventDate - Date.now() < 0) {
       unactiveEvents(event);
       setIsError('Событие завершилось.');
       setIsEnded(true);
       return false;
+    } else {
+      setIsLoading(false);
+      setIsEnded(false);
+      setIsError('');
     }
     return true;
   }
