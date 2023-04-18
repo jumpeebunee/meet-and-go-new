@@ -40,6 +40,13 @@
   padding-bottom: 50px;
 }
 
+.TotalEventNot {
+  margin-top: 30px;
+  font-size: 16px;
+  line-height: 127.52%;
+  color: rgba(26, 26, 26, 0.7);
+}
+
 @media (max-width: 414px) {
 
   .TotalEventsContainer {
@@ -65,4 +72,9 @@
     padding-bottom: 12.08vw;
   }
   
+  .TotalEventNot {
+    margin-top: 7.25vw;
+    font-size: 3.86vw;
+  }
+
 }
