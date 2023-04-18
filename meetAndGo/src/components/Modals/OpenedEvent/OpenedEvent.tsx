@@ -7,7 +7,7 @@ import SecondButton from '../../UI/SecondButton/SecondButton';
 import AppLocation from '../../UI/AppLocation/AppLocation';
 import EventUsers from '../../UI/EventUsers/EventUsers';
 import EventPrice from '../../UI/EventPrice/EventPrice';
-import { arrayRemove, arrayUnion, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, deleteDoc, doc, increment, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { useSelector } from 'react-redux';
 import { user } from '../../../app/feautures/userSlice';
@@ -35,7 +35,13 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, ev
     if (isOpen) {
       const isActive = event.activeUsers.find(user => user.id === currentUser.uid);
 
-      checkIsValid();
+      const isValid = checkIsValid();
+      if (!isValid) {
+        setIsLoading(false);
+        setIsEnded(false);
+        setIsError('');
+        return;
+      }
 
       if (isActive) {
         setActiveEvent(true);
@@ -53,11 +59,7 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, ev
       setIsError('Событие завершилось.');
       setIsEnded(true);
       return false;
-    } else {
-      setIsLoading(false);
-      setIsEnded(false);
-      setIsError('');
-    }
+    } 
     return true;
   }
 
@@ -69,7 +71,12 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, ev
     setIsError('');
 
     const isValid = checkIsValid();
-    if (!isValid) return;
+    if (!isValid) {
+      setIsLoading(false);
+      setIsEnded(false);
+      setIsError('');
+      return;
+    }
 
     try {
       await updateDoc(eventRef, {
@@ -82,6 +89,7 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, ev
         ),
       });
       await updateDoc(userRef, {
+        totalMeets: increment(1),
         activeMeets: arrayUnion(event.id),
       });
       setIsOpen(false);
@@ -100,19 +108,25 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, ev
     setIsError('');
 
     const isValid = checkIsValid();
-    if (!isValid) return;
+    if (!isValid) {
+      setIsLoading(false);
+      setIsEnded(false);
+      setIsError('');
+      return;
+    }
 
     try {
       if (event.leader === currentUser.uid) {
         for (let user of event.activeUsers) {
           const ref = doc(db, "users", user.id);
-          await updateDoc(ref, {activeMeets: arrayRemove(event.id)});
+          await updateDoc(ref, {activeMeets: arrayRemove(event.id), createdMeets: currentUser.createdMeets - 1,});
         }
         await deleteDoc(doc(db, "events", event.id));
       } else {
         await updateDoc(eventRef, {
-          activeUsers: arrayRemove({id: currentUser.uid, image: currentUser.image}),
+          activeUsers: arrayRemove({id: currentUser.uid, image: currentUser.image, reputation: currentUser.reputation}),
         });
+        await updateDoc(doc(db, "users", currentUser.uid), {totalMeets: currentUser.totalMeets - 1})
       }
       await updateDoc(userRef, {
         activeMeets: arrayRemove(event.id),

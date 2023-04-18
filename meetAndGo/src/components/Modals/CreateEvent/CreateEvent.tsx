@@ -12,7 +12,7 @@ import ThirdStageEvent from './ThirdStageEvent';
 import { nanoid } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { user } from '../../../app/feautures/userSlice';
-import { arrayUnion, doc, setDoc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, increment, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { getRandomColor } from '../../../helpers/getRandomColor';
 
@@ -67,6 +67,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
       }
       await setDoc(doc(db, "events", eventId), userEvent);
       await updateDoc(doc(db, "users", currentUser.uid), {
+        createdMeets: increment(1),
         activeMeets: arrayUnion(eventId)
       })
       handleClear();
