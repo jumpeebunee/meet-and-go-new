@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import MainButton from '../../UI/MainButton/MainButton';
 import SecondButton from '../../UI/SecondButton/SecondButton';
 import cl from '@/styles/CreateEventModal/createEvent.module.scss';
@@ -12,7 +12,7 @@ import ThirdStageEvent from './ThirdStageEvent';
 import { nanoid } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { user } from '../../../app/feautures/userSlice';
-import { doc, setDoc } from 'firebase/firestore';
+import { arrayUnion, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { getRandomColor } from '../../../helpers/getRandomColor';
 
@@ -38,6 +38,12 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
   const [isError, setIsError] = useState('');
 
   const currentUser = useSelector(user);
+
+  useEffect(() => {
+    // const collectionRef = app.firestore().collection('myCollection');
+    // const admin = initializeApp();
+    // console.log(admin)
+  }, [])
 
   const handleClose = () => {
     setCreateStage(1);
@@ -66,6 +72,9 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
         activeUsers: [{id: currentUser.uid, image: currentUser.image}]
       }
       await setDoc(doc(db, "events", eventId), userEvent);
+      await updateDoc(doc(db, "users", currentUser.uid), {
+        activeMeets: arrayUnion(eventId)
+      })
       handleClear();
     } catch (error) {
       setIsError('Ошибка при создании события');

@@ -15,11 +15,13 @@ const EventItem:FC<EventItemProps> = ({event, setIsOpenEvent, setOpenedEvent}) =
     setOpenedEvent(event);
   }
 
+  const currentDate = new Date(event.date).toLocaleDateString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'});
+
   return (
     <li onClick={handleOpen} className={cl.EventItem}>
       <h3>{event.title}</h3>
       <div className={cl.EventItemContent}>
-        <p>{event.location}</p>
+        <p>{currentDate}</p>
         <p>{event.address}</p>
       </div>
     </li>

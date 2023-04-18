@@ -23,6 +23,7 @@ const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent, se
 
   const [currentState, setCurrentState] = useState('active');
   const [events, setEvents] = useState<IEvent[]>([]);
+  const [archiveEvents, setArchiveEvents] = useState<IEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -38,15 +39,17 @@ const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent, se
 
     setIsLoading(true);
 
-    for (let i = 0; i < currentUser.activeMeets.length; i++) {
-      const event = currentUser.activeMeets[i];
-      const docRef = doc(db, "events", event);
-      const docSnap = await getDoc(docRef);
-      const currentEvent = docSnap.data() as IEvent;
-      result.push(currentEvent);
+    if (currentUser.activeMeets) {
+      for (let i = 0; i < currentUser.activeMeets.length; i++) {
+        const event = currentUser.activeMeets[i];
+        const docRef = doc(db, "events", event);
+        const docSnap = await getDoc(docRef);
+        const currentEvent = docSnap.data() as IEvent;
+        result.push(currentEvent);
+      }
+      setEvents(result);
     }
-
-    setEvents(result);
+    setArchiveEvents(currentUser.archive);
     setIsLoading(false);
   }
 

@@ -12,6 +12,7 @@ import { db } from '../../../firebase';
 import { useSelector } from 'react-redux';
 import { user } from '../../../app/feautures/userSlice';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
+import { unactiveEvents } from '../../../helpers/unactiveEvents';
 
 interface OpenedEventProps {
   isOpen: boolean;
@@ -26,12 +27,16 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, ev
   const currentUser = useSelector(user);
 
   const [activeEvent, setActiveEvent] = useState(false);
+  const [isEnded, setIsEnded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState('');
 
   useEffect(() => {
     if (isOpen) {
       const isActive = event.activeUsers.find(user => user.id === currentUser.uid);
+
+      checkIsValid();
+
       if (isActive) {
         setActiveEvent(true);
       } else {
@@ -40,12 +45,29 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, ev
     }
   }, [isOpen])
 
+  const checkIsValid = () => {
+    const eventDate = new Date(event.date).getTime();
+    setIsEnded(false);
+    setIsError('');
+
+    if (eventDate - Date.now() < 0) {
+      unactiveEvents(event);
+      setIsError('Событие завершилось.');
+      setIsEnded(true);
+      return false;
+    }
+    return true;
+  }
+
   const handleEnter = async() => {
     const eventRef = doc(db, "events", event.id);
     const userRef = doc(db, "users", currentUser.uid);
 
     setIsLoading(true);
     setIsError('');
+
+    const isValid = checkIsValid();
+    if (!isValid) return;
 
     try {
       await updateDoc(eventRef, {
@@ -68,6 +90,9 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, ev
 
     setIsLoading(true);
     setIsError('');
+
+    const isValid = checkIsValid();
+    if (!isValid) return;
 
     try {
       if (event.leader === currentUser.uid) {
@@ -115,16 +140,16 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, ev
                 <EventPrice price={event.contribution}/>
               </div>
             </div>
-            {isError && <ErrorMessage>{isError}</ErrorMessage>}
+            {isError && <ErrorMessage styles={{marginTop: 15}}>{isError}</ErrorMessage>}
           </div>
           <div className={cl.openedEventBtns}>
             {activeEvent
-            ? <MainButton disabled={isLoading} onClick={handleLeave}>Покинуть</MainButton>
+            ? <MainButton disabled={isLoading || isEnded} onClick={handleLeave}>Покинуть</MainButton>
             : 
               <>
-                {totalActiveUsers === event.totalUsers
+                {(totalActiveUsers === event.totalUsers)
                   ? <></>
-                  : <MainButton disabled={isLoading} onClick={handleEnter}>Присоединиться</MainButton>
+                  : <MainButton disabled={isLoading || isEnded} onClick={handleEnter}>Присоединиться</MainButton>
                 }
               </>
             }

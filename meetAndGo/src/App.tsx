@@ -27,7 +27,6 @@ import { addUser } from './app/feautures/userSlice';
 import { addEvents } from './app/feautures/eventsSlice';
 import AppNavigation from './components/AppNavigation';
 import AppLoading from './components/AppLoading';
-import { unactiveEvents } from './helpers/unactiveEvents';
 
 setupIonicReact();
 
