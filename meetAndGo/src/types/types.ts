@@ -28,6 +28,7 @@ export type IUser = {
 export type IActive = {
   id: string;
   image: string;
+  reputation: number;
 }
 
 export type IEvent = {

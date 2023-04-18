@@ -1,4 +1,4 @@
-import { arrayRemove, deleteDoc, doc, updateDoc} from "firebase/firestore";
+import { arrayRemove, deleteDoc, doc, increment, updateDoc,} from "firebase/firestore";
 import { IEvent } from "../types/types"
 import { db } from "../firebase";
 
@@ -9,7 +9,8 @@ export const unactiveEvents = async(event: IEvent) => {
     try {
       for (let user of event.activeUsers) {
         await updateDoc(doc(db, "users", user.id), {
-          activeMeets: arrayRemove(event.id)
+          activeMeets: arrayRemove(event.id),
+          reputation: (user.reputation < 50000) ? increment(50) : increment(0),
         });
       }
       await deleteDoc(doc(db, "events", event.id));

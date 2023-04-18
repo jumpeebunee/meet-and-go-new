@@ -73,7 +73,13 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, ev
 
     try {
       await updateDoc(eventRef, {
-        activeUsers: arrayUnion({id: currentUser.uid, image: currentUser.image}),
+        activeUsers: arrayUnion(
+          {
+            id: currentUser.uid,
+            image: currentUser.image,
+            reputation: currentUser.reputation
+          }
+        ),
       });
       await updateDoc(userRef, {
         activeMeets: arrayUnion(event.id),

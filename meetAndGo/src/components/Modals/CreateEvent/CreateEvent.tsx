@@ -39,12 +39,6 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
 
   const currentUser = useSelector(user);
 
-  useEffect(() => {
-    // const collectionRef = app.firestore().collection('myCollection');
-    // const admin = initializeApp();
-    // console.log(admin)
-  }, [])
-
   const handleClose = () => {
     setCreateStage(1);
     setIsOpen(false);
@@ -69,7 +63,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen, eventCords}) => {
         totalUsers: eventUsers,
         contribution: eventPrice,
         coords: eventCords,
-        activeUsers: [{id: currentUser.uid, image: currentUser.image}]
+        activeUsers: [{id: currentUser.uid, image: currentUser.image, reputation: currentUser.reputation}]
       }
       await setDoc(doc(db, "events", eventId), userEvent);
       await updateDoc(doc(db, "users", currentUser.uid), {
