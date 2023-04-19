@@ -13,6 +13,7 @@ import { stage } from '../../../app/feautures/createEventSlice';
 import { changeStage } from '../../../app/feautures/createEventSlice';
 import CreateEventBtns from './CreateEventBtns';
 import CreateEventStages from './CreateEventStages';
+import AppEventsLimit from '../../AppEventsLimit';
 
 interface CreateEventProps {
   isOpen: boolean;
@@ -66,7 +67,6 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
         createdMeets: increment(1),
         activeMeets: arrayUnion(eventId)
       })
-      console.log(userEvent)
       handleClose();
     } catch (error) {
       dispatch(changeError('Ошибка при создании события'));
@@ -113,13 +113,19 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
     <IonModal isOpen={isOpen}>
       <IonContent>
         <div className={`modal-container ${cl.createEventContent}`}>
-          <CreateEventStages/>
-          <CreateEventBtns
-            changeEventStage={changeEventStage}
-            checkValid={checkValidity}
-            handleClose={handleClose}
-            createEvent={handleCreate}
-          />
+          {currentUser.activeMeets.length >= 3
+          ? <AppEventsLimit setIsOpen={setIsOpen}/>
+          :
+          <>
+            <CreateEventStages/>
+              <CreateEventBtns
+                changeEventStage={changeEventStage}
+                checkValid={checkValidity}
+                handleClose={handleClose}
+                createEvent={handleCreate}
+              />
+            </>
+          }
         </div>
       </IonContent>
     </IonModal>

@@ -66,6 +66,10 @@ const createEventSlice = createSlice({
       state.date = getIsoDate();
       state.location = '';
       state.validError = '';
+      state.users = 2;
+      state.price = '0';
+      state.color = getRandomColor();
+      state.coords = [];
     },
   }
 })
