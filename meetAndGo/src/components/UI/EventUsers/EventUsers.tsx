@@ -10,7 +10,7 @@ type IAvatar = {
 interface EventUsersProps {
   users: number;
   currentUsers?: number | null;
-  usersAvatars: IActive[];
+  usersAvatars?: IActive[];
   style?: React.CSSProperties;
   handle?: () => void;
 }

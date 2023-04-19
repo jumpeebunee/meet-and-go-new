@@ -4,24 +4,26 @@ import cl from '../styles/AppMap.module.scss'
 import EventsButton from './EventsButton'
 import SearchButton from './SearchButton'
 import ProfileButton from './ProfileButton'
-import { FC, useMemo, useState } from 'react'
+import { FC, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { events } from '../app/feautures/eventsSlice'
 import { userImage } from '../app/feautures/userSlice'
 import { IEvent } from '../types/types'
 import AppPlacemark from './AppPlacemark'
+import { useDispatch } from 'react-redux'
+import { changeCoords } from '../app/feautures/createEventSlice'
 
 interface AppMapProps {
   setIsProfileOpen: (arg: boolean) => void;
   setIsCreateEventOpen: (arg: boolean) => void;
   setIsOpenEvent: (arg: boolean) => void;
   setOpenedEvent: (arg: IEvent) => void;
-  setEventCords: (arg: []) => void;
   setIsEventsOpen: (arg: boolean) => void;
 }
 
-const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setEventCords, setIsOpenEvent, setOpenedEvent, setIsEventsOpen}) => {
+const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setIsOpenEvent, setOpenedEvent, setIsEventsOpen}) => {
 
+  const dispatch = useDispatch();
   const image = useSelector(userImage);
   const currentEvents = useSelector(events);
 
@@ -29,7 +31,7 @@ const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setEven
 
   const createEvent = (e: any) => {
     setIsCreateEventOpen(true);
-    setEventCords(e.get('coords'));
+    dispatch(changeCoords(e.get('coords')));
   }
 
   const openEvent = (event: IEvent) => {

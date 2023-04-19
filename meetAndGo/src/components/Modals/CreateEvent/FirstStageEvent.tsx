@@ -4,39 +4,48 @@ import DateInput from "../../UI/DateInput/DateInput";
 import EventNameInput from "../../UI/EventNameInput/EventNameInput";
 import DatePicker from "../../UI/DatePicker/DatePicker";
 import LabelInput from "../../UI/LabelInput/LabelInput";
+import { useSelector, useDispatch } from 'react-redux';
+import { changeName, changeDate, changeLocation } from "../../../app/feautures/createEventSlice";
+import { name, date, location, validError } from "../../../app/feautures/createEventSlice";
+import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
 
-interface FirstStageEventProps {
-  eventName: string;
-  eventDate: string;
-  eventLocation: string;
-  setEventName: (arg: string) => void;
-  setEventDate: (arg: string) => void;
-  setEventLocation: (arg: string) => void;
-}
+interface FirstStageEventProps {}
 
-const FirstStageEvent:FC<FirstStageEventProps> = ({eventName, eventDate, eventLocation, setEventName, setEventDate, setEventLocation}) => {
+const FirstStageEvent:FC<FirstStageEventProps> = () => {
 
   const [isOpenDate, setIsOpenDate] = useState(false);
 
-  return (
-    <div className={cl.createEventList}>
-      <h2 className={cl.createEventHeading}>Создать новое событие</h2>
-      <EventNameInput eventName={eventName} setEventName={setEventName}/>
-      <DateInput eventDate={eventDate} setIsOpenDate={setIsOpenDate}/>
-      <LabelInput
-        title="Локация"
-        placeholder="Локация мероприятия"
-        inputValue={eventLocation}
-        setInputValue={setEventLocation}
-      />
-      <DatePicker
-        isOpen={isOpenDate}
-        setIsOpen={setIsOpenDate}
-        eventDate={eventDate}
-        setEventDate={setEventDate}
-      />
-    </div>
+  const dispatch = useDispatch();
+  const eventName = useSelector(name);
+  const eventDate = useSelector(date);
+  const eventLocation = useSelector(location);
+  const eventError = useSelector(validError);
 
+  const handleChangeName = (value: string) =>  dispatch(changeName(value));
+  const handleChangeLocation = (value: string) => dispatch(changeLocation(value));
+  const handleChangeDate = (value: string) => dispatch(changeDate(value));
+
+  return (
+    <>
+      <div className={cl.createEventList}>
+        <h2 className={cl.createEventHeading}>Создать новое событие</h2>
+        <EventNameInput eventName={eventName} setEventName={handleChangeName}/>
+        <DateInput eventDate={eventDate} setIsOpenDate={setIsOpenDate}/>
+        <LabelInput
+          title="Локация"
+          placeholder="Локация мероприятия"
+          inputValue={eventLocation}
+          setInputValue={handleChangeLocation}
+        />
+        <DatePicker
+          isOpen={isOpenDate}
+          setIsOpen={setIsOpenDate}
+          eventDate={eventDate}
+          setEventDate={handleChangeDate}
+        />
+      </div>
+      {eventError && <ErrorMessage styles={{marginTop: 10}}>{eventError}</ErrorMessage>}
+    </>
   )
 }
 

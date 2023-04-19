@@ -19,7 +19,6 @@ const Home: React.FC = () => {
   const [isEventsOpen, setIsEventsOpen] = useState(false);
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
-  const [eventCords, setEventCords] = useState([]);
   const [openedEvent, setOpenedEvent] = useState<IEvent>({} as IEvent);
   const [openedUser, setOpenedUser] = useState<IUser>({} as IUser);
 
@@ -31,7 +30,6 @@ const Home: React.FC = () => {
           setIsOpenEvent={setIsOpenEvent}
           setOpenedEvent={setOpenedEvent}
           setIsCreateEventOpen={setIsCreateEventOpen}
-          setEventCords={setEventCords}
           setIsEventsOpen={setIsEventsOpen}
         />
         <ProfileModal
@@ -45,7 +43,6 @@ const Home: React.FC = () => {
         />
         <CreateEvent
           isOpen={isCreateEventOpen} 
-          eventCords={eventCords}
           setIsOpen={setIsCreateEventOpen}
         />
         <UsersModal

@@ -20,6 +20,7 @@ const App:FC = () => {
   
   const dispatch = useDispatch();
   const { navigate } = useContext(NavContext);
+  
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
