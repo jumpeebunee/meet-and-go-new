@@ -21,6 +21,14 @@
   }
 }
 
+.searchButtonClose {
+  span {
+    width: 30px;
+    height: 30px;
+    background-image: url(../assets/close.svg);
+  }
+}
+
 @media (max-width: 414px) {
   .searchButton {
     width: 21.74vw;
@@ -30,6 +38,13 @@
     span {
       width: 9.66vw;
       height: 9.66vw;
+    }
+  }
+
+  .searchButtonClose {
+    span {
+      width: 7.25vw;
+      height: 7.25vw;
     }
   }
 }

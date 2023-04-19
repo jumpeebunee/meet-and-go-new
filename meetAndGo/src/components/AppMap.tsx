@@ -1,10 +1,10 @@
-import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
-import { API_KEY, MAP_CENTER, getMapAppMark } from '../data/yamapsApi'
+import { YMaps, Map, GeolocationControl, SearchControl } from '@pbe/react-yandex-maps'
+import { API_KEY, MAP_CENTER } from '../data/yamapsApi'
 import cl from '../styles/AppMap.module.scss'
 import EventsButton from './EventsButton'
 import SearchButton from './SearchButton'
 import ProfileButton from './ProfileButton'
-import { FC } from 'react'
+import { FC, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { events } from '../app/feautures/eventsSlice'
 import { userImage } from '../app/feautures/userSlice'
@@ -24,6 +24,8 @@ const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setEven
 
   const image = useSelector(userImage);
   const currentEvents = useSelector(events);
+
+  const [isSearch, setIsSearch] = useState(true);
 
   const createEvent = (e: any) => {
     setIsCreateEventOpen(true);
@@ -45,10 +47,27 @@ const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setEven
             openEvent={openEvent}
           />
         )}
+        {!isSearch &&
+          <div>
+            <GeolocationControl classname="asd" options={{ float: "left", position: {top: 40, left: 30}}}/>
+            <SearchControl options={{ size: 'medium', float: "right", position: {top: 40, right: 30}}} />
+          </div>
+        }
       </Map>
-      <EventsButton handle={() => setIsEventsOpen(true)}/>
-      <ProfileButton image={image} setIsProfileOpen={setIsProfileOpen}/>
-      <SearchButton/>
+      {isSearch
+        &&
+        <div>
+          <EventsButton handle={() => setIsEventsOpen(true)}/>
+          <ProfileButton 
+            image={image}
+            setIsProfileOpen={setIsProfileOpen}
+          />
+        </div>
+      }
+      <SearchButton 
+        isSearch={isSearch}
+        setIsSearch={setIsSearch}
+      />
     </YMaps>
   )
 }

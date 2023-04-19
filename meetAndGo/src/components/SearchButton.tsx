@@ -1,8 +1,14 @@
+import { FC } from 'react'
 import cl from '../styles/SearchButton.module.scss'
 
-const SearchButton = () => {
+interface SearchButtonProps {
+  isSearch: boolean;
+  setIsSearch: (arg: boolean) => void;
+}
+
+const SearchButton:FC<SearchButtonProps> = ({isSearch, setIsSearch}) => {
   return (
-    <button className={cl.searchButton}>
+    <button onClick={() => setIsSearch(!isSearch)} className={isSearch ? cl.searchButton : `${cl.searchButton} ${cl.searchButtonClose}`}>
       <span></span>
     </button>
   )
