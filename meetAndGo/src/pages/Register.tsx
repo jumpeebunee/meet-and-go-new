@@ -18,9 +18,11 @@ const Register = () => {
 
   const { navigate } = useContext(NavContext);
   const [serverError, setServerError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async(data: IRegister) => {
     setServerError('');
+    setIsLoading(true);
     try {
       const response = await createUserWithEmailAndPassword(auth, data.email, data.password);
       await updateProfile(response.user, {displayName: data.fullname});
@@ -37,6 +39,7 @@ const Register = () => {
     } catch (error: any) {
       setServerError(error.message);
     }
+    setIsLoading(false);
   }
 
   const subscribeUserUpdates = (id: string) => {
@@ -58,11 +61,13 @@ const Register = () => {
         <div className="container auth__container">
           <div className={cl.loginPageContent}>
             <AuthBanner/>
-            <RegisterForm handleRegister={handleRegister} serverError={serverError}/>
-            <p className={cl.loginPageToggle}>
-              Уже есть профиль?
-              <IonRouterLink  routerDirection="back" routerLink="/login"><span> Войти</span></IonRouterLink>
-            </p>
+            <RegisterForm isLoading={isLoading} handleRegister={handleRegister} serverError={serverError}/>
+            {!isLoading &&
+              <p className={cl.loginPageToggle}>
+                Уже есть профиль?
+                <IonRouterLink  routerDirection="back" routerLink="/login"><span> Войти</span></IonRouterLink>
+              </p>
+            }
           </div>
         </div>
       </IonContent>

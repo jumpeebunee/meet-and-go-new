@@ -10,9 +10,10 @@ import { ILogin } from '../types/types';
 interface LoginFormProps {
   handleLogin: (data: ILogin) => void;
   serverError: string;
+  isLoading: boolean;
 }
 
-const LoginForm:FC<LoginFormProps> = ({handleLogin, serverError}) => {
+const LoginForm:FC<LoginFormProps> = ({handleLogin, isLoading, serverError}) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const {register, handleSubmit, formState: {errors}} = useForm({});
@@ -49,7 +50,7 @@ const LoginForm:FC<LoginFormProps> = ({handleLogin, serverError}) => {
         <PasswordVisible isVisible={isVisible} handleChange={handleChange}/>
       </div>
       {serverError && <ErrorMessage styles={{marginTop: -5}}>Неверная почта или пароль</ErrorMessage>}
-      <MainButton>Войти</MainButton>
+      <MainButton disabled={isLoading}>Войти</MainButton>
     </form>
   )
 }
