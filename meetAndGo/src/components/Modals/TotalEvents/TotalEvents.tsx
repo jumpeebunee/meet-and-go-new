@@ -1,14 +1,14 @@
-import { IonContent, IonLoading, IonModal, IonSpinner } from '@ionic/react'
+import { IonContent, IonModal, IonSpinner } from '@ionic/react'
 import cl from './TotalEvents.module.scss'
 import { FC, useEffect, useState } from 'react'
 import SecondButton from '../../UI/SecondButton/SecondButton';
-import TabButton from '../../UI/TabButton/TabButton';
 import { useSelector } from 'react-redux';
 import { user } from '../../../app/feautures/userSlice';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { IEvent } from '../../../types/types';
-import EventItem from '../EventItem/EventItem';
+import TotalEventsHeader from './TotalEventsHeader';
+import TotalEventsList from './TotalEventsList';
 
 interface TotalEventsProps {
   isOpen: boolean;
@@ -57,30 +57,8 @@ const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent}) =
       <IonContent>
         <div className={`modal-container ${cl.TotalEventsContainer}`}>
           <div className={cl.TotalEventsMain}>
-            <h2 className={cl.TotalEventsHeading}>Мои события</h2>
-            <div className={cl.TotalEventsContent}>
-              <TabButton changeState={setCurrentState} state={currentState}></TabButton>
-            </div>
-            <>
-              {!isLoading &&
-                <>
-                  {events.length > 0
-                    ?
-                      <ul className={cl.TotalEventList}>
-                        {events.map(event => 
-                          <EventItem
-                            setIsOpenEvent={setIsOpenEvent}
-                            event={event}
-                            key={event.id}
-                          />  
-                        )}
-                      </ul>
-                    :
-                      <div className={cl.TotalEventNot}>У вас еще нет активных событий</div>
-                  }
-                </>
-              }
-            </>
+            <TotalEventsHeader currentState={currentState} setCurrentState={setCurrentState}/>
+            {!isLoading && <TotalEventsList events={events} setIsOpenEvent={setIsOpenEvent}/>}
           </div>
           {isLoading && <div className={cl.TotalEventsLoading}><IonSpinner name="circular"></IonSpinner></div>}
           <div className={cl.TotalEventsBtns}>
