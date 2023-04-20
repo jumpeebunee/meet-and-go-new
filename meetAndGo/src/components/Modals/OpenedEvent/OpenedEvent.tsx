@@ -4,9 +4,6 @@ import cl from './OpenedEvent.module.scss'
 import { IEvent } from '../../../types/types';
 import MainButton from '../../UI/MainButton/MainButton';
 import SecondButton from '../../UI/SecondButton/SecondButton';
-import AppLocation from '../../UI/AppLocation/AppLocation';
-import EventUsers from '../../UI/EventUsers/EventUsers';
-import EventPrice from '../../UI/EventPrice/EventPrice';
 import { arrayRemove, arrayUnion, deleteDoc, doc, increment, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +11,9 @@ import { user } from '../../../app/feautures/userSlice';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import { unactiveEvents } from '../../../helpers/unactiveEvents';
 import { changeOpened, openedEvent } from '../../../app/feautures/openedEventSlice';
+import OpenedEventHeader from './OpenedEventHeader';
+import OpenedEventContent from './OpenedEventContent';
+import OpenedEventButtons from './OpenedEventButtons';
 
 interface OpenedEventProps {
   isOpen: boolean;
@@ -151,37 +151,26 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen}) =
       <IonContent>
         <div className={`modal-container ${cl.openedEventContainer}`}>
           <div>
-            <div className={cl.openedEventHeader}>
-              <h2 className={cl.openedEventHeading}>{event.title}</h2>
-              <div className='label_description'>{currentDate}</div>
-            </div>
-            <div className={cl.openedEventContent}>
-              <AppLocation 
-                location={event.location}
-                address={event.address}
-                eventCords={event.coords}
-                eventColor={event.placemark}
-              />
-              <div className={cl.openedEventInputs}>
-                <EventUsers handle={() => setIsUsersOpen(true)} usersAvatars={event.activeUsers} currentUsers={totalActiveUsers} users={event.totalUsers}/>
-                <EventPrice price={event.contribution}/>
-              </div>
-            </div>
+            <OpenedEventHeader
+              title={event.title}
+              date={currentDate}
+            />
+            <OpenedEventContent
+              totalActiveUsers={totalActiveUsers}
+              setIsUsersOpen={setIsUsersOpen}
+            />
             {isError && <ErrorMessage styles={{marginTop: 15}}>{isError}</ErrorMessage>}
           </div>
-          <div className={cl.openedEventBtns}>
-            {activeEvent
-            ? <MainButton disabled={isLoading || isEnded} onClick={handleLeave}>Покинуть</MainButton>
-            : 
-              <>
-                {(totalActiveUsers === event.totalUsers)
-                  ? <></>
-                  : <MainButton disabled={isLoading || isEnded} onClick={handleEnter}>Присоединиться</MainButton>
-                }
-              </>
-            }
-            <SecondButton onClick={() => setIsOpen(false)}>Назад</SecondButton>
-          </div>
+          <OpenedEventButtons
+            activeEvent={activeEvent}
+            isLoading={isLoading}
+            isEnded={isEnded}
+            handleLeave={handleLeave}
+            handleEnter={handleEnter}
+            setIsOpen={setIsOpen}
+            totalActiveUsers={totalActiveUsers}
+            totalUsers={event.totalUsers}
+          />
         </div>
       </IonContent>
     </IonModal>
