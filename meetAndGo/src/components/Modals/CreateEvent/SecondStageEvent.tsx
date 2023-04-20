@@ -21,13 +21,16 @@ const SecondStageEvent:FC<SecondStageProps> = () => {
 
   useEffect(() => {
     setAddress();
-    // const res = await axios.get(`${BASE_GEOCODE_URL}?api_key=${BASE_GEOCODE_KEY}&lat=${eventCords[0]}&lng=${eventCords[1]}`);
-    // setEventAddress(res.data.response.features[1].properties.label);
   }, [fullEvent.coords])
 
   const setAddress = async() => {
     if (fullEvent.coords.length) {
-      dispatch(changeAddress('Бар Punk Fuction'))
+      try {
+        const res = await axios.get(`${BASE_GEOCODE_URL}?api_key=${BASE_GEOCODE_KEY}&lat=${fullEvent.coords[0]}&lng=${fullEvent.coords[1]}`);
+        dispatch(changeAddress(res.data.response.features[1].properties.label))
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 

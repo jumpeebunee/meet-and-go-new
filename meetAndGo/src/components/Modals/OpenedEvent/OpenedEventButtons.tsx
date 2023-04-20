@@ -2,6 +2,9 @@ import { FC } from 'react'
 import cl from './OpenedEvent.module.scss';
 import MainButton from '../../UI/MainButton/MainButton';
 import SecondButton from '../../UI/SecondButton/SecondButton';
+import { useSelector } from 'react-redux';
+import { openedEvent } from '../../../app/feautures/openedEventSlice';
+import { user } from '../../../app/feautures/userSlice';
 
 interface OpenedEventButtonsProps {
   activeEvent: boolean;
@@ -14,11 +17,15 @@ interface OpenedEventButtonsProps {
   totalUsers: number;
 }
 
-const OpenedEventButtons:FC<OpenedEventButtonsProps> = ({activeEvent, isLoading, isEnded, handleLeave, handleEnter, setIsOpen, totalActiveUsers, totalUsers}) => {
+const OpenedEventtButtons:FC<OpenedEventButtonsProps> = ({activeEvent, isLoading, isEnded, handleLeave, handleEnter, setIsOpen, totalActiveUsers, totalUsers}) => {
+
+  const {leader} = useSelector(openedEvent);
+  const {uid} = useSelector(user);
+
   return (
     <div className={cl.openedEventBtns}>
       {activeEvent
-      ? <MainButton disabled={isLoading || isEnded} onClick={handleLeave}>Покинуть</MainButton>
+      ? <MainButton disabled={isLoading || isEnded} onClick={handleLeave}>{leader === uid ? 'Удалить': 'Покинуть'}</MainButton>
       : 
         <>
           {(totalActiveUsers === totalUsers)
@@ -32,4 +39,4 @@ const OpenedEventButtons:FC<OpenedEventButtonsProps> = ({activeEvent, isLoading,
   )
 }
 
-export default OpenedEventButtons
+export default OpenedEventtButtons;
