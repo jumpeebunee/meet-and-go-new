@@ -1,4 +1,4 @@
-import cl from '../styles/appLoading.module.scss'
+import cl from '../styles/AppLoading.module.scss'
 
 const AppLoading = () => {
   return (
