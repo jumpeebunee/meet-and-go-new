@@ -19,7 +19,7 @@ export const getMapAppLocation = (value: number) => {
 
 export const getMapAppMark = (value: number) => {
 
-  const image = `../mark${value}.png`;
+  const image = `../mark${(!value) ? 0 : value}.png`;
 
   return {
     iconLayout: 'default#image',

@@ -9,7 +9,6 @@ interface AppPlacemarkProps {
 }
 
 const AppPlacemark:FC<AppPlacemarkProps> = ({openEvent, event}) => {
-
   return (
     <Placemark onClick={() => openEvent(event)} options={getMapAppMark(event.placemark)} geometry={event.coords}/>
   )

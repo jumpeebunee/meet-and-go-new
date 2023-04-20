@@ -9,6 +9,8 @@ import OpenedEvent from '../components/Modals/OpenedEvent/OpenedEvent';
 import TotalEvents from '../components/Modals/TotalEvents/TotalEvents';
 import UsersModal from '../components/Modals/UsersModal/UsersModal';
 import UserModal from '../components/Modals/UserModal/UserModal';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '../firebase';
 
 const Home: React.FC = () => {
 
@@ -19,12 +21,16 @@ const Home: React.FC = () => {
   const [isEventsOpen, setIsEventsOpen] = useState(false);
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
-  const [openedEvent, setOpenedEvent] = useState<IEvent>({} as IEvent);
   const [openedUser, setOpenedUser] = useState<IUser>({} as IUser);
+
+  function test() {
+    sendPasswordResetEmail(auth, 'jumpeebunee@gmail.com').then(() => console.log('sended'))
+  }
 
   return (
     <IonPage>
       <div className='container app__container'>
+        {/* <button onClick={test}>test</button> */}
         <AppMap
           setIsProfileOpen={setIsProfileOpen}
           setIsOpenEvent={setIsOpenEvent}

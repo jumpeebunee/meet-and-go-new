@@ -10,21 +10,22 @@ interface CreateEventBtns {
   handleClose: () => void;
   changeEventStage: () => void;
   createEvent: () => void;
+  isLoading: boolean;
 }
 
-const CreateEventBtns:FC<CreateEventBtns> = ({checkValid, handleClose, changeEventStage, createEvent}) => {
+const CreateEventBtns:FC<CreateEventBtns> = ({isLoading, checkValid, handleClose, changeEventStage, createEvent}) => {
 
   const fullEvent = useSelector(eventData);
 
   return (
     <div className={cl.createEventButtons}>
       {fullEvent.stage === 3
-      ? <MainButton onClick={createEvent}>Создать</MainButton>
-      : <MainButton onClick={checkValid}>Продолжить</MainButton>
+      ? <MainButton disabled={isLoading} onClick={createEvent}>Создать</MainButton>
+      : <MainButton disabled={isLoading} onClick={checkValid}>Продолжить</MainButton>
       }
       {fullEvent.stage > 1 
-      ? <SecondButton onClick={changeEventStage}>Назад</SecondButton>
-      : <SecondButton onClick={handleClose}>Отменить</SecondButton>
+      ? <SecondButton disabled={isLoading} onClick={changeEventStage}>Назад</SecondButton>
+      : <SecondButton disabled={isLoading} onClick={handleClose}>Отменить</SecondButton>
       }
     </div>
   )

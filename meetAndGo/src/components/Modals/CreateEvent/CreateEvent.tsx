@@ -39,9 +39,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
 
     const validDate = new Date(fullEvent.date).getTime() > Date.now();
 
-    if (validDate) {
-      handleCreate();
-    } else {
+    if (!validDate) {
       dispatch(changeError('Неверная дата события'));
       setIsLoading(false);
       return;
@@ -119,6 +117,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
           <>
             <CreateEventStages/>
               <CreateEventBtns
+                isLoading={isLoading}
                 changeEventStage={changeEventStage}
                 checkValid={checkValidity}
                 handleClose={handleClose}
