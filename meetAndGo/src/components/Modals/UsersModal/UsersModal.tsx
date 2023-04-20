@@ -6,19 +6,19 @@ import { IActive, IUser } from '../../../types/types';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import UserItem from '../../UI/UserItem/UserItem';
+import { useSelector } from 'react-redux';
+import { openedEvent } from '../../../app/feautures/openedEventSlice';
 
 interface UsersModalProps {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
   setIsUserOpen: (arg: boolean) => void;
   setOpenedUser: (arg: IUser) => void;
-  eventUsers: IActive[];
-  eventTitle: string;
-  eventLeader: string;
 }
 
-const UsersModal:FC<UsersModalProps> = ({isOpen, setIsUserOpen, setOpenedUser, setIsOpen, eventUsers, eventTitle, eventLeader}) => {
+const UsersModal:FC<UsersModalProps> = ({isOpen, setIsUserOpen, setOpenedUser, setIsOpen}) => {
 
+  const event = useSelector(openedEvent);
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,11 +32,11 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsUserOpen, setOpenedUser, s
     const result:IUser[] = [];
     setIsLoading(true);
 
-    for (let i = 0; i < eventUsers.length; i++) {
-      let user = eventUsers[i];
+    for (let i = 0; i < event.activeUsers.length; i++) {
+      let user = event.activeUsers[i];
       const docRef = doc(db, "users", user.id);
       const docSnap = await getDoc(docRef);
-      if (user.id === eventLeader) {
+      if (user.id === event.leader) {
         result.unshift(docSnap.data() as IUser);
       } else {
         result.push(docSnap.data() as IUser);
@@ -58,11 +58,11 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsUserOpen, setOpenedUser, s
         <div className={`modal-container ${cl.UsersModalContainer}`}>
           <div className={cl.UsersModalHeader}>
             <h2>Участники</h2>
-            <p>{eventTitle}</p>
+            <p>{event.title}</p>
             {!isLoading &&
               <ul className={cl.UsersModalList}>
                 {users.map(user =>
-                  <UserItem handle={() => handleOpen(user)} key={user.uid} isLeader={eventLeader === user.uid} user={user}/>
+                  <UserItem handle={() => handleOpen(user)} key={user.uid} isLeader={event.leader === user.uid} user={user}/>
                 )}
               </ul>
             }

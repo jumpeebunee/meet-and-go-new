@@ -9,27 +9,30 @@ import EventUsers from '../../UI/EventUsers/EventUsers';
 import EventPrice from '../../UI/EventPrice/EventPrice';
 import { arrayRemove, arrayUnion, deleteDoc, doc, increment, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { user } from '../../../app/feautures/userSlice';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import { unactiveEvents } from '../../../helpers/unactiveEvents';
+import { changeOpened, openedEvent } from '../../../app/feautures/openedEventSlice';
 
 interface OpenedEventProps {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
   setIsUsersOpen: (arg: boolean) => void;
-  event: IEvent;
 }
 
-const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, event}) => {
+const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen}) => {
   
-  const currentDate = new Date(event.date).toLocaleDateString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'});
+  const dispatch = useDispatch();
   const currentUser = useSelector(user);
+  const event = useSelector(openedEvent);
 
   const [activeEvent, setActiveEvent] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState('');
+
+  const currentDate = new Date(event.date).toLocaleDateString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'});
 
   useEffect(() => {
     if (isOpen) {
@@ -48,7 +51,9 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen, ev
       } else {
         setActiveEvent(false);
       }
-    } 
+    } else {
+      dispatch(changeOpened({} as IEvent));
+    }
   }, [isOpen])
 
   const checkIsValid = () => {

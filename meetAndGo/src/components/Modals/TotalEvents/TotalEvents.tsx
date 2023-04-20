@@ -14,10 +14,9 @@ interface TotalEventsProps {
   isOpen: boolean;
   setIsOpen: (arg: boolean) => void;
   setIsOpenEvent: (arg: boolean) => void;
-  setOpenedEvent: (arg: IEvent) => void;
 }
 
-const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent, setOpenedEvent}) => {
+const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent}) => {
 
   const currentUser = useSelector(user);
 
@@ -62,21 +61,26 @@ const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent, se
             <div className={cl.TotalEventsContent}>
               <TabButton changeState={setCurrentState} state={currentState}></TabButton>
             </div>
-            {events.length > 0
-            ?
-              <ul className={cl.TotalEventList}>
-                {events.map(event => 
-                  <EventItem
-                    setIsOpenEvent={setIsOpenEvent}
-                    setOpenedEvent={setOpenedEvent}
-                    event={event}
-                    key={event.id}
-                  />  
-                )}
-              </ul>
-            :
-              <div className={cl.TotalEventNot}>У вас еще нет активных событий</div>
-            }
+            <>
+              {!isLoading &&
+                <>
+                  {events.length > 0
+                    ?
+                      <ul className={cl.TotalEventList}>
+                        {events.map(event => 
+                          <EventItem
+                            setIsOpenEvent={setIsOpenEvent}
+                            event={event}
+                            key={event.id}
+                          />  
+                        )}
+                      </ul>
+                    :
+                      <div className={cl.TotalEventNot}>У вас еще нет активных событий</div>
+                  }
+                </>
+              }
+            </>
           </div>
           {isLoading && <div className={cl.TotalEventsLoading}><IonSpinner name="circular"></IonSpinner></div>}
           <div className={cl.TotalEventsBtns}>

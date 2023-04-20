@@ -12,16 +12,16 @@ import { IEvent } from '../types/types'
 import AppPlacemark from './AppPlacemark'
 import { useDispatch } from 'react-redux'
 import { changeCoords } from '../app/feautures/createEventSlice'
+import { changeOpened } from '../app/feautures/openedEventSlice'
 
 interface AppMapProps {
   setIsProfileOpen: (arg: boolean) => void;
   setIsCreateEventOpen: (arg: boolean) => void;
   setIsOpenEvent: (arg: boolean) => void;
-  setOpenedEvent: (arg: IEvent) => void;
   setIsEventsOpen: (arg: boolean) => void;
 }
 
-const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setIsOpenEvent, setOpenedEvent, setIsEventsOpen}) => {
+const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setIsOpenEvent, setIsEventsOpen}) => {
 
   const dispatch = useDispatch();
   const image = useSelector(userImage);
@@ -36,7 +36,7 @@ const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setIsOp
 
   const openEvent = (event: IEvent) => {
     setIsOpenEvent(true);
-    setOpenedEvent(event);
+    dispatch(changeOpened(event));
   }
   
   return (

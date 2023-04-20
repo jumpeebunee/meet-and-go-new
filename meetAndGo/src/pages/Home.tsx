@@ -28,7 +28,6 @@ const Home: React.FC = () => {
         <AppMap
           setIsProfileOpen={setIsProfileOpen}
           setIsOpenEvent={setIsOpenEvent}
-          setOpenedEvent={setOpenedEvent}
           setIsCreateEventOpen={setIsCreateEventOpen}
           setIsEventsOpen={setIsEventsOpen}
         />
@@ -49,9 +48,6 @@ const Home: React.FC = () => {
           isOpen={isUsersOpen} 
           setIsOpen={setIsUsersOpen}
           setIsUserOpen={setIsUserOpen}
-          eventUsers={openedEvent.activeUsers}
-          eventTitle={openedEvent.title}
-          eventLeader={openedEvent.leader}
           setOpenedUser={setOpenedUser}
         />
         <UserModal
@@ -63,14 +59,12 @@ const Home: React.FC = () => {
         <OpenedEvent
           isOpen={isOpenEvent}
           setIsOpen={setIsOpenEvent}
-          event={openedEvent}
           setIsUsersOpen={setIsUsersOpen}
         />
         <TotalEvents
           isOpen={isEventsOpen}
           setIsOpen={setIsEventsOpen}
           setIsOpenEvent={setIsOpenEvent}
-          setOpenedEvent={setOpenedEvent}
         />
       </div>
     </IonPage>

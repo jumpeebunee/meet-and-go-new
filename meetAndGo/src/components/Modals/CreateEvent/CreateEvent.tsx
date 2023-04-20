@@ -113,7 +113,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
     <IonModal isOpen={isOpen}>
       <IonContent>
         <div className={`modal-container ${cl.createEventContent}`}>
-          {currentUser.activeMeets.length >= 3
+          {currentUser.activeMeets?.length >= 3
           ? <AppEventsLimit setIsOpen={setIsOpen}/>
           :
           <>
