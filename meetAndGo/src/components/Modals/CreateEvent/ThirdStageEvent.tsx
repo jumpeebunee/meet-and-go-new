@@ -33,7 +33,7 @@ const ThirdStageEvent:FC<ThirdStageProps> = () => {
           <EventPrice price={fullEvent.price}/>
         </div> 
       </div>
-      {fullEvent.validError && <ErrorMessage>{fullEvent.validError}</ErrorMessage>}
+      {fullEvent.validError && <ErrorMessage styles={{marginTop: 15}}>{fullEvent.validError}</ErrorMessage>}
     </>
   )
 }

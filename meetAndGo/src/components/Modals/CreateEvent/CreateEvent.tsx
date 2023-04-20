@@ -37,6 +37,16 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
     setIsLoading(true);
     dispatch(changeError(''));
 
+    const validDate = new Date(fullEvent.date).getTime() > Date.now();
+
+    if (validDate) {
+      handleCreate();
+    } else {
+      dispatch(changeError('Неверная дата события'));
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const eventId = nanoid();
       const userEvent = {
@@ -95,7 +105,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
       } else {
         dispatch(changeError(validateAddressInput(fullEvent.address.trim())));
       }
-    }
+    } 
     
   }
 
