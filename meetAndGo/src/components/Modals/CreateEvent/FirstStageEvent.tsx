@@ -5,8 +5,7 @@ import EventNameInput from "../../UI/EventNameInput/EventNameInput";
 import DatePicker from "../../UI/DatePicker/DatePicker";
 import LabelInput from "../../UI/LabelInput/LabelInput";
 import { useSelector, useDispatch } from 'react-redux';
-import { changeName, changeDate, changeLocation } from "../../../app/feautures/createEventSlice";
-import { name, date, location, validError } from "../../../app/feautures/createEventSlice";
+import { changeName, changeDate, changeLocation, eventData } from "../../../app/feautures/createEventSlice";
 import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
 
 interface FirstStageEventProps {}
@@ -16,10 +15,7 @@ const FirstStageEvent:FC<FirstStageEventProps> = () => {
   const [isOpenDate, setIsOpenDate] = useState(false);
 
   const dispatch = useDispatch();
-  const eventName = useSelector(name);
-  const eventDate = useSelector(date);
-  const eventLocation = useSelector(location);
-  const eventError = useSelector(validError);
+  const fullEvent = useSelector(eventData);
 
   const handleChangeName = (value: string) =>  dispatch(changeName(value));
   const handleChangeLocation = (value: string) => dispatch(changeLocation(value));
@@ -29,22 +25,22 @@ const FirstStageEvent:FC<FirstStageEventProps> = () => {
     <>
       <div className={cl.createEventList}>
         <h2 className={cl.createEventHeading}>Создать новое событие</h2>
-        <EventNameInput eventName={eventName} setEventName={handleChangeName}/>
-        <DateInput eventDate={eventDate} setIsOpenDate={setIsOpenDate}/>
+        <EventNameInput eventName={fullEvent.name} setEventName={handleChangeName}/>
+        <DateInput eventDate={fullEvent.date} setIsOpenDate={setIsOpenDate}/>
         <LabelInput
           title="Локация"
           placeholder="Локация мероприятия"
-          inputValue={eventLocation}
+          inputValue={fullEvent.location}
           setInputValue={handleChangeLocation}
         />
         <DatePicker
           isOpen={isOpenDate}
           setIsOpen={setIsOpenDate}
-          eventDate={eventDate}
+          eventDate={fullEvent.date}
           setEventDate={handleChangeDate}
         />
       </div>
-      {eventError && <ErrorMessage styles={{marginTop: 10}}>{eventError}</ErrorMessage>}
+      {fullEvent.validError && <ErrorMessage styles={{marginTop: 10}}>{fullEvent.validError}</ErrorMessage>}
     </>
   )
 }

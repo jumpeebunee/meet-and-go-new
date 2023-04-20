@@ -14,7 +14,6 @@ import { user } from '../../../app/feautures/userSlice';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import { unactiveEvents } from '../../../helpers/unactiveEvents';
 import { changeOpened, openedEvent } from '../../../app/feautures/openedEventSlice';
-import { getRandomColor } from '../../../helpers/getRandomColor';
 
 interface OpenedEventProps {
   isOpen: boolean;
@@ -34,8 +33,6 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen}) =
   const [isError, setIsError] = useState('');
 
   const currentDate = new Date(event.date).toLocaleDateString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'});
-
-  console.log(getRandomColor())
 
   useEffect(() => {
     if (isOpen) {

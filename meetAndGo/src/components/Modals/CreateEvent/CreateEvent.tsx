@@ -7,9 +7,7 @@ import { user } from '../../../app/feautures/userSlice';
 import { arrayUnion, doc, increment, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeError, clearState, address, color, users, price, coords } from "../../../app/feautures/createEventSlice";
-import { name, date, location } from "../../../app/feautures/createEventSlice";
-import { stage } from '../../../app/feautures/createEventSlice';
+import { changeError, clearState, eventData } from "../../../app/feautures/createEventSlice";
 import { changeStage } from '../../../app/feautures/createEventSlice';
 import CreateEventBtns from './CreateEventBtns';
 import CreateEventStages from './CreateEventStages';
@@ -22,16 +20,8 @@ interface CreateEventProps {
 
 const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
 
-  const eventName = useSelector(name);
-  const eventDate = useSelector(date);
-  const eventLocation = useSelector(location);
-  const eventAddress = useSelector(address);
-  const eventColor = useSelector(color);
-  const eventUsers = useSelector(users);
-  const eventPrice = useSelector(price);
-  const eventCoords = useSelector(coords);
+  const fullEvent = useSelector(eventData);
   const currentUser = useSelector(user);
-  const createStage = useSelector(stage);
   const dispatch = useDispatch();
   
   const [isLoading, setIsLoading] = useState(false);
@@ -51,15 +41,15 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
       const eventId = nanoid();
       const userEvent = {
         id: eventId,
-        placemark: eventColor,
+        placemark: fullEvent.color,
         leader: currentUser.uid,
-        title: eventName,
-        location: eventLocation,
-        address: eventAddress,
-        date: eventDate,
-        totalUsers: eventUsers,
-        contribution: eventPrice,
-        coords: eventCoords,
+        title: fullEvent.name,
+        location: fullEvent.location,
+        address: fullEvent.address,
+        date: fullEvent.date,
+        totalUsers: fullEvent.users,
+        contribution: fullEvent.price,
+        coords: fullEvent.coords,
         activeUsers: [{id: currentUser.uid, image: currentUser.image, reputation: currentUser.reputation}]
       }
       await setDoc(doc(db, "events", eventId), userEvent);
@@ -77,33 +67,33 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
 
   const changeEventStage = () => {
     if (isLoading) return;
-    dispatch(changeStage(createStage - 1));
+    dispatch(changeStage(fullEvent.stage - 1));
   }
 
   const checkValidity = () => {
-    const validName = /^[а-яА-ЯёЁ\s]{3,20}$/.test(eventName.trim());
-    const validLocation = /^[а-яА-ЯёЁ\s]{3,20}$/.test(eventLocation.trim());
-    const validDate = new Date(eventDate).getTime() > Date.now();
-    const validAddress = /^[a-zA-Zа-яА-ЯёЁ\s]{3,40}$/.test(eventAddress.trim());
+    const validName = /^[а-яА-ЯёЁ\s]{3,20}$/.test(fullEvent.name.trim());
+    const validLocation = /^[а-яА-ЯёЁ\s]{3,20}$/.test(fullEvent.location.trim());
+    const validDate = new Date(fullEvent.date).getTime() > Date.now();
+    const validAddress = /^[a-zA-Zа-яА-ЯёЁ\s]{3,40}$/.test(fullEvent.address.trim());
 
     dispatch(changeError(''));
 
-    if (createStage === 1) {
+    if (fullEvent.stage === 1) {
       if (!validName) {
-        dispatch(changeError(validateNameInput(eventName.trim())));
+        dispatch(changeError(validateNameInput(fullEvent.name.trim())));
       } else if (!validLocation) {
-        dispatch(changeError(validateLocationInput(eventLocation.trim())));
+        dispatch(changeError(validateLocationInput(fullEvent.location.trim())));
       } else if (!validDate) {
         dispatch(changeError('Неверная дата события'));
       } else {
         dispatch(changeError(''));
-        dispatch(changeStage(createStage + 1));
+        dispatch(changeStage(fullEvent.stage + 1));
       }
-    } else if (createStage === 2) { 
+    } else if (fullEvent.stage === 2) { 
       if (validAddress) {
-        dispatch(changeStage(createStage + 1));
+        dispatch(changeStage(fullEvent.stage + 1));
       } else {
-        dispatch(changeError(validateAddressInput(eventAddress.trim())));
+        dispatch(changeError(validateAddressInput(fullEvent.address.trim())));
       }
     }
     

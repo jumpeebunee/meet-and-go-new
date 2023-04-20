@@ -5,8 +5,7 @@ import axios from 'axios';
 import UsersCounter from '../../UI/UsersCounter/UsersCounter';
 import RangeInput from '../../UI/RangeInput/RangeInput';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeAddress, changeUsers, changePrice, coords } from "../../../app/feautures/createEventSlice";
-import { address, users, price, validError } from "../../../app/feautures/createEventSlice";
+import { changeAddress, changeUsers, changePrice, eventData } from "../../../app/feautures/createEventSlice";
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 
 interface SecondStageProps {}
@@ -18,20 +17,16 @@ const SecondStageEvent:FC<SecondStageProps> = () => {
 
   const dispatch = useDispatch();
 
-  const eventAddress = useSelector(address);
-  const eventUsers = useSelector(users);
-  const eventPrice = useSelector(price);
-  const eventCoords = useSelector(coords)
-  const eventError = useSelector(validError)
+  const fullEvent = useSelector(eventData);
 
   useEffect(() => {
     setAddress();
     // const res = await axios.get(`${BASE_GEOCODE_URL}?api_key=${BASE_GEOCODE_KEY}&lat=${eventCords[0]}&lng=${eventCords[1]}`);
     // setEventAddress(res.data.response.features[1].properties.label);
-  }, [eventCoords])
+  }, [fullEvent.coords])
 
   const setAddress = async() => {
-    if (eventCoords.length) {
+    if (fullEvent.coords.length) {
       dispatch(changeAddress('Бар Punk Fuction'))
     }
   }
@@ -47,19 +42,19 @@ const SecondStageEvent:FC<SecondStageProps> = () => {
         <LabelInput
           title="Адрес"
           placeholder='Адрес события'
-          inputValue={eventAddress}
+          inputValue={fullEvent.address}
           setInputValue={handleChangeAddress}
         />
         <UsersCounter
-          eventUsers={eventUsers}
+          eventUsers={fullEvent.users}
           setEventUsers={handleChangeUsers}
         />
         <RangeInput
-          inputValue={eventPrice}
+          inputValue={fullEvent.price}
           changeInputValue={handleChangePrice}
         />
       </div>
-      {eventError && <ErrorMessage>{eventError}</ErrorMessage>}
+      {fullEvent.validError && <ErrorMessage>{fullEvent.validError}</ErrorMessage>}
     </>
   )
 }

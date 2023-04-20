@@ -8,7 +8,7 @@ import { setDoc, doc, onSnapshot, collection } from "firebase/firestore";
 import { auth, db } from '../firebase'
 import { useContext, useState } from 'react'
 import { baseUserContent } from '../data/baseUserContent'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addUser } from '../app/feautures/userSlice'
 import { addEvents } from '../app/feautures/eventsSlice'
 

@@ -1,5 +1,4 @@
 import { IonApp, NavContext, setupIonicReact } from '@ionic/react';
-
 import '@ionic/react/css/core.css';
 import './styles/normolize.css';
 import './styles/app.scss'

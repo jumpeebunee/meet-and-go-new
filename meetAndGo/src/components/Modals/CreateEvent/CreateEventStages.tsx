@@ -1,7 +1,6 @@
 import cl from '@/styles/CreateEventModal/createEvent.module.scss';
-import { useSelector, useDispatch } from 'react-redux';
-import { stage } from '../../../app/feautures/createEventSlice';
-import { changeStage } from '../../../app/feautures/createEventSlice';
+import { useSelector } from 'react-redux';
+import { eventData } from '../../../app/feautures/createEventSlice';
 import FirstStageEvent from './FirstStageEvent';
 import SecondStageEvent from './SecondStageEvent';
 import ThirdStageEvent from './ThirdStageEvent';
@@ -10,14 +9,14 @@ const MAX_STAGES = 3;
 
 const CreateEventStages = () => {
 
-  const createStage = useSelector(stage);
+  const fullEvent = useSelector(eventData);
 
   return (
     <div>
-      <div className={cl.createEventStages}><span>{createStage}</span>/{MAX_STAGES}</div>
-      {createStage === 1 && <FirstStageEvent/>}
-      {createStage === 2 && <SecondStageEvent/>}
-      {createStage === 3 && <ThirdStageEvent/>}
+      <div className={cl.createEventStages}><span>{fullEvent.stage}</span>/{MAX_STAGES}</div>
+      {fullEvent.stage === 1 && <FirstStageEvent/>}
+      {fullEvent.stage === 2 && <SecondStageEvent/>}
+      {fullEvent.stage === 3 && <ThirdStageEvent/>}
     </div>
   )
 }
