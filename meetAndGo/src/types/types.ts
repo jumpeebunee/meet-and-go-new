@@ -23,6 +23,7 @@ export type IUser = {
   image: string,
   archive: IEvent[],
   activeMeets: string[],
+  role: string,
 }
 
 export type IActive = {

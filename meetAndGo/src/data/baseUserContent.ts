@@ -12,4 +12,5 @@ export const baseUserContent = {
   image: 'https://i.yapx.cc/V3vi3.png',
   activeMeets: [],
   archive: [],
+  role: "USER",
 }

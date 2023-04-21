@@ -14,6 +14,7 @@
   justify-content: space-between;
   gap: 50px;
   padding-bottom: 0px;
+  position: relative;
 }
 
 .openedEventBtns {
@@ -32,6 +33,20 @@
 
 .openedEventContent {
   margin-top: 30px;
+}
+
+.openedEventRemove {
+  position: absolute;
+  right: 30px;
+  background-color: transparent;
+
+  span {
+    display: block;
+    width: 28px;
+    height: 31px;
+    background-image: url(../../../assets/remove.svg);
+    background-size: contain;
+  }
 }
 
 @media (max-width: 414px) {
@@ -61,5 +76,14 @@
   
   .openedEventContent {
     margin-top: 7.25vw;
+  }
+
+  .openedEventRemove {
+    right: 7.25vw;
+  
+    span {
+      width: 6.76vw;
+      height: 7.49vw;
+    }
   }
 }

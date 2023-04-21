@@ -144,12 +144,31 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen}) =
     }
   }
 
+  const removeEvent = async() => {
+    setIsLoading(true);
+    setIsError('');
+
+    try {
+      for (let user of event.activeUsers) {
+        const ref = doc(db, "users", user.id);
+        await updateDoc(ref, {activeMeets: arrayRemove(event.id)});
+      }
+      await deleteDoc(doc(db, "events", event.id));
+      setIsOpen(false);
+    } catch (error) {
+      setIsError('Что-то пошло не так :(');
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   const totalActiveUsers = (event.activeUsers) ? event.activeUsers.length : null;
 
   return (
     <IonModal isOpen={isOpen}>
       <IonContent>
         <div className={`modal-container ${cl.openedEventContainer}`}>
+          {currentUser.role === 'ADMIN' && <button onClick={removeEvent} className={cl.openedEventRemove}><span></span></button>}
           <div>
             <OpenedEventHeader
               title={event.title}

@@ -12,6 +12,7 @@ import { addUser } from './app/feautures/userSlice';
 import { addEvents } from './app/feautures/eventsSlice';
 import AppNavigation from './components/AppNavigation';
 import AppLoading from './components/AppLoading';
+import { unactiveEvents } from './helpers/unactiveEvents';
 
 setupIonicReact();
 
@@ -52,7 +53,12 @@ const App:FC = () => {
       const data: IEvent[] = []
       doc.forEach((d) => {
         const event = d.data() as IEvent;
-        data.push(event);
+        const eventDate = new Date(event.date).getTime();
+        if (eventDate - Date.now() < 0) {
+          unactiveEvents(event);
+        } else {
+          data.push(event);
+        }
       })
       dispatch(addEvents(data));
     })

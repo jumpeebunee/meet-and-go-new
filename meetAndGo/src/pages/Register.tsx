@@ -11,6 +11,7 @@ import { baseUserContent } from '../data/baseUserContent'
 import { useDispatch } from 'react-redux';
 import { addUser } from '../app/feautures/userSlice'
 import { addEvents } from '../app/feautures/eventsSlice'
+import { unactiveEvents } from '../helpers/unactiveEvents'
 
 const Register = () => {
 
@@ -34,6 +35,7 @@ const Register = () => {
       }
       await setDoc(doc(db, "users", response.user.uid), userContent);
       await setDoc(doc(db, "emails",  data.email), {email: data.email});
+
       subscribeUserUpdates(response.user.uid);
       dispatch(addUser(userContent));
       navigate('/home', 'forward');
@@ -50,7 +52,13 @@ const Register = () => {
     onSnapshot(collection(db, "events"), doc => {
       const data: IEvent[] = []
       doc.forEach((d) => {
-        data.push(d.data() as IEvent);
+        const event = d.data() as IEvent;
+        const eventDate = new Date(event.date).getTime();
+        if (eventDate - Date.now() < 0) {
+          unactiveEvents(event);
+        } else {
+          data.push(event);
+        }
       })
       dispatch(addEvents(data));
     })
