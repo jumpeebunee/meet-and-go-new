@@ -4,13 +4,11 @@ import { useState } from 'react';
 import ProfileModal from '../components/Modals/Profile/ProfileModal';
 import RaitingModal from '../components/Modals/Raiting/RaitingModal';
 import CreateEvent from '../components/Modals/CreateEvent/CreateEvent';
-import { IEvent, IUser } from '../types/types';
+import { IUser } from '../types/types';
 import OpenedEvent from '../components/Modals/OpenedEvent/OpenedEvent';
 import TotalEvents from '../components/Modals/TotalEvents/TotalEvents';
 import UsersModal from '../components/Modals/UsersModal/UsersModal';
 import UserModal from '../components/Modals/UserModal/UserModal';
-import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '../firebase';
 
 const Home: React.FC = () => {
 
@@ -23,14 +21,9 @@ const Home: React.FC = () => {
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [openedUser, setOpenedUser] = useState<IUser>({} as IUser);
 
-  function test() {
-    sendPasswordResetEmail(auth, 'jumpeebunee@gmail.com').then(() => console.log('sended'))
-  }
-
   return (
     <IonPage>
       <div className='container app__container'>
-        {/* <button onClick={test}>test</button> */}
         <AppMap
           setIsProfileOpen={setIsProfileOpen}
           setIsOpenEvent={setIsOpenEvent}

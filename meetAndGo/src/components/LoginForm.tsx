@@ -1,5 +1,5 @@
 import { useState, FormEvent, FC } from 'react'
-import cl from '../styles/authForm.module.scss'
+import cl from '../styles/AuthForm.module.scss'
 import PasswordVisible from './UI/PasswordVisible/PasswordVisible';
 import MainButton from './UI/MainButton/MainButton';
 import { useForm } from 'react-hook-form';
@@ -9,11 +9,12 @@ import { ILogin } from '../types/types';
 
 interface LoginFormProps {
   handleLogin: (data: ILogin) => void;
+  setIsForgot: (arg: boolean) => void;
   serverError: string;
   isLoading: boolean;
 }
 
-const LoginForm:FC<LoginFormProps> = ({handleLogin, isLoading, serverError}) => {
+const LoginForm:FC<LoginFormProps> = ({handleLogin, isLoading, serverError, setIsForgot}) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const {register, handleSubmit, formState: {errors}} = useForm({});
@@ -21,6 +22,11 @@ const LoginForm:FC<LoginFormProps> = ({handleLogin, isLoading, serverError}) => 
   const handleChange = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsVisible(prev => !prev);
+  }
+
+  const handleForgot = (e: FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsForgot(true);
   }
 
   const onSubmit = (data: any) => {
@@ -34,6 +40,7 @@ const LoginForm:FC<LoginFormProps> = ({handleLogin, isLoading, serverError}) => 
           type='text'
           className='app-input'
           placeholder='Email'
+          onInput={(e) => console.log(e.target)}
           {...register('email', loginConfig())}
         />
         {errors?.email?.message && <ErrorMessage styles={{marginTop: 15}}>{errors?.email?.message as string}</ErrorMessage>}
@@ -49,7 +56,13 @@ const LoginForm:FC<LoginFormProps> = ({handleLogin, isLoading, serverError}) => 
          {errors?.password?.message && <ErrorMessage styles={{marginTop: 15}}>{errors?.password?.message as string}</ErrorMessage>}
         <PasswordVisible isVisible={isVisible} handleChange={handleChange}/>
       </div>
-      {serverError && <ErrorMessage styles={{marginTop: -5}}>Неверная почта или пароль</ErrorMessage>}
+      <div className={cl.loginFormErrors}>
+        {serverError
+          ? <ErrorMessage styles={{marginTop: -5}}>Неверная почта или пароль</ErrorMessage>
+          : <div></div>
+        }
+        <button onClick={handleForgot} className={cl.loginFormForget}>Забыли пароль?</button>
+      </div>
       <MainButton disabled={isLoading}>Войти</MainButton>
     </form>
   )

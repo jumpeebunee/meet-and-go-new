@@ -6,11 +6,13 @@ import { ILogin } from "../types/types"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebase"
 import { useContext, useState } from "react"
+import ForgotAcc from "../components/Modals/ForgotAcc/ForgotAcc"
 
 const Login = () => {
 
   const [serverError, setServerError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isForgot, setIsForgot] = useState(false);
   const { navigate } = useContext(NavContext);
 
   const handleLogin = async(data: ILogin) => {
@@ -31,7 +33,7 @@ const Login = () => {
         <div className="container auth__container">
           <div className={cl.loginPageContent}>
             <AuthBanner/>
-            <LoginForm isLoading={isLoading} handleLogin={handleLogin} serverError={serverError}/>
+            <LoginForm setIsForgot={setIsForgot} isLoading={isLoading} handleLogin={handleLogin} serverError={serverError}/>
             {!isLoading &&
               <p className={cl.loginPageToggle}>
                 Первый раз?
@@ -40,6 +42,10 @@ const Login = () => {
             }
           </div>
         </div>
+        <ForgotAcc
+          isOpen={isForgot}
+          setIsOpen={setIsForgot}
+        />
       </IonContent>
     </IonPage>
   )

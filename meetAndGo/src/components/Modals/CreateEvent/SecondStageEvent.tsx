@@ -20,7 +20,9 @@ const SecondStageEvent:FC<SecondStageProps> = () => {
   const fullEvent = useSelector(eventData);
 
   useEffect(() => {
-    setAddress();
+    // setAddress();
+    console.log('q')
+    dispatch(changeAddress("Бар Punk Fiction"));
   }, [fullEvent.coords])
 
   const setAddress = async() => {
