@@ -12,9 +12,10 @@ interface LoginFormProps {
   setIsForgot: (arg: boolean) => void;
   serverError: string;
   isLoading: boolean;
+  isSended: boolean;
 }
 
-const LoginForm:FC<LoginFormProps> = ({handleLogin, isLoading, serverError, setIsForgot}) => {
+const LoginForm:FC<LoginFormProps> = ({isSended, handleLogin, isLoading, serverError, setIsForgot}) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const {register, handleSubmit, formState: {errors}} = useForm({});
@@ -40,7 +41,6 @@ const LoginForm:FC<LoginFormProps> = ({handleLogin, isLoading, serverError, setI
           type='text'
           className='app-input'
           placeholder='Email'
-          onInput={(e) => console.log(e.target)}
           {...register('email', loginConfig())}
         />
         {errors?.email?.message && <ErrorMessage styles={{marginTop: 15}}>{errors?.email?.message as string}</ErrorMessage>}
@@ -61,7 +61,7 @@ const LoginForm:FC<LoginFormProps> = ({handleLogin, isLoading, serverError, setI
           ? <ErrorMessage styles={{marginTop: -5}}>Неверная почта или пароль</ErrorMessage>
           : <div></div>
         }
-        <button onClick={handleForgot} className={cl.loginFormForget}>Забыли пароль?</button>
+        {!isSended && <button onClick={handleForgot} className={cl.loginFormForget}>Забыли пароль?</button>}
       </div>
       <MainButton disabled={isLoading}>Войти</MainButton>
     </form>

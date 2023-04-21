@@ -32,6 +32,9 @@
 }
 
 .ForgotAccBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   padding-bottom: 50px;
 }
 
@@ -61,6 +64,7 @@
   }
   
   .ForgotAccBtns {
+    gap: 3.62vw;
     padding-bottom: 12.08vw;
   }
 }

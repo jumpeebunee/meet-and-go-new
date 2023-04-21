@@ -33,6 +33,7 @@ const Register = () => {
         email: data.email,
       }
       await setDoc(doc(db, "users", response.user.uid), userContent);
+      await setDoc(doc(db, "emails",  data.email), {email: data.email});
       subscribeUserUpdates(response.user.uid);
       dispatch(addUser(userContent));
       navigate('/home', 'forward');
