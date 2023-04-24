@@ -50,7 +50,6 @@ const App:FC = () => {
 
   const subscribeUserUpdates = async(id: string) => {
     onSnapshot(doc(db, "users", id), (doc) => {
-      console.log('Update')
       dispatch(addUser(doc.data() as IUser));
     });
     onSnapshot(collection(db, "events"), doc => {

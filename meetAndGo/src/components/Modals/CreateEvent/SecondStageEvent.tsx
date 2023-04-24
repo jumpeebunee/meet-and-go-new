@@ -16,12 +16,11 @@ const BASE_GEOCODE_KEY = '9164b0a5c6f2637aa65ef1a4285ca68779bfc9e2&lat'
 const SecondStageEvent:FC<SecondStageProps> = () => {
 
   const dispatch = useDispatch();
-
   const fullEvent = useSelector(eventData);
 
   useEffect(() => {
-    // setAddress();
-    dispatch(changeAddress('Бар Punk Fiction'));
+    setAddress();
+    // dispatch(changeAddress('Бар Punk Fiction'));
   }, [fullEvent.coords])
 
   const setAddress = async() => {
