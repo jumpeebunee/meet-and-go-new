@@ -17,7 +17,7 @@ interface OpenedEventButtonsProps {
   totalUsers: number;
 }
 
-const OpenedEventtButtons:FC<OpenedEventButtonsProps> = ({activeEvent, isLoading, isEnded, handleLeave, handleEnter, setIsOpen, totalActiveUsers, totalUsers}) => {
+const OpenedEvennttButtons:FC<OpenedEventButtonsProps> = ({activeEvent, isLoading, isEnded, handleLeave, handleEnter, setIsOpen, totalActiveUsers, totalUsers}) => {
 
   const {leader} = useSelector(openedEvent);
   const {uid} = useSelector(user);
@@ -39,4 +39,4 @@ const OpenedEventtButtons:FC<OpenedEventButtonsProps> = ({activeEvent, isLoading
   )
 }
 
-export default OpenedEventtButtons;
+export default OpenedEvennttButtons;

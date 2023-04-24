@@ -41,9 +41,10 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen}) =
       const isValid = checkIsValid();
       if (!isValid) {
         setIsLoading(false);
-        setIsEnded(false);
-        setIsError('');
         return;
+      } else {
+        setIsError('');
+        setIsEnded(false);
       }
 
       if (isActive) {
@@ -73,15 +74,12 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen}) =
     const userRef = doc(db, "users", currentUser.uid);
 
     setIsLoading(true);
+    setIsEnded(false);
     setIsError('');
 
     const isValid = checkIsValid();
-    if (!isValid) {
-      setIsLoading(false);
-      setIsEnded(false);
-      setIsError('');
-      return;
-    }
+
+    if (!isValid) return;
 
     try {
       await updateDoc(eventRef, {
@@ -101,6 +99,7 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen}) =
     } catch (error) {
       setIsError('Что-то пошло не так :(');
     } finally {
+      setIsEnded(false);
       setIsLoading(false);
     }
   }
@@ -110,15 +109,11 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen}) =
     const userRef = doc(db, "users", currentUser.uid);
 
     setIsLoading(true);
+    setIsEnded(false);
     setIsError('');
 
-    const isValid = checkIsValid();
-    if (!isValid) {
-      setIsLoading(false);
-      setIsEnded(false);
-      setIsError('');
-      return;
-    }
+    const isValid = checkIsValid(); 
+    if (!isValid) return;
 
     try {
       if (event.leader === currentUser.uid) {

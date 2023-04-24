@@ -21,8 +21,7 @@ const SecondStageEvent:FC<SecondStageProps> = () => {
 
   useEffect(() => {
     // setAddress();
-    console.log('q')
-    dispatch(changeAddress("Бар Punk Fiction"));
+    dispatch(changeAddress('Бар Punk Fiction'));
   }, [fullEvent.coords])
 
   const setAddress = async() => {
