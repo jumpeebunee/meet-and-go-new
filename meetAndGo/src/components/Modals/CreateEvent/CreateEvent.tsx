@@ -12,6 +12,7 @@ import { changeStage } from '../../../app/feautures/createEventSlice';
 import CreateEventBtns from './CreateEventBtns';
 import CreateEventStages from './CreateEventStages';
 import AppEventsLimit from '../../AppEventsLimit';
+import { errorOptions } from '../../../data/errorsOptions';
 
 interface CreateEventProps {
   isOpen: boolean;
@@ -103,8 +104,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
       } else {
         dispatch(changeError(validateAddressInput(fullEvent.address.trim())));
       }
-    } 
-    
+    }  
   }
 
   return (
@@ -112,7 +112,12 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
       <IonContent>
         <div className={`modal-container ${cl.createEventContent}`}>
           {currentUser.activeMeets?.length >= 3
-          ? <AppEventsLimit setIsOpen={setIsOpen}/>
+          ?
+            <AppEventsLimit 
+              title={errorOptions.limitTitle}
+              body={errorOptions.limitBody}
+              setIsOpen={setIsOpen}
+            />
           :
           <>
             <CreateEventStages/>

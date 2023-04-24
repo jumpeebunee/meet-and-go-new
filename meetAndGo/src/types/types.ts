@@ -10,20 +10,21 @@ export type IRegister = {
 }
 
 export type IUser = {
-  email: string,
-  interests: string[],
-  phone: string,
-  town: string,
-  uid: string,
-  username: string,
-  reputation: number,
-  totalMeets: number,
+  email: string;
+  interests: string[];
+  phone: string;
+  town: string;
+  uid: string;
+  username: string;
+  reputation: number;
+  totalMeets: number;
   currentCreated: number
-  createdMeets: number,
-  image: string,
-  archive: IEvent[],
-  activeMeets: string[],
-  role: string,
+  createdMeets: number;
+  image: string;
+  archive: IEvent[];
+  activeMeets: string[];
+  role: string;
+  isBanned: boolean;
 }
 
 export type IActive = {

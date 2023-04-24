@@ -13,4 +13,5 @@ export const baseUserContent = {
   activeMeets: [],
   archive: [],
   role: "USER",
+  isBanned: false,
 }

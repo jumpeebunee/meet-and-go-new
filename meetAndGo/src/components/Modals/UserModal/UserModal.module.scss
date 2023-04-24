@@ -25,6 +25,22 @@
   padding-bottom: 40px;
 }
 
+.UserModalRemoveBtn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: transparent;
+
+  span {
+    display: block;
+    width: 36px;
+    height: 36px;
+    background-image: url('../../../assets/banned.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
 @media (max-width: 414px) {
   .UserModalContainer {
     gap: 7.25vw;
@@ -41,5 +57,15 @@
   
   .UserModalBtns {
     padding-bottom: 9.66vw;
+  }
+
+  .UserModalRemoveBtn {
+    top: 7.25vw;
+    right: 7.25vw;
+  
+    span {
+      width: 8.70vw;
+      height: 8.70vw;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { IonApp, NavContext, setupIonicReact } from '@ionic/react';
+import { IonApp, IonContent, NavContext, setupIonicReact } from '@ionic/react';
 import '@ionic/react/css/core.css';
 import './styles/normolize.css';
 import './styles/app.scss'
@@ -7,18 +7,21 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from './firebase';
 import { collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
 import { IEvent, IUser } from './types/types';
-import { useDispatch } from 'react-redux';
-import { addUser } from './app/feautures/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser, user } from './app/feautures/userSlice';
 import { addEvents } from './app/feautures/eventsSlice';
 import AppNavigation from './components/AppNavigation';
 import AppLoading from './components/AppLoading';
 import { unactiveEvents } from './helpers/unactiveEvents';
+import AppEventsLimit from './components/AppEventsLimit';
+import { errorOptions } from './data/errorsOptions';
 
 setupIonicReact();
 
 const App:FC = () => {
   
   const dispatch = useDispatch();
+  const currentUser = useSelector(user);
   const { navigate } = useContext(NavContext);
   
   const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +50,7 @@ const App:FC = () => {
 
   const subscribeUserUpdates = async(id: string) => {
     onSnapshot(doc(db, "users", id), (doc) => {
+      console.log('Update')
       dispatch(addUser(doc.data() as IUser));
     });
     onSnapshot(collection(db, "events"), doc => {
@@ -64,13 +68,24 @@ const App:FC = () => {
     })
   }
 
-  return (
-    <IonApp>
-      {isLoading
-        ? <AppLoading/>
-        : <AppNavigation/>
-      }
-    </IonApp>
-  )
+  if (currentUser.isBanned) {
+    return (
+      <div className={`modal-container`}>
+        <AppEventsLimit
+          title={errorOptions.bannedTitle}
+          body={errorOptions.bannedBody}
+        />
+      </div>
+    )
+  } else {
+    return (
+      <IonApp>
+        {isLoading
+          ? <AppLoading/>
+          : <AppNavigation/>
+        }
+      </IonApp>
+    )
+  }
 }
 export default App;
