@@ -52,7 +52,7 @@ const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setIsOp
         )}
         {!isSearch &&
           <div>
-            <GeolocationControl classname="asd" options={{ float: "left", position: {top: 40, left: 30}}}/>
+            <GeolocationControl options={{ float: "left", position: {top: 40, left: 30}}}/>
             <SearchControl options={{ size: 'medium', float: "right", position: {top: 40, right: 30}}} />
           </div>
         }
