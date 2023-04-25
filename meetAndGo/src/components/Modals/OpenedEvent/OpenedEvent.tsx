@@ -52,8 +52,6 @@ const OpenedEvent:FC<OpenedEventProps> = ({isOpen, setIsOpen, setIsUsersOpen}) =
       } else {
         setActiveEvent(false);
       }
-    } else {
-      dispatch(changeOpened({} as IEvent));
     }
   }, [isOpen])
 
