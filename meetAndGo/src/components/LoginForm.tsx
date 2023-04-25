@@ -38,7 +38,7 @@ const LoginForm:FC<LoginFormProps> = ({isSended, handleLogin, isLoading, serverE
     <form className={cl.loginForm} onSubmit={handleSubmit(onSubmit)}>
       <div>
         <input
-          type='text'
+          type='email'
           className='app-input'
           placeholder='Email'
           {...register('email', loginConfig())}
