@@ -4,6 +4,7 @@ import { Redirect, Route } from 'react-router'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
+import Chat from '../pages/Chat/Chat'
 
 const AppNavigation = () => {
   return (
@@ -16,6 +17,9 @@ const AppNavigation = () => {
       </Route>
       <Route exact path="/register">
         <Register/>
+      </Route>
+      <Route exact path="/chat">
+        <Chat/>
       </Route>
       <Route exact path="/">
         <Redirect to="/home" />

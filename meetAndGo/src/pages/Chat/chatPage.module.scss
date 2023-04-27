@@ -1,0 +1,17 @@
+.chat {
+	background-color: red;
+
+	.messageList {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	.message {
+		border: 1px solid grey;
+	}
+
+	.inputWrapper {
+		display: flex;
+		gap: 0 10px;
+	}
+}

@@ -1,3 +1,5 @@
+import { Timestamp, serverTimestamp } from "firebase/firestore";
+
 export type ILogin = {
   email: string;
   password: string;
@@ -45,4 +47,20 @@ export type IEvent = {
   placemark: number;
   title: string;
   totalUsers: number;
+	chatId: string
+}
+
+export interface IChat {
+	id: string,
+	userIds: string[],
+	messageIds: string[]
+}
+
+export interface IMessage {
+  id: string;
+  createdById: string;
+  type: "text" | "image";
+  body: string;
+  createdAt: ReturnType<typeof serverTimestamp>;
+  updatedAt: ReturnType<typeof serverTimestamp>;
 }

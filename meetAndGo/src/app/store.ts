@@ -1,8 +1,9 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import userReducer from './feautures/userSlice';
-import eventReducer from './feautures/eventsSlice'
-import createEventReducer from './feautures/createEventSlice';
-import openedEventReducer from './feautures/openedEventSlice';
+import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
+import { chatReducer } from "../pages/Chat/chatSlice";
+import createEventReducer from "./feautures/createEventSlice";
+import eventReducer from "./feautures/eventsSlice";
+import openedEventReducer from "./feautures/openedEventSlice";
+import userReducer from "./feautures/userSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     events: eventReducer,
     createEvent: createEventReducer,
     openedEvent: openedEventReducer,
+    chat: chatReducer,
   },
 });
 
