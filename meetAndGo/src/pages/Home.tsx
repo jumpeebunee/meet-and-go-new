@@ -1,6 +1,6 @@
 import { IonPage } from '@ionic/react';
 import AppMap from '../components/AppMap';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import ProfileModal from '../components/Modals/Profile/ProfileModal';
 import RaitingModal from '../components/Modals/Raiting/RaitingModal';
 import CreateEvent from '../components/Modals/CreateEvent/CreateEvent';
@@ -9,6 +9,10 @@ import OpenedEvent from '../components/Modals/OpenedEvent/OpenedEvent';
 import TotalEvents from '../components/Modals/TotalEvents/TotalEvents';
 import UsersModal from '../components/Modals/UsersModal/UsersModal';
 import UserModal from '../components/Modals/UserModal/UserModal';
+
+const test = () => { 
+  console.log('q')
+}
 
 const Home: React.FC = () => {
 
@@ -20,6 +24,12 @@ const Home: React.FC = () => {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [openedUser, setOpenedUser] = useState<IUser>({} as IUser);
+
+  const open = useCallback(() => {
+    test();
+  }, [isProfileOpen])
+
+  console.log
 
   return (
     <IonPage>
