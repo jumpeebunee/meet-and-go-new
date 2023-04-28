@@ -1,81 +1,122 @@
+import { IonContent, IonModal } from "@ionic/react";
+import { nanoid } from "@reduxjs/toolkit";
 import {
+  arrayUnion,
   collection,
   doc,
   getDoc,
-  getDocs,
   onSnapshot,
   query,
+  serverTimestamp,
   where,
+  writeBatch,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { openedEvent } from "../../app/feautures/openedEventSlice";
 import { user } from "../../app/feautures/userSlice";
 import { db } from "../../firebase";
-import { IChat, IMessage } from "../../types/types";
+import { IChat, IChatPopulated, IMessage } from "../../types/types";
 import styles from "./chatPage.module.scss";
+import { getCurrentChatId, getIsOpen } from "./chatSlice";
 import Input from "./components/Input";
 import Message from "./components/Message";
-import { IonContent, IonPage } from "@ionic/react";
+import { getUsers } from "./helpers";
 
 interface ChatProps {}
 
 const Chat = (props: ChatProps) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const [chat, setChat] = useState<IChat>();
+  const [chat, setChat] = useState<IChatPopulated>();
 
+  const isOpen = useSelector(getIsOpen);
   const currentUser = useSelector(user);
-  const event = useSelector(openedEvent);
+  const currentChatId = useSelector(getCurrentChatId);
 
-  const getChat = async () => {
+  const handleSendMessage = async (body: string) => {
     try {
-      const chatRes = await getDoc(doc(db, `chats`, event.chatId));
-			if (!chatRes.exists()) {
-				throw new Error('chat not exist')
-			}
-      const chat = chatRes.data() as IChat;
-			setChat(chat)
-
-      const q = query(
-        collection(db, "messages"),
-        where("id", "in", chat.messageIds)
-      );
-      const messagesRes = await getDocs(q);
-      const messages = messagesRes.docs.map((d) => d.data()) as IMessage[];
-      setMessages(messages);
+      if (!currentChatId) {
+        throw new Error("currentChatId is undefined");
+      }
+      const messageId = nanoid();
+      const messageDoc: IMessage = {
+        id: messageId,
+        chatId: currentChatId,
+        body,
+        type: "text",
+        updatedAt: serverTimestamp(),
+        createdAt: serverTimestamp(),
+        createdById: currentUser.uid,
+      };
+      const batch = writeBatch(db);
+      batch.set(doc(db, "messages", messageId), messageDoc);
+      batch.update(doc(db, "chats", currentChatId), {
+        messageIds: arrayUnion(messageId),
+      });
+      await batch.commit();
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-		getChat()
-    const unsubChat = onSnapshot(
-      doc(db, "chats", event.chatId),
-      (snapshot) => {
-        console.log("snapshot sub", snapshot);
-        const chat = snapshot.data() as IChat;
-				console.log('chat', chat)
-      }
-    );
-    return unsubChat;
-  }, []);
-
-	if (!messages.length) return <>Loading...</>
+    if (isOpen && currentChatId) {
+      const q = query(
+        collection(db, "messages"),
+        where("chatId", "==", currentChatId)
+      );
+      const unsubMessages = onSnapshot(q, async (snap) => {
+        const res = snap.docChanges().map((el) => el.doc.data()) as IMessage[];
+        const { hasPendingWrites, fromCache } = snap.metadata;
+        if (!hasPendingWrites) setMessages((prev) => [...prev, ...res]);
+      });
+      const unsubChat = onSnapshot(
+        doc(db, "chats", currentChatId),
+        async (snap) => {
+          const updatedChat = snap.data() as IChat;
+          const users = await getUsers(updatedChat.userIds);
+          setChat({ ...(chat ?? updatedChat), users });
+        }
+      );
+      return () => {
+        unsubMessages();
+        unsubChat();
+      };
+    } else {
+      setChat(undefined);
+      setMessages([]);
+    }
+  }, [isOpen]);
 
   return (
-    <IonPage>
+    <IonModal isOpen={isOpen}>
       <IonContent>
-        <div className={styles.chat}>
-          <div>
-            {messages.map((el) => (
-              <Message key={el.id} body={el.body} createdById={el.createdById} />
-            ))}
-          </div>
-          <Input chatId={event.chatId} userId={currentUser.uid} />
+        <div className={`modal-container ${styles.chat}`}>
+          {currentChatId && chat ? (
+            <>
+              <div className={styles.messageList}>
+                {messages.map((el) => (
+                  <Message
+                    key={el.id}
+                    username={
+                      chat.users.find((u) => u.uid == el.createdById)?.username
+                    }
+                    body={el.body}
+                  />
+                ))}
+              </div>
+              <div className={styles.inputWrapper}>
+                <Input
+                  placeholder="Введите сообщение"
+                  onSend={handleSendMessage}
+                />
+              </div>
+            </>
+          ) : (
+            <h2>Select chat</h2>
+          )}
         </div>
       </IonContent>
-    </IonPage>
+    </IonModal>
   );
 };
 

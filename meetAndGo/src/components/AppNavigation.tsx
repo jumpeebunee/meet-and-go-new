@@ -18,9 +18,6 @@ const AppNavigation = () => {
       <Route exact path="/register">
         <Register/>
       </Route>
-      <Route exact path="/chat">
-        <Chat/>
-      </Route>
       <Route exact path="/">
         <Redirect to="/home" />
       </Route>

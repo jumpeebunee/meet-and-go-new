@@ -9,6 +9,7 @@ import OpenedEvent from '../components/Modals/OpenedEvent/OpenedEvent';
 import TotalEvents from '../components/Modals/TotalEvents/TotalEvents';
 import UsersModal from '../components/Modals/UsersModal/UsersModal';
 import UserModal from '../components/Modals/UserModal/UserModal';
+import Chat from './Chat/Chat';
 
 const Home: React.FC = () => {
 
@@ -65,6 +66,7 @@ const Home: React.FC = () => {
           setIsOpen={setIsEventsOpen}
           setIsOpenEvent={setIsOpenEvent}
         />
+				<Chat />
       </div>
     </IonPage>
   );

@@ -1,17 +1,23 @@
 .chat {
-	background-color: red;
+	background-color: #FAFAFA;
+	display: flex;
+	flex-direction: column;
 
 	.messageList {
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
+		flex-grow: 1;
 	}
 	.message {
 		border: 1px solid grey;
 	}
 
 	.inputWrapper {
-		display: flex;
-		gap: 0 10px;
+		padding: 30px 40px;
+		height: 131px;
+		background: #FFFFFF;
+		box-shadow: 4px -4px 10px rgba(0, 0, 0, 0.05);
+		border-radius: 0px 0px 39px 30px;
 	}
 }

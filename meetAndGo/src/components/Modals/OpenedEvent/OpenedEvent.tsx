@@ -6,6 +6,7 @@ import {
   doc,
   increment,
   updateDoc,
+	writeBatch,
 } from "firebase/firestore";
 import { FC, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,7 +36,6 @@ const OpenedEvent: FC<OpenedEventProps> = ({
   setIsOpen,
   setIsUsersOpen,
 }) => {
-  const { navigate } = useContext(NavContext);
   const dispatch = useDispatch();
   const currentUser = useSelector(user);
   const event = useSelector(openedEvent);
@@ -93,6 +93,7 @@ const OpenedEvent: FC<OpenedEventProps> = ({
   const handleEnter = async () => {
     const eventRef = doc(db, "events", event.id);
     const userRef = doc(db, "users", currentUser.uid);
+		const chatRef = doc(db, 'chats', event.chatId)
 
     setIsLoading(true);
     setIsEnded(false);
@@ -103,17 +104,31 @@ const OpenedEvent: FC<OpenedEventProps> = ({
     if (!isValid) return;
 
     try {
-      await updateDoc(eventRef, {
+      // await updateDoc(eventRef, {
+      //   activeUsers: arrayUnion({
+      //     id: currentUser.uid,
+      //     image: currentUser.image,
+      //     reputation: currentUser.reputation,
+      //   }),
+      // });
+      // await updateDoc(userRef, {
+      //   totalMeets: increment(1),
+      //   activeMeets: arrayUnion(event.id),
+      // });
+			const batch = writeBatch(db);
+			batch.update(eventRef, {
         activeUsers: arrayUnion({
           id: currentUser.uid,
           image: currentUser.image,
           reputation: currentUser.reputation,
         }),
       });
-      await updateDoc(userRef, {
+			batch.update(userRef, {
         totalMeets: increment(1),
         activeMeets: arrayUnion(event.id),
       });
+			batch.update(chatRef, {userIds: arrayUnion(currentUser.uid)})
+			await batch.commit()
       setIsOpen(false);
     } catch (error) {
       setIsError("Что-то пошло не так :(");
@@ -143,6 +158,7 @@ const OpenedEvent: FC<OpenedEventProps> = ({
             createdMeets: currentUser.createdMeets - 1,
           });
         }
+				
         await deleteDoc(doc(db, "events", event.id));
       } else {
         await updateDoc(eventRef, {
@@ -168,9 +184,7 @@ const OpenedEvent: FC<OpenedEventProps> = ({
   };
 
   const handleOpenChat = () => {
-    setIsOpen(false);
-    dispatch(chatActions.setFields({ currentChatId: event.chatId }));
-    navigate(`/chat`, "forward");
+    dispatch(chatActions.setFields({ currentChatId: event.chatId, isOpen: true }));
   };
 
   const removeEvent = async () => {

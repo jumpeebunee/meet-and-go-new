@@ -96,7 +96,9 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
     const validName = /^[а-яА-ЯёЁ\s]{3,20}$/.test(fullEvent.name.trim());
     const validLocation = /^[а-яА-ЯёЁ\s]{3,20}$/.test(fullEvent.location.trim());
     const validDate = new Date(fullEvent.date).getTime() > Date.now();
-    const validAddress = /^[a-zA-Zа-яА-ЯёЁ\w\s\d.,]{3,40}$/.test(fullEvent.address.trim());
+    const validAddress = /[\w\s,а-яА-Я\/]{3,140}/g.test(
+      fullEvent.address.trim()
+    );
 
     dispatch(changeError(''));
 

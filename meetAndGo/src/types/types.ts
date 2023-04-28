@@ -56,8 +56,13 @@ export interface IChat {
 	messageIds: string[]
 }
 
+export interface IChatPopulated extends IChat {
+	users: IUser[]
+}
+
 export interface IMessage {
   id: string;
+	chatId: string,
   createdById: string;
   type: "text" | "image";
   body: string;

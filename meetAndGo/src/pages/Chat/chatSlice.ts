@@ -1,11 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
+import { Root } from "react-dom/client";
 
 interface IInitialState {
+	isOpen: boolean,
   currentChatId?: string;
 }
 
-const initialState: IInitialState = {};
+const initialState: IInitialState = {isOpen: false};
 
 export const { actions: chatActions, reducer: chatReducer } = createSlice({
   name: "chatSlice",
@@ -19,3 +21,4 @@ export const { actions: chatActions, reducer: chatReducer } = createSlice({
 });
 
 export const getCurrentChatId = (state: RootState) => state.chat.currentChatId;
+export const getIsOpen = (state: RootState) => state.chat.isOpen
