@@ -1,31 +1,32 @@
-import { IonContent, IonModal, NavContext } from "@ionic/react";
+import { IonContent, IonModal } from "@ionic/react";
 import {
   arrayRemove,
   arrayUnion,
+  collection,
   deleteDoc,
   doc,
+  getDocs,
   increment,
+  query,
+  runTransaction,
   updateDoc,
-	writeBatch,
+  where,
+  writeBatch,
 } from "firebase/firestore";
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changeOpened,
-  openedEvent,
-} from "../../../app/feautures/openedEventSlice";
+import { openedEvent } from "../../../app/feautures/openedEventSlice";
 import { user } from "../../../app/feautures/userSlice";
 import { db } from "../../../firebase";
 import { unactiveEvents } from "../../../helpers/unactiveEvents";
-import { chatActions } from "../../../pages/Chat/chatSlice";
-import { IEvent } from "../../../types/types";
+import ChatButton from "../../UI/ChatButton/ChatButton";
 import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
+import LinkButton from "../../UI/LinkButton/LinkButton";
+import { chatActions } from "../Chat/chatSlice";
 import cl from "./OpenedEvent.module.scss";
 import OpenedEventButtons from "./OpenedEventButtons";
 import OpenedEventContent from "./OpenedEventContent";
 import OpenedEventHeader from "./OpenedEventHeader";
-import ChatButton from "../../UI/ChatButton/ChatButton";
-import LinkButton from "../../UI/LinkButton/LinkButton";
 
 interface OpenedEventProps {
   isOpen: boolean;
@@ -93,7 +94,7 @@ const OpenedEvent: FC<OpenedEventProps> = ({
   const handleEnter = async () => {
     const eventRef = doc(db, "events", event.id);
     const userRef = doc(db, "users", currentUser.uid);
-		const chatRef = doc(db, 'chats', event.chatId)
+    const chatRef = doc(db, "chats", event.chatId);
 
     setIsLoading(true);
     setIsEnded(false);
@@ -104,31 +105,20 @@ const OpenedEvent: FC<OpenedEventProps> = ({
     if (!isValid) return;
 
     try {
-      // await updateDoc(eventRef, {
-      //   activeUsers: arrayUnion({
-      //     id: currentUser.uid,
-      //     image: currentUser.image,
-      //     reputation: currentUser.reputation,
-      //   }),
-      // });
-      // await updateDoc(userRef, {
-      //   totalMeets: increment(1),
-      //   activeMeets: arrayUnion(event.id),
-      // });
-			const batch = writeBatch(db);
-			batch.update(eventRef, {
+      const batch = writeBatch(db);
+      batch.update(eventRef, {
         activeUsers: arrayUnion({
           id: currentUser.uid,
           image: currentUser.image,
           reputation: currentUser.reputation,
         }),
       });
-			batch.update(userRef, {
+      batch.update(userRef, {
         totalMeets: increment(1),
         activeMeets: arrayUnion(event.id),
       });
-			batch.update(chatRef, {userIds: arrayUnion(currentUser.uid)})
-			await batch.commit()
+      batch.update(chatRef, { userIds: arrayUnion(currentUser.uid) });
+      await batch.commit();
       setIsOpen(false);
     } catch (error) {
       setIsError("Что-то пошло не так :(");
@@ -150,33 +140,42 @@ const OpenedEvent: FC<OpenedEventProps> = ({
     if (!isValid) return;
 
     try {
+			const batch = writeBatch(db)
       if (event.leader === currentUser.uid) {
-        for (let user of event.activeUsers) {
-          const ref = doc(db, "users", user.id);
-          await updateDoc(ref, {
+				event.activeUsers.forEach((el) =>
+          batch.update(doc(db, "users", el.id), {
             activeMeets: arrayRemove(event.id),
             createdMeets: currentUser.createdMeets - 1,
-          });
-        }
-				
-        await deleteDoc(doc(db, "events", event.id));
+          })
+        );
+				batch.delete(doc(db, "events", event.id));
+
+				const q = query(
+					collection(db,"messages"),
+					where("chatId", "==", event.chatId)
+				);
+				const messages = await getDocs(q);
+				messages.forEach((el) => batch.delete(doc(db, 'messages', el.id)))
+				batch.delete(doc(db, "chats", event.chatId))
       } else {
-        await updateDoc(eventRef, {
+				batch.update(eventRef, {
           activeUsers: arrayRemove({
             id: currentUser.uid,
             image: currentUser.image,
             reputation: currentUser.reputation,
           }),
         });
-        await updateDoc(doc(db, "users", currentUser.uid), {
+				batch.update(doc(db, "users", currentUser.uid), {
           totalMeets: currentUser.totalMeets - 1,
         });
       }
-      await updateDoc(userRef, {
+			batch.update(userRef, {
         activeMeets: arrayRemove(event.id),
       });
+			await batch.commit()
       setIsOpen(false);
     } catch (error) {
+			console.log('error', error)
       setIsError("Что-то пошло не так :(");
     } finally {
       setIsLoading(false);
@@ -184,7 +183,9 @@ const OpenedEvent: FC<OpenedEventProps> = ({
   };
 
   const handleOpenChat = () => {
-    dispatch(chatActions.setFields({ currentChatId: event.chatId, isOpen: true }));
+    dispatch(
+      chatActions.setFields({ currentChatId: event.chatId, isOpen: true })
+    );
   };
 
   const removeEvent = async () => {
@@ -223,8 +224,8 @@ const OpenedEvent: FC<OpenedEventProps> = ({
               setIsUsersOpen={setIsUsersOpen}
             />
             <div className={cl.openedEventLinks}>
-              <ChatButton handle={() => handleOpenChat()}/>
-              <LinkButton link={event.id ? event.id.slice(0,6) : ''}/>
+              <ChatButton handle={() => handleOpenChat()} />
+              <LinkButton link={event.id ? event.id.slice(0, 6) : ""} />
             </div>
             {isError && (
               <ErrorMessage styles={{ marginTop: 15 }}>{isError}</ErrorMessage>

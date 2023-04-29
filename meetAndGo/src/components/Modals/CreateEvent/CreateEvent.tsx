@@ -55,7 +55,6 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
 			const chatDoc: IChat = {
 				id: chatId,
 				userIds: [currentUser.uid],
-				messageIds: []
 			}
       const userEventDoc = {
         id: eventId,

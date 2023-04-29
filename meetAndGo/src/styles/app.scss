@@ -11,6 +11,10 @@ body {
   background-color: #fff;
 }
 
+.disabled, button:disabled {
+	opacity: 0.3;
+}
+
 .ion-color-primary {
   --ion-color-base: #FF906D !important;
 }

@@ -1,4 +1,8 @@
 import { Timestamp, serverTimestamp } from "firebase/firestore";
+import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes } from "react";
+
+export interface DP extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+export interface DPButton extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {}
 
 export type ILogin = {
   email: string;
@@ -53,7 +57,6 @@ export type IEvent = {
 export interface IChat {
 	id: string,
 	userIds: string[],
-	messageIds: string[]
 }
 
 export interface IChatPopulated extends IChat {
@@ -61,11 +64,14 @@ export interface IChatPopulated extends IChat {
 }
 
 export interface IMessage {
-  id: string;
+  id?: string;
 	chatId: string,
-  createdById: string;
+  createdById?: string;
   type: "text" | "image";
   body: string;
-  createdAt: ReturnType<typeof serverTimestamp>;
-  updatedAt: ReturnType<typeof serverTimestamp>;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+export interface IMessageLoaded extends IMessage {
+	isLoading?: boolean
 }
