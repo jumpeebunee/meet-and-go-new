@@ -17,6 +17,14 @@
   }
 }
 
+.LinkButtonOpened {
+  width: 142px;
+  background-color: #F6F6F6;
+  border-radius: 10px;
+  font-size: 18px;
+  line-height: 22px;
+}
+
 @media (max-width: 414px) {
   .LinkButton {
     width: 12.08vw;
