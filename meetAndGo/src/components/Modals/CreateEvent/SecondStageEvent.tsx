@@ -20,14 +20,13 @@ const SecondStageEvent:FC<SecondStageProps> = () => {
 
   useEffect(() => {
     setAddress();
-    // dispatch(changeAddress('Бар Punk Fiction'));
   }, [fullEvent.coords])
 
   const setAddress = async() => {
     if (fullEvent.coords.length) {
       try {
         const res = await axios.get(`${BASE_GEOCODE_URL}?api_key=${BASE_GEOCODE_KEY}&lat=${fullEvent.coords[0]}&lng=${fullEvent.coords[1]}`);
-        dispatch(changeAddress(res.data.response.features[1].properties.label))
+        dispatch(changeAddress(res.data.response.features[1].properties.name))
       } catch (error) {
         console.log(error);
       }

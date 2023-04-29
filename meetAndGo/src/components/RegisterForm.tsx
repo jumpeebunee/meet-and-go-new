@@ -41,7 +41,7 @@ const RegisterForm:FC<RegisterFormProps> = ({handleRegister, serverError, isLoad
       <div className={cl.loginFormWrapper}>
         <input 
           className='app-input'
-          type="text"
+          type="email"
           placeholder='Email'
           {...register('email', emailConfig())}
         />

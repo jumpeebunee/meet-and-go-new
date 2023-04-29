@@ -41,7 +41,8 @@ const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setIsOp
   
   return (
     <YMaps query={{apikey: API_KEY}}>
-      <Map onClick={(e: any) => createEvent(e)} className={cl.appMap} defaultState={MAP_CENTER}>
+      <Map 
+        onClick={(e: any) => createEvent(e)} className={cl.appMap} defaultState={MAP_CENTER} options={{restrictMapArea: [[85.23618,-178.9], [-73.87011,181] ]}}>
         {currentEvents.map(event => 
           <AppPlacemark
             key={event.id}
@@ -51,7 +52,7 @@ const AppMap:FC<AppMapProps> = ({setIsProfileOpen, setIsCreateEventOpen, setIsOp
         )}
         {!isSearch &&
           <div>
-            <GeolocationControl classname="asd" options={{ float: "left", position: {top: 40, left: 30}}}/>
+            <GeolocationControl options={{ float: "left", position: {top: 40, left: 30}}}/>
             <SearchControl options={{ size: 'medium', float: "right", position: {top: 40, right: 30}}} />
           </div>
         }

@@ -68,6 +68,9 @@ const createEventSlice = createSlice({
     changeCoords(state, action: PayloadAction<number[]>) {
       state.data.coords = action.payload;
     },
+    changeColor(state, action: PayloadAction<number>) {
+      state.data.color = action.payload;
+    },
     clearState(state) {
       state.data = BASE_CONFIG_DATA;
     },
@@ -75,15 +78,5 @@ const createEventSlice = createSlice({
 })
 
 export default createEventSlice.reducer;
-export const { changeStage, changeName, changeDate, changeLocation, changeError, clearState, changeAddress, changeUsers, changePrice, changeCoords } = createEventSlice.actions;
+export const { changeStage, changeName, changeDate, changeLocation, changeColor, changeError, clearState, changeAddress, changeUsers, changePrice, changeCoords } = createEventSlice.actions;
 export const eventData = ((state: RootState) => state.createEvent.data);
-// export const stage = ((state: RootState) => state.createEvent.stage);
-// export const name = ((state: RootState) => state.createEvent.name);
-// export const date = ((state: RootState) => state.createEvent.date);
-// export const location = ((state: RootState) => state.createEvent.location);
-// export const address = ((state: RootState) => state.createEvent.address);
-// export const validError = ((state: RootState) => state.createEvent.validError);
-// export const users = ((state: RootState) => state.createEvent.users);
-// export const price = ((state: RootState) => state.createEvent.price);
-// export const coords = ((state: RootState) => state.createEvent.coords);
-// export const color = ((state: RootState) => state.createEvent.color);

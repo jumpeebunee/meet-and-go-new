@@ -73,8 +73,6 @@ const OpenedEvent: FC<OpenedEventProps> = ({
       } else {
         setActiveEvent(false);
       }
-    } else {
-      dispatch(changeOpened({} as IEvent));
     }
   }, [isOpen]);
 
