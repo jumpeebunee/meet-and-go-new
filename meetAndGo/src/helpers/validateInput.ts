@@ -19,7 +19,7 @@ export const validateLocationInput = (value: string) => {
 export const validateAddressInput = (value: string) => {
   if (value.length < 3) {
     return 'Адрес слишком короткий';
-  } else if (value.length > 40) {
+  } else if (value.length > 140) {
     return 'Адрес слишком длинный';
   } else {
     return `Неккоректный адрес события`;

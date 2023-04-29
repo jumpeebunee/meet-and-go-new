@@ -4,7 +4,7 @@ import { IonContent, IonModal } from '@ionic/react';
 import { validateAddressInput, validateLocationInput, validateNameInput } from '../../../helpers/validateInput';
 import { nanoid } from '@reduxjs/toolkit';
 import { user } from '../../../app/feautures/userSlice';
-import { arrayUnion, doc, increment, setDoc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, increment, setDoc, updateDoc, writeBatch } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeError, clearState, eventData } from "../../../app/feautures/createEventSlice";
@@ -13,6 +13,7 @@ import CreateEventBtns from './CreateEventBtns';
 import CreateEventStages from './CreateEventStages';
 import AppEventsLimit from '../../AppEventsLimit';
 import { errorOptions } from '../../../data/errorsOptions';
+import { IChat } from '../../../types/types';
 
 interface CreateEventProps {
   isOpen: boolean;
@@ -47,8 +48,16 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
     }
 
     try {
-      const eventId = nanoid();
-      const userEvent = {
+			const batch = writeBatch(db)
+			const chatId = nanoid();
+			const eventId = nanoid();
+
+			const chatDoc: IChat = {
+				id: chatId,
+				userIds: [currentUser.uid],
+				messageIds: []
+			}
+      const userEventDoc = {
         id: eventId,
         placemark: fullEvent.color,
         leader: currentUser.uid,
@@ -59,13 +68,17 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
         totalUsers: fullEvent.users,
         contribution: fullEvent.price,
         coords: fullEvent.coords,
+				chatId,
         activeUsers: [{id: currentUser.uid, image: currentUser.image, reputation: currentUser.reputation}]
       }
-      await setDoc(doc(db, "events", eventId), userEvent);
-      await updateDoc(doc(db, "users", currentUser.uid), {
+
+			batch.set(doc(db, "events", eventId), userEventDoc);
+			batch.set(doc(db, "chats", chatId), chatDoc)
+			batch.update(doc(db, "users", currentUser.uid), {
         createdMeets: increment(1),
-        activeMeets: arrayUnion(eventId)
-      })
+        activeMeets: arrayUnion(eventId),
+      });
+			await batch.commit()
       handleClose();
     } catch (error) {
       dispatch(changeError('Ошибка при создании события'));
@@ -83,7 +96,9 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
     const validName = /^[а-яА-ЯёЁ\s]{3,20}$/.test(fullEvent.name.trim());
     const validLocation = /^[а-яА-ЯёЁ\s]{3,20}$/.test(fullEvent.location.trim());
     const validDate = new Date(fullEvent.date).getTime() > Date.now();
-    const validAddress = /^[a-zA-Zа-яА-ЯёЁ\w\s\d.,]{3,40}$/.test(fullEvent.address.trim());
+    const validAddress = /[\w\s,а-яА-Я\/]{3,140}/g.test(
+      fullEvent.address.trim()
+    );
 
     dispatch(changeError(''));
 
