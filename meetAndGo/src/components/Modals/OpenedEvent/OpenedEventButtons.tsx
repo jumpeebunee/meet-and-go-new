@@ -25,16 +25,12 @@ const OpenedEvennttButtons:FC<OpenedEventButtonsProps> = ({activeEvent, isLoadin
 
   return (
     <div className={cl.openedEventBtns}>
-      {activeEvent ? (
-        <>
-          <MainButton disabled={isLoading || isEnded} onClick={handleLeave}>
-            {leader === uid ? "Удалить" : "Покинуть"}
-          </MainButton>
-          <MainButton disabled={isLoading || isEnded} onClick={handleOpenChat}>
-            Перейти в чат
-          </MainButton>
-        </>
-      ) : (
+      {activeEvent 
+      ?
+        <MainButton disabled={isLoading || isEnded} onClick={handleLeave}>
+          {leader === uid ? "Удалить" : "Покинуть"}
+        </MainButton>
+      : 
         <>
           {totalActiveUsers === totalUsers ? (
             <></>
@@ -44,7 +40,7 @@ const OpenedEvennttButtons:FC<OpenedEventButtonsProps> = ({activeEvent, isLoadin
             </MainButton>
           )}
         </>
-      )}
+      }
       <SecondButton onClick={() => setIsOpen(false)}>Назад</SecondButton>
     </div>
   );

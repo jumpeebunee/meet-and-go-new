@@ -49,6 +49,14 @@
   }
 }
 
+.openedEventLinks {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: solid 1px rgba(217, 217, 217, 0.2);
+}
+
 @media (max-width: 414px) {
 
   .openedEventContainer {
@@ -86,4 +94,11 @@
       height: 7.49vw;
     }
   }
+
+  .openedEventLinks {
+    gap: 3.62vw;
+    margin-top: 6.04vw;
+    padding-top: 4.83vw;
+    border-top: solid 0.24vw rgba(217, 217, 217, 0.2);
+  }  
 }

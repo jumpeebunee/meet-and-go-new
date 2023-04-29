@@ -24,6 +24,8 @@ import cl from "./OpenedEvent.module.scss";
 import OpenedEventButtons from "./OpenedEventButtons";
 import OpenedEventContent from "./OpenedEventContent";
 import OpenedEventHeader from "./OpenedEventHeader";
+import ChatButton from "../../UI/ChatButton/ChatButton";
+import LinkButton from "../../UI/LinkButton/LinkButton";
 
 interface OpenedEventProps {
   isOpen: boolean;
@@ -220,6 +222,10 @@ const OpenedEvent: FC<OpenedEventProps> = ({
               totalActiveUsers={totalActiveUsers}
               setIsUsersOpen={setIsUsersOpen}
             />
+            <div className={cl.openedEventLinks}>
+              <ChatButton handle={() => handleOpenChat()}/>
+              <LinkButton/>
+            </div>
             {isError && (
               <ErrorMessage styles={{ marginTop: 15 }}>{isError}</ErrorMessage>
             )}
