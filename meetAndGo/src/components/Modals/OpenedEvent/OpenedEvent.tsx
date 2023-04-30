@@ -224,7 +224,7 @@ const OpenedEvent: FC<OpenedEventProps> = ({
             />
             <div className={cl.openedEventLinks}>
               <ChatButton handle={() => handleOpenChat()}/>
-              <LinkButton link={event.id ? event.id.slice(0,6) : ''}/>
+              <LinkButton link={event.id}/>
             </div>
             {isError && (
               <ErrorMessage styles={{ marginTop: 15 }}>{isError}</ErrorMessage>
