@@ -15,6 +15,7 @@ import AppLoading from './components/AppLoading';
 import { unactiveEvents } from './helpers/unactiveEvents';
 import AppEventsLimit from './components/AppEventsLimit';
 import { errorOptions } from './data/errorsOptions';
+import { changeNotifications, changeNotifyOpen } from './pages/EventNotify/EventNotifySlice';
 
 setupIonicReact();
 
@@ -50,7 +51,13 @@ const App:FC = () => {
 
   const subscribeUserUpdates = async(id: string) => {
     onSnapshot(doc(db, "users", id), (doc) => {
-      dispatch(addUser(doc.data() as IUser));
+      const data = doc.data() as IUser;
+      dispatch(addUser(data));
+      if (data.notifications && data.notifications.length > 0) {
+        dispatch(changeNotifications(data.notifications));
+      } else {
+        dispatch(changeNotifications([]));
+      }
     });
     onSnapshot(collection(db, "events"), doc => {
       const data: IEvent[] = []

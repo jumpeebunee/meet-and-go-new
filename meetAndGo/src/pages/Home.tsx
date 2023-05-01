@@ -10,6 +10,7 @@ import TotalEvents from '../components/Modals/TotalEvents/TotalEvents';
 import UsersModal from '../components/Modals/UsersModal/UsersModal';
 import UserModal from '../components/Modals/UserModal/UserModal';
 import Chat from './Chat/Chat';
+import EventNotify from './EventNotify/EventNotify';
 
 const test = () => { 
   console.log('q')
@@ -76,7 +77,8 @@ const Home: React.FC = () => {
           setIsOpen={setIsEventsOpen}
           setIsOpenEvent={setIsOpenEvent}
         />
-				<Chat />
+        <EventNotify/>
+				<Chat/>
       </div>
     </IonPage>
   );

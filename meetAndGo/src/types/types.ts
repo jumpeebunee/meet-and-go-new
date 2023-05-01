@@ -1,4 +1,4 @@
-import { Timestamp, serverTimestamp } from "firebase/firestore";
+import { serverTimestamp } from "firebase/firestore";
 
 export type ILogin = {
   email: string;
@@ -27,6 +27,7 @@ export type IUser = {
   activeMeets: string[];
   role: string;
   isBanned: boolean;
+  notifications?: IEvent[];
 }
 
 export type IActive = {
@@ -47,7 +48,7 @@ export type IEvent = {
   placemark: number;
   title: string;
   totalUsers: number;
-	chatId: string
+	chatId: string;
 }
 
 export interface IChat {

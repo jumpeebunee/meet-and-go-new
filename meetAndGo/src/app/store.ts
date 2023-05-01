@@ -4,6 +4,7 @@ import createEventReducer from "./feautures/createEventSlice";
 import eventReducer from "./feautures/eventsSlice";
 import openedEventReducer from "./feautures/openedEventSlice";
 import userReducer from "./feautures/userSlice";
+import notifyReducer from "../pages/EventNotify/EventNotifySlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     createEvent: createEventReducer,
     openedEvent: openedEventReducer,
     chat: chatReducer,
+    notify: notifyReducer,
   },
 });
 

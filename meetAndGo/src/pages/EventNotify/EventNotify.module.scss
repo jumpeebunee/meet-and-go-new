@@ -1,0 +1,25 @@
+.EventNotifyModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 0px;
+  gap: 30px;
+}
+
+.EventNotifyBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 50px;
+}
+
+.EventNotifyList {
+  display: flex;
+  justify-content: space-between;
+}
+
+.EventNotifyArea {
+  width: 100%;
+  height: 100px;
+  resize: none;
+}
