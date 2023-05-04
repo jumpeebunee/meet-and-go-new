@@ -1,5 +1,5 @@
 import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
-import { chatReducer } from "../pages/Chat/chatSlice";
+import { chatReducer } from "../components/Modals/Chat/chatSlice";
 import createEventReducer from "./feautures/createEventSlice";
 import eventReducer from "./feautures/eventsSlice";
 import openedEventReducer from "./feautures/openedEventSlice";
