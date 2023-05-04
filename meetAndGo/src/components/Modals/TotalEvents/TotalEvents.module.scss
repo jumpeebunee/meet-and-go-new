@@ -37,7 +37,10 @@
 }
 
 .TotalEventsBtns {
+  display: flex;
+  flex-direction: column;
   padding-bottom: 50px;
+  gap: 15px;
 }
 
 .TotalEventNot {
@@ -45,6 +48,10 @@
   font-size: 16px;
   line-height: 127.52%;
   color: rgba(26, 26, 26, 0.7);
+}
+
+.TotalEventsFindEvent {
+  margin-top: 30px;
 }
 
 @media (max-width: 414px) {
@@ -70,11 +77,16 @@
 
   .TotalEventsBtns {
     padding-bottom: 12.08vw;
+    gap: 3.62vw;
   }
   
   .TotalEventNot {
     margin-top: 7.25vw;
     font-size: 3.86vw;
+  }
+
+  .TotalEventsFindEvent {
+    margin-top: 7.25vw;
   }
 
 }

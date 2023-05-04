@@ -10,7 +10,7 @@
   position: absolute;
   top: 40px;
   right: 30px;
-  outline: 1px solid rgba(26, 26, 26, 0.05);
+  border: 1px solid rgba(26, 26, 26, 0.05);
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
   border-radius: 40px;
   font-size: 16px;
@@ -20,7 +20,7 @@
 .profileBtnImage {
   width: 46px;
   height: 46px;
-  outline: 1px solid #E4E0EB;
+  border: 1px solid #E4E0EB;
   border-radius: 50%;
 
   img {
@@ -41,7 +41,7 @@
     height: 14.49vw;
     top: 9.66vw;
     right: 7.25vw;
-    outline: 0.24vw solid rgba(26, 26, 26, 0.05);
+    border: 0.24vw solid rgba(26, 26, 26, 0.05);
     box-shadow: 2.42vw 2.42vw 3.62vw rgba(0, 0, 0, 0.05);
     border-radius: 9.66vw;
     font-size: 3.86vw;
@@ -51,7 +51,7 @@
   .profileBtnImage {
     width: 11.11vw;
     height: 11.11vw;
-    outline: 0.24vw solid #E4E0EB;
+    border: 0.24vw solid #E4E0EB;
 
     img {
       width: 11.11vw;

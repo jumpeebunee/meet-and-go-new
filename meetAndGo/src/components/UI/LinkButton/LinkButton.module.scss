@@ -18,7 +18,8 @@
 }
 
 .LinkButtonOpened {
-  width: 142px;
+  padding-left: 20px;
+  padding-right: 20px;
   background-color: #F6F6F6;
   border-radius: 10px;
   font-size: 18px;
@@ -26,6 +27,15 @@
 }
 
 @media (max-width: 414px) {
+
+  .LinkButtonOpened {
+    padding-left: 4.83vw;
+    padding-right: 4.83vw;
+    border-radius: 2.42vw;
+    font-size: 4.35vw;
+    line-height: 5.31vw;
+  }
+
   .LinkButton {
     width: 12.08vw;
     height: 12.08vw;
