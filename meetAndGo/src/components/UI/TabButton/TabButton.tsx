@@ -10,7 +10,7 @@ const TabButton:FC<TabButtonProps> = ({state, changeState}) => {
   return (
     <div className={cl.TabButton}>
       <button onClick={() => changeState('active')} className={`${cl.TabButtonBtn} ${state === 'active' ? cl.TabButtonBtnActive : ''}`}>Активные</button>
-      {/* <button onClick={() => changeState('archive')} className={`${cl.TabButtonBtn} ${state === 'archive' ? cl.TabButtonBtnActive : ''}`}>Архив</button> */}
+      <button onClick={() => changeState('archive')} className={`${cl.TabButtonBtn} ${state === 'archive' ? cl.TabButtonBtnActive : ''}`}>Уведомления</button>
     </div>
   )
 }

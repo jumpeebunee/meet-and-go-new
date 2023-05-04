@@ -1,7 +1,7 @@
 import { IonContent, IonModal } from '@ionic/react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeNotifyOpen, confirmNotification, isNotifyOpen, notifications } from './EventNotifySlice'
+import { changeNotifyOpen, confirmNotification, isNotifyOpen, notifications, openedNotify } from './EventNotifySlice'
 import MainButton from '../../components/UI/MainButton/MainButton'
 import { arrayRemove, arrayUnion, doc, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
@@ -13,22 +13,28 @@ import { getFormatedDate } from '../../helpers/getFormatedDate'
 
 const EventNotify = () => {
 
+  const dispatch = useDispatch();
+
   const isOpen = useSelector(isNotifyOpen);
-  const totalNotifications = useSelector(notifications);
+  const currentNotify = useSelector(openedNotify);
   const currentUser = useSelector(user);
 
   const [raiting, setRaitng] = useState(0);
 
+  const handleClose = () => {
+    dispatch(changeNotifyOpen(false))
+  }
+
   return (
     <IonModal isOpen={isOpen}>
       <IonContent>
-        {totalNotifications.length
+        {currentNotify 
         ?
         <div className={`modal-container ${cl.EventNotifyModal}`}>
           <div className=''>
             <h2 className='heading'>Как все прошло?</h2>
             <div>
-              <OpenedEventHeader title={totalNotifications[0].title} date={getFormatedDate(totalNotifications[0].date)}/>
+              <OpenedEventHeader title={currentNotify.title} date={getFormatedDate(currentNotify.date)}/>
               <p>Оцените эвенте</p>
               <div>Оценка: {raiting}</div>
               <ul className={cl.EventNotifyList}>
@@ -46,7 +52,7 @@ const EventNotify = () => {
           </div>
           <div className={cl.EventNotifyBtns}>
             <MainButton>Отправить</MainButton>
-            <SecondButton>Закрыть</SecondButton>
+            <SecondButton onClick={handleClose}>Закрыть</SecondButton>
           </div>
         </div>
         :

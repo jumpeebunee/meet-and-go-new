@@ -11,8 +11,8 @@ import TotalEventsHeader from './TotalEventsHeader';
 import TotalEventsList from './TotalEventsList';
 import MainButton from '../../UI/MainButton/MainButton';
 import FindEvent from '../../UI/FindEvent/FindEvent';
-import { changeOpened } from '../../../app/feautures/openedEventSlice';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
+import { changeNotifyOpen, changeOpened, notifications } from '../../../pages/EventNotify/EventNotifySlice';
 
 interface TotalEventsProps {
   isOpen: boolean;
@@ -22,6 +22,7 @@ interface TotalEventsProps {
 
 const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent}) => {
 
+  const userNotifications = useSelector(notifications);
   const currentUser = useSelector(user);
   const dispatch = useDispatch();
 
@@ -82,29 +83,51 @@ const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent}) =
     }
   }
 
+  const handleOpenNotify = (event: IEvent) => {
+    dispatch(changeOpened(event));
+    dispatch(changeNotifyOpen(true));
+  }
+
   return (
     <IonModal isOpen={isOpen}>
       <IonContent>
         <div className={`modal-container ${cl.TotalEventsContainer}`}>
           <div className={cl.TotalEventsMain}>
             <TotalEventsHeader currentState={currentState} setCurrentState={setCurrentState}/>
-            {isFind
-            ? 
-              <div className={cl.TotalEventsFindEvent}>
-                <FindEvent
-                  value={findValue}
-                  setValue={setFindValue}
-                  findEvent={findEvent}
-                  isLoading={isFindLoading}
-                />
-                {isError && <ErrorMessage styles={{marginTop: 10}}>{isError}</ErrorMessage>}
-              </div>
-            : <> {!isLoading && <TotalEventsList events={events} setIsOpenEvent={setIsOpenEvent}/>}</>
+            {
+              currentState === 'active'
+              ?
+              <>
+              {isFind
+                ? 
+                  <div className={cl.TotalEventsFindEvent}>
+                    <FindEvent
+                      value={findValue}
+                      setValue={setFindValue}
+                      findEvent={findEvent}
+                      isLoading={isFindLoading}
+                    />
+                    {isError && <ErrorMessage styles={{marginTop: 10}}>{isError}</ErrorMessage>}
+                  </div>
+                : <> {!isLoading && <TotalEventsList events={events} setIsOpenEvent={setIsOpenEvent}/>}</>
+                }
+              </>
+              :
+              <>
+                <ul>
+                  {userNotifications.map(event =>
+                    <li onClick={() => handleOpenNotify(event)} key={event.id}>
+                      <h2>{event.title}</h2>
+                      <p>Оцените событие пользователя: {event.address}</p>
+                    </li>
+                  )}
+                </ul>
+              </>
             }
           </div>
           {isLoading && <div className={cl.TotalEventsLoading}><IonSpinner name="circular"></IonSpinner></div>}
           <div className={cl.TotalEventsBtns}>
-            <MainButton onClick={changeState}>{isFind ? 'Список событий' : 'Найти по коду'}</MainButton>
+            {currentState !== 'archive' && <MainButton onClick={changeState}>{isFind ? 'Список событий' : 'Найти по коду'}</MainButton>}
             <SecondButton onClick={() => setIsOpen(false)}>Назад</SecondButton>
           </div>
         </div>
