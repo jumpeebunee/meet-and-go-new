@@ -69,7 +69,110 @@ const Chat = (props: ChatProps) => {
       });
 			isNeedLastMessFocus.current = false
     }
+  }, [messages, chat]);
+
+  useEffect(() => {
+    if (isOpen && currentChatId) {
+      const q = query(
+        collection(db, "messages"),
+        where("chatId", "==", currentChatId),
+        orderBy("createdAt", 'desc'),
+        limit(PAGE_OFSET)
+      );
+      const unsubMessages = onSnapshot(
+        q,
+        { includeMetadataChanges: true },
+        async (snap) => {
+          if (!snap.metadata.hasPendingWrites) {
+						const messagesDocs = [...snap.docs].reverse()
+						const updatedMessages = messagesDocs.map((el) =>
+              el.data()
+            ) as IMessage[];
+						lastMessageDoc.current = messagesDocs[0];
+						setMessages(() => {
+							isMessagesEmpty.current = false;
+							if (!isScrollFarFromChat.current) {
+								isNeedLastMessFocus.current = true;
+							}
+							return updatedMessages
+						})
+          }
+        }
+      );
+      const unsubChat = onSnapshot(
+        doc(db, "chats", currentChatId),
+        async (snap) => {
+          const updatedChat = snap.data() as IChat;
+          const users = await getUsers(updatedChat.userIds);
+          setChat({ ...(chat ?? updatedChat), users });
+        }
+      );
+			return () => {
+				unsubMessages();
+				unsubChat();
+				setMessages([])
+				setChat(undefined)
+				isMessagesEmpty.current = false
+				isScrollFarFromChat.current = false
+			};
+    }
+  }, [isOpen, currentChatId]);
+
+  useEffect(() => {
+    async function handleScroll(e: any) {
+
+      let scrollTop = e.target.scrollTop < 30;
+      let isMessageEmpty = !isMessagesEmpty.current;
+      let chatLoading = !store.getState().chat.isLoadingMore;
+
+      let scrollFromChat = e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight > 600;
+
+      if (scrollTop && isMessageEmpty && chatLoading) {
+        dispatch(chatActions.setFields({ isLoadingMore: true }));
+
+        const q = query(
+          collection(db, "messages"),
+          where("chatId", "==", currentChatId),
+          orderBy("createdAt", "desc"),
+					startAfter(lastMessageDoc.current),
+          limit(PAGE_OFSET)
+        );
+        
+        const messageResp = await getDocs(q);
+				if (messageResp.size === 0) {
+					isMessagesEmpty.current = true;
+					dispatch(chatActions.setFields({ isLoadingMore: false }));
+					return;
+				}
+
+				const messagesDocs = [...messageResp.docs].reverse();
+				const newMessages = messagesDocs.map((el) =>
+					el.data()
+				) as IMessage[];
+
+				lastMessageDoc.current = messagesDocs[0];
+        setMessages((prev) => [...newMessages, ...prev]);
+        dispatch(chatActions.setFields({ isLoadingMore: false }));
+      } else if (scrollFromChat) {
+				isScrollFarFromChat.current = true
+			} else {
+				isScrollFarFromChat.current = false
+			}
+    }
+    if (isOpen && messagesRef.current) {
+      messagesRef.current.addEventListener("scroll", handleScroll);
+    }
+  }, [isOpen, messagesRef.current, chat]);
+
+  const currentDate = new Date(event.date).toLocaleDateString("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
   });
+
+  const isChatExist = currentChatId && chat;
 
   const handleSendMessage = async (body: string) => {
     try {
@@ -121,126 +224,33 @@ const Chat = (props: ChatProps) => {
     );
   };
 
-  useEffect(() => {
-    if (isOpen && currentChatId) {
-      const q = query(
-        collection(db, "messages"),
-        where("chatId", "==", currentChatId),
-        orderBy("createdAt", 'desc'),
-        limit(PAGE_OFSET)
-      );
-      const unsubMessages = onSnapshot(
-        q,
-        { includeMetadataChanges: true },
-        async (snap) => {
-          if (!snap.metadata.hasPendingWrites) {
-						const messagesDocs = [...snap.docs].reverse()
-						const updatedMessages = messagesDocs.map((el) =>
-              el.data()
-            ) as IMessage[];
-						lastMessageDoc.current = messagesDocs[0];
-						setMessages(() => {
-							isMessagesEmpty.current = false;
-							if (!isScrollFarFromChat.current) {
-								isNeedLastMessFocus.current = true;
-							}
-							return updatedMessages
-						})
-          }
-        }
-      );
-      const unsubChat = onSnapshot(
-        doc(db, "chats", currentChatId),
-        async (snap) => {
-          const updatedChat = snap.data() as IChat;
-          const users = await getUsers(updatedChat.userIds);
-          setChat({ ...(chat ?? updatedChat), users });
-        }
-      );
-			return () => {
-				unsubMessages();
-				unsubChat();
-				setMessages([])
-				setChat(undefined)
-				isMessagesEmpty.current = false
-				isScrollFarFromChat.current = false
-			};
-    }
-  }, [isOpen, currentChatId]);
-
-  useEffect(() => {
-    async function handleScroll(e: any) {
-      if (
-        e.target.scrollTop < 30 &&
-        !isMessagesEmpty.current &&
-        !store.getState().chat.isLoadingMore
-      ) {
-        dispatch(chatActions.setFields({ isLoadingMore: true }));
-        const q = query(
-          collection(db, "messages"),
-          where("chatId", "==", currentChatId),
-          orderBy("createdAt", "desc"),
-					startAfter(lastMessageDoc.current),
-          limit(PAGE_OFSET)
-        );
-        const messageResp = await getDocs(q);
-				if (messageResp.size === 0) {
-					isMessagesEmpty.current = true;
-					dispatch(chatActions.setFields({ isLoadingMore: false }));
-					return;
-				}
-				const messagesDocs = [...messageResp.docs].reverse();
-				const newMessages = messagesDocs.map((el) =>
-					el.data()
-				) as IMessage[];
-				lastMessageDoc.current = messagesDocs[0];
-        setMessages((prev) => [...newMessages, ...prev]);
-        dispatch(chatActions.setFields({ isLoadingMore: false }));
-      } else if (e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight > 600) {
-				isScrollFarFromChat.current = true
-			} else {
-				isScrollFarFromChat.current = false
-			}
-    }
-    if (isOpen && messagesRef.current) {
-      messagesRef.current.addEventListener("scroll", handleScroll);
-    }
-  }, [isOpen, messagesRef.current, chat]);
-
   const returnMessage = (message: IMessageLoaded) => {
-    const user = chat?.users.find((u) => u.uid == message.createdById);
-    if (!user) {
-      throw new Error("user not found");
+    if (chat) {
+      const user = chat.users.find((u) => u.uid == message.createdById);
+      if (!user) {
+        throw new Error("user not found");
+      }
+      const formatedDate = formatTimestamp(message.createdAt);
+      return currentUser.uid == message.createdById ? (
+        <OwnerMessage
+          key={message.id}
+          type={message.type}
+          body={message.body}
+          date={formatedDate}
+          isLoading={message.isLoading}
+        />
+      ) : (
+        <Message
+          key={message.id}
+          avatar={user.image}
+          type={message.type}
+          date={formatedDate}
+          username={user.username}
+          body={message.body}
+        />
+      );
     }
-    const formatedDate = formatTimestamp(message.createdAt);
-    return currentUser.uid == message.createdById ? (
-      <OwnerMessage
-        key={message.id}
-        type={message.type}
-        body={message.body}
-        date={formatedDate}
-        isLoading={message.isLoading}
-      />
-    ) : (
-      <Message
-        key={message.id}
-        avatar={user.image}
-        type={message.type}
-        date={formatedDate}
-        username={user.username}
-        body={message.body}
-      />
-    );
   };
-
-  const currentDate = new Date(event.date).toLocaleDateString("ru-RU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  });
-  const isChatExist = currentChatId && chat;
 
   return (
     <IonModal isOpen={isOpen}>
