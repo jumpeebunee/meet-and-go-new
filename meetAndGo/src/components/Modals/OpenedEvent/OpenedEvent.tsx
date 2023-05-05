@@ -206,7 +206,10 @@ const OpenedEvent: FC<OpenedEventProps> = ({
     }
   };
 
+	console.log('event', event)
+
   const totalActiveUsers = event.activeUsers ? event.activeUsers.length : null;
+	const isParticipant = !!event.activeUsers?.find((el) => el.id == currentUser.uid);
 
   return (
     <IonModal isOpen={isOpen}>
@@ -224,7 +227,9 @@ const OpenedEvent: FC<OpenedEventProps> = ({
               setIsUsersOpen={setIsUsersOpen}
             />
             <div className={cl.openedEventLinks}>
-              <ChatButton handle={() => handleOpenChat()} />
+              {isParticipant && (
+                <ChatButton handle={() => handleOpenChat()} />
+              )}
               <LinkButton link={event.id ? event.id.slice(0, 6) : ""} />
             </div>
             {isError && (

@@ -3,12 +3,13 @@ import { Redirect, Route } from "react-router";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import { ChatWSProvider } from "../features/ChatWS";
 
 const AppNavigation = () => {
   return (
     <IonRouterOutlet>
       <Route exact path="/home">
-        <Home />
+          <Home />
       </Route>
       <Route exact path="/login">
         <Login />
