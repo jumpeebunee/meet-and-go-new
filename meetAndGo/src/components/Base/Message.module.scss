@@ -52,6 +52,10 @@ time {
 			background: url('../../assets/logo.svg') no-repeat center;
 		}
 
+		p {
+			word-break: break-all;
+		}
+
 		&.loading {
 			position: relative;
 			display: flex;

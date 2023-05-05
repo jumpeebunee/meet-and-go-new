@@ -29,8 +29,6 @@ const Home: React.FC = () => {
     test();
   }, [isProfileOpen]);
 
-  console.log;
-
   return (
     <IonPage>
       <div className="container app__container">
