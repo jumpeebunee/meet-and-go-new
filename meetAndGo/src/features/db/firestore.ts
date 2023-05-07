@@ -8,20 +8,18 @@ class Firestore {
 	#db = getFirestore(app);
 	
 	async createEvent(userId: string, event: IEvent, chat: IChat) {
-		const batch = writeBatch(db)
-		batch.set(doc(db, "events", event.id), event);
-		batch.set(doc(db, "chats", chat.id), chat);
-		batch.update(doc(db, "users", userId), {
-			createdMeets: increment(1),
-			activeMeets: arrayUnion(event.id),
-		});
-		await batch.commit();
-		ChatWS.onCreateEvent(chat.id);
+		// const batch = writeBatch(db)
+		// batch.set(doc(db, "events", event.id), event);
+		// batch.set(doc(db, "chats", chat.id), chat);
+		// batch.update(doc(db, "users", userId), {
+		// 	createdMeets: increment(1),
+		// 	activeMeets: arrayUnion(event.id),
+		// });
+		// await batch.commit();
+		// ChatWS.onCreateEvent(chat.id);
 	}
 
-	async deleteEvent() {
-
-	}
+	async deleteEvent() {}
 }
 
 export const FirestoreDB = new Firestore()

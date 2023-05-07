@@ -15,7 +15,6 @@ import AppEventsLimit from '../../AppEventsLimit';
 import { errorOptions } from '../../../data/errorsOptions';
 import { IChat, IEvent, IUser } from '../../../types/types';
 import ChatWS from '../../../features/ChatWS';
-import { FirestoreDB } from '../../../features/db/firestore';
 
 interface CreateEventProps {
   isOpen: boolean;
@@ -23,7 +22,6 @@ interface CreateEventProps {
 }
 
 const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
-
   const fullEvent = useSelector(eventData);
   const currentUser = useSelector(user);
   const dispatch = useDispatch();
@@ -50,7 +48,7 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
     }
 
     try {
-			// const batch = writeBatch(db)
+			const batch = writeBatch(db)
 			const chatId = nanoid();
 			const eventId = nanoid();
 
@@ -73,15 +71,14 @@ const CreateEvent:FC<CreateEventProps> = ({isOpen, setIsOpen}) => {
         activeUsers: [{id: currentUser.uid, image: currentUser.image, reputation: currentUser.reputation}]
       }
 
-			// batch.set(doc(db, "events", eventId), userEventDoc);
-			// batch.set(doc(db, "chats", chatId), chatDoc)
-			// batch.update(doc(db, "users", currentUser.uid), {
-      //   createdMeets: increment(1),
-      //   activeMeets: arrayUnion(eventId),
-      // });
-			// await batch.commit()
-			// ChatWS.onCreateEvent(chatId)
-			FirestoreDB.createEvent(currentUser.uid, eventDoc, chatDoc)
+			batch.set(doc(db, "events", eventId), eventDoc);
+			batch.set(doc(db, "chats", chatId), chatDoc)
+			batch.update(doc(db, "users", currentUser.uid), {
+        createdMeets: increment(1),
+        activeMeets: arrayUnion(eventId),
+      });
+			await batch.commit()
+			ChatWS.onCreateEvent(chatId)
       handleClose();
     } catch (error) {
       dispatch(changeError('Ошибка при создании события'));

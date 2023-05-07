@@ -1,10 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../../app/store";
-import { IChat, IChatPopulated } from "../../../types/types";
 
 interface IInitialState {
   isOpen: boolean;
-	isLoadingMore: boolean;
+  isLoadingMore: boolean;
   currentChatId?: string;
 }
 
@@ -14,7 +13,7 @@ export const { actions: chatActions, reducer: chatReducer } = createSlice({
   name: "chatSlice",
   initialState,
   reducers: {
-    setFields: (state, action: PayloadAction<Partial<IInitialState>>) => ({
+    set: (state, action: PayloadAction<Partial<IInitialState>>) => ({
       ...state,
       ...action.payload,
     }),
@@ -23,4 +22,4 @@ export const { actions: chatActions, reducer: chatReducer } = createSlice({
 
 export const getCurrentChatId = (state: RootState) => state.chat.currentChatId;
 export const getIsOpen = (state: RootState) => state.chat.isOpen;
-export const getIsLoadingMore = (state: RootState) => state.chat.isLoadingMore
+export const getIsLoadingMore = (state: RootState) => state.chat.isLoadingMore;

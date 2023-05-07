@@ -15,7 +15,7 @@ import { unactiveEvents } from "./helpers/unactiveEvents";
 import "./styles/app.scss";
 import "./styles/normolize.css";
 import { IEvent, IUser } from "./types/types";
-import ChatWS from "./features/ChatWS";
+import ChatWS, { BASE_WS_URL } from "./features/ChatWS";
 
 setupIonicReact();
 
@@ -34,7 +34,9 @@ const App: FC = () => {
           const userRes = await getDoc(doc(db, 'users', user.uid))
 					dispatch(addUser(userRes.data() as IUser));
           subscribeUserUpdates(user.uid);
-          await ChatWS.init({url: 'ws://localhost:7171', userId: user.uid})
+          try {
+						await ChatWS.init({ url: BASE_WS_URL, userId: user.uid });
+					} catch (error) {}
         }
         navigate("/home", "forward");
       } else {

@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { changeOpened } from '../../../app/feautures/openedEventSlice';
 import RoundedButton from '../../Buttons/RoundedButton'
 import ChatIcon from "../../../assets/chat2.svg"
+import formatEventDate from '../../../helpers/formatEventDate';
 
 interface EventItemProps {
   event: IEvent;
@@ -21,7 +22,7 @@ const EventItem:FC<EventItemProps> = ({event, setIsOpenEvent, onChatClick}) => {
     dispatch(changeOpened(event));
   }
 
-  const currentDate = new Date(event.date).toLocaleDateString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'});
+	const currentDate = formatEventDate(event.date)
 
   return (
     <li onClick={handleOpen} className={cl.EventItem}>

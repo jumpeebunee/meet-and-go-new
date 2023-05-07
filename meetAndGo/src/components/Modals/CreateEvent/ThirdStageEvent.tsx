@@ -9,6 +9,7 @@ import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import { useDispatch } from 'react-redux';
 import { changeColor } from '../../../app/feautures/createEventSlice';
 import { getRandomColor } from '../../../helpers/getRandomColor';
+import formatEventDate from '../../../helpers/formatEventDate';
 
 interface ThirdStageProps {}
 
@@ -16,7 +17,7 @@ const ThirdStageEvent:FC<ThirdStageProps> = () => {
 
   const dispatch = useDispatch();
   const fullEvent = useSelector(eventData);
-  const currentDate = new Date(fullEvent.date).toLocaleDateString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric'});
+	const currentDate = formatEventDate(fullEvent.date)
 
   useEffect(() => {
     dispatch(changeColor(getRandomColor()));
