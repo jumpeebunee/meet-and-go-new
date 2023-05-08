@@ -10,6 +10,7 @@ import AppEventsLimit from "./components/AppEventsLimit";
 import AppLoading from "./components/AppLoading";
 import AppNavigation from "./components/AppNavigation";
 import { errorOptions } from "./data/errorsOptions";
+import { ChatWSContext } from "./features/ChatWS";
 import { auth, db } from "./firebase";
 import { unactiveEvents } from "./helpers/unactiveEvents";
 import "./styles/app.scss";

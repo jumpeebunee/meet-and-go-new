@@ -205,6 +205,8 @@ const OpenedEvent: FC<OpenedEventProps> = ({
     }
   };
 
+	console.log('event', event)
+
   const totalActiveUsers = event.activeUsers ? event.activeUsers.length : null;
   const isParticipant = !!event.activeUsers?.find(
     (el) => el.id == currentUser.uid
