@@ -2,6 +2,8 @@ import { Timestamp, arrayUnion, collection, doc, getDocs, query, setDoc, where, 
 import { db } from "../../../firebase";
 import { IMessage, IMessageLoaded, IUser } from "../../../types/types";
 import { nanoid } from "@reduxjs/toolkit";
+import { formatDistance } from "date-fns";
+import {ru} from 'date-fns/locale'
 
 export const searchUserById = (users: IUser[], seachUserId: string) =>
   users.find((el) => el.uid == seachUserId);
@@ -13,13 +15,21 @@ export const getUsers = async (userIds: string[]) => {
 };
 
 export const formatTimestamp = (stamp: Timestamp) => {
-  const date = new Date(stamp as any * 1000);
+  const date = new Date(stamp.seconds as any * 1000);
   const formatter = new Intl.DateTimeFormat("ru-RU", {
     hour: "2-digit",
     minute: "2-digit",
   });
   return formatter.format(date);
 };
+
+// export const formatSeconds = (seconds: number) => {
+// 	const currentTime = Math.round(Date.now() / 1000);
+// 	const diff = seconds - currentTime
+// 	const diffMins = diff / 60;
+// 	const diffHrs = diffMins / 60
+// 	if (diff < )
+// }
 
 export const uploadMessage = (
   userId: string,
@@ -41,3 +51,15 @@ export const uploadMessage = (
 	setDoc(doc(db, "messages", messageId), messageDoc);
   return { ...messageDoc, isLoading: true};
 };
+
+
+export const updateMessage = (messages: IMessage[], updatedMessage: IMessage) => {
+	const updatedMessages = [...messages]
+	const targetMessageId = messages.findLastIndex((el) => el.id == updatedMessage.id)
+	if (targetMessageId != -1) {
+		updatedMessages[targetMessageId] = updatedMessage;
+	} else {
+		updatedMessages.push(updatedMessage)
+	}
+	return updatedMessages
+}

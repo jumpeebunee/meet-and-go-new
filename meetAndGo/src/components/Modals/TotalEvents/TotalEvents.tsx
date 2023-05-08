@@ -1,18 +1,25 @@
-import { IonContent, IonModal, IonSpinner } from '@ionic/react'
-import cl from './TotalEvents.module.scss'
-import { FC, useEffect, useState } from 'react'
-import SecondButton from '../../UI/SecondButton/SecondButton';
-import { useDispatch, useSelector } from 'react-redux';
-import { user } from '../../../app/feautures/userSlice';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../../firebase';
-import { IEvent } from '../../../types/types';
-import TotalEventsHeader from './TotalEventsHeader';
-import TotalEventsList from './TotalEventsList';
-import MainButton from '../../UI/MainButton/MainButton';
-import FindEvent from '../../UI/FindEvent/FindEvent';
-import { changeOpened } from '../../../app/feautures/openedEventSlice';
-import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
+import { IonContent, IonModal, IonSpinner } from "@ionic/react";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { FC, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeOpened } from "../../../app/feautures/openedEventSlice";
+import { user } from "../../../app/feautures/userSlice";
+import { db } from "../../../firebase";
+import { IEvent } from "../../../types/types";
+import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
+import FindEvent from "../../UI/FindEvent/FindEvent";
+import MainButton from "../../UI/MainButton/MainButton";
+import SecondButton from "../../UI/SecondButton/SecondButton";
+import cl from "./TotalEvents.module.scss";
+import TotalEventsHeader from "./TotalEventsHeader";
+import TotalEventsList from "./TotalEventsList";
 
 interface TotalEventsProps {
   isOpen: boolean;
@@ -20,51 +27,55 @@ interface TotalEventsProps {
   setIsOpenEvent: (arg: boolean) => void;
 }
 
-const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent}) => {
-
+const TotalEvents: FC<TotalEventsProps> = ({
+  isOpen,
+  setIsOpen,
+  setIsOpenEvent,
+}) => {
   const currentUser = useSelector(user);
   const dispatch = useDispatch();
 
-  const [currentState, setCurrentState] = useState('active');
+  const [currentState, setCurrentState] = useState("active");
   const [events, setEvents] = useState<IEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isFind, setIsFind] = useState(false);
-  const [findValue, setFindValue] = useState('');
-  const [isError, setIsError] = useState('');
+  const [findValue, setFindValue] = useState("");
+  const [isError, setIsError] = useState("");
   const [isFindLoading, setIsFindLoading] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      getEvent();
+      getEvents();
     } else {
       setEvents([]);
     }
-  }, [isOpen])
+  }, [isOpen]);
 
-  const getEvent = async() => {
-    const result = [];
-
+  const getEvents = async () => {
     setIsLoading(true);
-
-    if (currentUser.activeMeets) {
-      for (let i = 0; i < currentUser.activeMeets.length; i++) {
-        const event = currentUser.activeMeets[i];
-        const docRef = doc(db, "events", event);
-        const docSnap = await getDoc(docRef);
-        const currentEvent = docSnap.data() as IEvent;
-        result.push(currentEvent);
+    try {
+      const { activeMeets } = currentUser;
+      if (activeMeets.length) {
+        const q = query(
+          collection(db, "events"),
+          where("id", "in", activeMeets)
+        );
+        const eventRes = await getDocs(q);
+        setEvents(eventRes.docs.map((el) => el.data()) as IEvent[]);
       }
-      setEvents(result);
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
-  }
+  };
 
   const changeState = () => {
-    setIsFind(prev => !prev);
-  }
+    setIsFind((prev) => !prev);
+  };
 
-  const findEvent = async() => {
-    setIsError('');
+  const findEvent = async () => {
+    setIsError("");
     setIsFindLoading(true);
     try {
       const docRef = doc(db, "events", findValue);
@@ -73,23 +84,25 @@ const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent}) =
         setIsOpenEvent(true);
         dispatch(changeOpened(docSnap.data() as IEvent));
       } else {
-        throw new Error('Событие не найдено');
+        throw new Error("Событие не найдено");
       }
     } catch (error: any) {
       setIsError(error.message);
     } finally {
       setIsFindLoading(false);
     }
-  }
+  };
 
   return (
     <IonModal isOpen={isOpen}>
       <IonContent>
         <div className={`modal-container ${cl.TotalEventsContainer}`}>
           <div className={cl.TotalEventsMain}>
-            <TotalEventsHeader currentState={currentState} setCurrentState={setCurrentState}/>
-            {isFind
-            ? 
+            <TotalEventsHeader
+              currentState={currentState}
+              setCurrentState={setCurrentState}
+            />
+            {isFind ? (
               <div className={cl.TotalEventsFindEvent}>
                 <FindEvent
                   value={findValue}
@@ -97,20 +110,39 @@ const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent}) =
                   findEvent={findEvent}
                   isLoading={isFindLoading}
                 />
-                {isError && <ErrorMessage styles={{marginTop: 10}}>{isError}</ErrorMessage>}
+                {isError && (
+                  <ErrorMessage styles={{ marginTop: 10 }}>
+                    {isError}
+                  </ErrorMessage>
+                )}
               </div>
-            : <> {!isLoading && <TotalEventsList events={events} setIsOpenEvent={setIsOpenEvent}/>}</>
-            }
+            ) : (
+              <>
+                {" "}
+                {!isLoading && (
+                  <TotalEventsList
+                    events={events}
+                    setIsOpenEvent={setIsOpenEvent}
+                  />
+                )}
+              </>
+            )}
           </div>
-          {isLoading && <div className={cl.TotalEventsLoading}><IonSpinner name="circular"></IonSpinner></div>}
+          {isLoading && (
+            <div className={cl.TotalEventsLoading}>
+              <IonSpinner name="circular"></IonSpinner>
+            </div>
+          )}
           <div className={cl.TotalEventsBtns}>
-            <MainButton onClick={changeState}>{isFind ? 'Список событий' : 'Найти по коду'}</MainButton>
+            <MainButton onClick={changeState}>
+              {isFind ? "Список событий" : "Найти по коду"}
+            </MainButton>
             <SecondButton onClick={() => setIsOpen(false)}>Назад</SecondButton>
           </div>
         </div>
       </IonContent>
     </IonModal>
-  )
-}
+  );
+};
 
-export default TotalEvents
+export default TotalEvents;

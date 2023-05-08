@@ -16,6 +16,7 @@ import { unactiveEvents } from "./helpers/unactiveEvents";
 import "./styles/app.scss";
 import "./styles/normolize.css";
 import { IEvent, IUser } from "./types/types";
+import ChatWS, { BASE_WS_URL } from "./features/ChatWS";
 
 setupIonicReact();
 
@@ -23,7 +24,6 @@ const App: FC = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(user);
   const { navigate } = useContext(NavContext);
-  const ChatWS = useContext(ChatWSContext);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,21 +32,12 @@ const App: FC = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         if (user.email && user.uid && user.displayName) {
-          // ChatWS.init({
-          //   url: "ws://localhost:7171",
-          //   userId: user.uid,
-          // });
           const userRes = await getDoc(doc(db, 'users', user.uid))
 					dispatch(addUser(userRes.data() as IUser));
-          // const querySnapshot = await getDocs(collection(db, "users"));
-          // querySnapshot.forEach((doc) => {
-          //   if (doc.data().uid === user.uid) {
-          //     const data = doc.data() as IUser;
-          //     dispatch(addUser(data));
-          //   }
-          // });
           subscribeUserUpdates(user.uid);
-          // await ChatWS.connection;
+          try {
+						await ChatWS.init({ url: BASE_WS_URL, userId: user.uid });
+					} catch (error) {}
         }
         navigate("/home", "forward");
       } else {

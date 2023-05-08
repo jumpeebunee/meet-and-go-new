@@ -1,28 +1,30 @@
 import { IonContent, IonModal, IonSpinner } from "@ionic/react";
 import {
-	QueryDocumentSnapshot,
+  QueryDocumentSnapshot,
   collection,
   doc,
+  endAt,
+  endBefore,
   getDoc,
   getDocs,
   limit,
-  onSnapshot,
   orderBy,
   query,
-  runTransaction,
   startAfter,
-  startAt,
   updateDoc,
   where,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openedEvent } from "../../../app/feautures/openedEventSlice";
 import { user } from "../../../app/feautures/userSlice";
 import { store } from "../../../app/store";
+import ChatWS from "../../../features/ChatWS";
+import { IResponse } from "../../../features/ChatWS/types";
 import { db, storage } from "../../../firebase";
 import convertToBase64 from "../../../helpers/convertToBase64";
+import formatEventDate from "../../../helpers/formatEventDate";
 import {
   IChat,
   IChatPopulated,
@@ -34,15 +36,16 @@ import Message from "../../Base/Message";
 import Input from "../../Base/MessageInput";
 import OwnerMessage from "../../Base/OwnerMessage";
 import styles from "./chatPage.module.scss";
-import { chatActions, getCurrentChatId, getIsOpen } from "./chatSlice";
 import LoadMoreSpinner from "./components/LoadMoreIcon";
 import {
   formatTimestamp,
   getUsers,
+  updateMessage,
   uploadMessage,
 } from "./helpers";
+import { chatActions, getCurrentChatId, getIsOpen } from "./slice";
 
-const PAGE_OFSET = 50;
+const PAGE_OFSET = 20;
 
 interface ChatProps {}
 
@@ -56,122 +59,119 @@ const Chat = (props: ChatProps) => {
   const currentUser = useSelector(user);
   const currentChatId = useSelector(getCurrentChatId);
   const messagesRef = useRef<HTMLDivElement | null>(null);
+  const loadMoreSpinnerRef = useRef<HTMLDivElement | null>(null);
 
   const isMessagesEmpty = useRef(false);
   const isNeedLastMessFocus = useRef(false);
-	const isScrollFarFromChat = useRef(false)
-	const lastMessageDoc = useRef<QueryDocumentSnapshot>()
+  // const isScrollFarFromChat = useRef(false);
+  const lastMessageDoc = useRef<QueryDocumentSnapshot>();
+  const isLoadingMore = store.getState().chat.isLoadingMore;
 
   useEffect(() => {
     if (isNeedLastMessFocus.current && messagesRef.current) {
       messagesRef.current.lastElementChild?.scrollIntoView({
         behavior: "smooth",
       });
-			isNeedLastMessFocus.current = false
+      isNeedLastMessFocus.current = false;
     }
   }, [messages, chat]);
 
   useEffect(() => {
-    if (isOpen && currentChatId) {
-      const q = query(
-        collection(db, "messages"),
-        where("chatId", "==", currentChatId),
-        orderBy("createdAt", 'desc'),
-        limit(PAGE_OFSET)
-      );
-      const unsubMessages = onSnapshot(
-        q,
-        { includeMetadataChanges: true },
-        async (snap) => {
-          if (!snap.metadata.hasPendingWrites) {
-						const messagesDocs = [...snap.docs].reverse()
-						const updatedMessages = messagesDocs.map((el) =>
-              el.data()
-            ) as IMessage[];
-						lastMessageDoc.current = messagesDocs[0];
-						setMessages(() => {
-							isMessagesEmpty.current = false;
-							if (!isScrollFarFromChat.current) {
-								isNeedLastMessFocus.current = true;
-							}
-							return updatedMessages
-						})
-          }
-        }
-      );
-      const unsubChat = onSnapshot(
-        doc(db, "chats", currentChatId),
-        async (snap) => {
-          const updatedChat = snap.data() as IChat;
-          const users = await getUsers(updatedChat.userIds);
-          setChat({ ...(chat ?? updatedChat), users });
-        }
-      );
-			return () => {
-				unsubMessages();
-				unsubChat();
-				setMessages([])
-				setChat(undefined)
-				isMessagesEmpty.current = false
-				isScrollFarFromChat.current = false
-			};
+    const observer = new IntersectionObserver(handleIntersection);
+    if (loadMoreSpinnerRef.current) {
+      observer.observe(loadMoreSpinnerRef.current);
     }
-  }, [isOpen, currentChatId]);
+    return () => observer.disconnect();
+  }, [loadMoreSpinnerRef.current, chat]);
 
   useEffect(() => {
-    async function handleScroll(e: any) {
+    ChatWS.socket.onmessage = (resp: MessageEvent) => {
+      const data = JSON.parse(resp.data) as IResponse;
+      switch (data.type) {
+        case "message:send":
+          if (isOpen) {
+            const updatedMessages = updateMessage(messages, data.body);
+            setMessages(() => {
+              isNeedLastMessFocus.current = true;
+              return updatedMessages;
+            });
+          }
+          break;
+        case "event:enter":
+          if (isOpen && currentChatId == data.body.chatId) {
+            getChat();
+          }
+      }
+    };
+  }, [isOpen, messages, chat]);
 
-      let scrollTop = e.target.scrollTop < 30;
-      let isMessageEmpty = !isMessagesEmpty.current;
-      let chatLoading = !store.getState().chat.isLoadingMore;
+  useEffect(() => {
+    if (isOpen && currentChatId) {
+      getChat();
+      getMessages();
+    }
+    return () => {
+      setMessages([]);
+      setChat(undefined);
+      isMessagesEmpty.current = false;
+      // isScrollFarFromChat.current = false;
+      lastMessageDoc.current = undefined;
+    };
+  }, [isOpen]);
 
-      let scrollFromChat = e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight > 600;
+  const handleIntersection = ([entry]: IntersectionObserverEntry[]) => {
+    if (entry.isIntersecting && !isLoadingMore && !isMessagesEmpty.current) {
+      getMessages(false);
+    }
+  };
 
-      if (scrollTop && isMessageEmpty && chatLoading) {
-        dispatch(chatActions.setFields({ isLoadingMore: true }));
+  const getChat = useCallback(async () => {
+    const chatResp = await getDoc(doc(db, "chats", currentChatId!));
+    const chat = chatResp.data() as IChat;
+    const users = await getUsers(chat.userIds);
+    setChat({ ...chat, users });
+  }, [currentChatId]);
 
-        const q = query(
+  const getMessages = useCallback(
+    async (needLastMesFocus = true) => {
+			dispatch(chatActions.set({isLoadingMore: true}))
+
+      let q;
+			if (lastMessageDoc.current) {
+				q = query(
           collection(db, "messages"),
           where("chatId", "==", currentChatId),
           orderBy("createdAt", "desc"),
-					startAfter(lastMessageDoc.current),
+          startAfter(lastMessageDoc.current),
           limit(PAGE_OFSET)
         );
-        
-        const messageResp = await getDocs(q);
-				if (messageResp.size === 0) {
-					isMessagesEmpty.current = true;
-					dispatch(chatActions.setFields({ isLoadingMore: false }));
-					return;
-				}
-
-				const messagesDocs = [...messageResp.docs].reverse();
-				const newMessages = messagesDocs.map((el) =>
-					el.data()
-				) as IMessage[];
-
-				lastMessageDoc.current = messagesDocs[0];
-        setMessages((prev) => [...newMessages, ...prev]);
-        dispatch(chatActions.setFields({ isLoadingMore: false }));
-      } else if (scrollFromChat) {
-				isScrollFarFromChat.current = true
 			} else {
-				isScrollFarFromChat.current = false
+				q = query(
+					collection(db, "messages"),
+					where("chatId", "==", currentChatId),
+					orderBy("createdAt", "desc"),
+					limit(PAGE_OFSET)
+				);
 			}
-    }
-    if (isOpen && messagesRef.current) {
-      messagesRef.current.addEventListener("scroll", handleScroll);
-    }
-  }, [isOpen, messagesRef.current, chat]);
+      const messagesResp = await getDocs(q);
+      const messagesDocs = messagesResp.docs;
+      if (messagesDocs.length == 0) {
+        isMessagesEmpty.current = true;
+        dispatch(chatActions.set({ isLoadingMore: false }));
+        return;
+      }
+      lastMessageDoc.current = messagesDocs[messagesDocs.length - 1];
+      const messages = messagesDocs.map((el) => el.data() as IMessage);
+      setMessages((prev) => {
+        isNeedLastMessFocus.current = needLastMesFocus;
+        return [...messages.reverse(), ...prev];
+      });
+      dispatch(chatActions.set({ isLoadingMore: false }));
+    },
+    [currentChatId, isMessagesEmpty.current]
+  );
 
-  const currentDate = new Date(event.date).toLocaleDateString("ru-RU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  });
-
+  const currentDate = formatEventDate(event.date);
   const isChatExist = currentChatId && chat;
 
   const handleSendMessage = async (body: string) => {
@@ -185,16 +185,22 @@ const Chat = (props: ChatProps) => {
         type: "text",
       });
       setMessages((prev) => {
-				isNeedLastMessFocus.current = true;
-				return [...prev, createdMessage];
-			});
+        isNeedLastMessFocus.current = true;
+        return [...prev, createdMessage];
+      });
+
+      const messageToSend: IMessageLoaded = {
+        ...createdMessage,
+        isLoading: undefined,
+      };
+      ChatWS.onSendMessage(messageToSend);
     } catch (error) {
       console.error(error);
     }
   };
 
   const handleClose = () => {
-    dispatch(chatActions.setFields({ isOpen: false }));
+    dispatch(chatActions.set({ isOpen: false }));
   };
 
   const handleFileSet = async (file: File) => {
@@ -205,9 +211,15 @@ const Chat = (props: ChatProps) => {
       chatId: currentChatId!,
     });
     setMessages((prev) => {
-			isNeedLastMessFocus.current = true;
-			return [...prev, createdMessage];
-		});
+      isNeedLastMessFocus.current = true;
+      return [...prev, createdMessage];
+    });
+
+    const messageToSend: IMessageLoaded = {
+      ...createdMessage,
+      isLoading: undefined,
+    };
+    ChatWS.onSendMessage(messageToSend);
 
     const imgRef = ref(storage, `chat_images/${file.name}`);
     const uploadTask = uploadBytesResumable(imgRef, file);
@@ -264,7 +276,7 @@ const Chat = (props: ChatProps) => {
           <div className={styles.content}>
             {isChatExist ? (
               <div ref={messagesRef} className={styles.messageList}>
-                <LoadMoreSpinner />
+                <LoadMoreSpinner ref={loadMoreSpinnerRef} />
                 {messages.map((el) => returnMessage(el))}
               </div>
             ) : (
