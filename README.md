@@ -1,4 +1,4 @@
-![image](https://github.com/jumpeebunee/meet-and-go-new/assets/105386597/24df495b-3401-4927-8c37-195c86e59fae)
+![image](https://github.com/jumpeebunee/meet-and-go-new/assets/105386597/79f520cf-92a0-4031-abef-f894db702392)
 # Meet And Go
 [Live demo](https://meet-and-go-new.netlify.app/home). Приложение для создания встреч и знакомств с новыми людьми.
 ## About App
