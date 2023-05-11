@@ -1,55 +1,13 @@
-<!-- center code math uml theme:white -->
+![image](https://github.com/jumpeebunee/meet-and-go-new/assets/105386597/24df495b-3401-4927-8c37-195c86e59fae)
+# Meet And Go
+[Live demo](https://meet-and-go-new.netlify.app/home). Приложение для создания встреч и знакомств с новыми людьми.
+## About App
+This application provides the user with the opportunity to create events, join existing ones, as well as attend various events and events of other users. It offers functionality that helps people easily find interesting meetings and meet new people.
 
-# Event Map Application
-## Meet And Go!
+The application has a convenient chat where users can discuss events, share opinions and plan their trip. This is a great opportunity to exchange information, discuss details and set up a meeting in advance.
 
+A map is also available in the application, which displays labels with various events. Users can see the location of these events and choose the most convenient for themselves. The map helps to navigate the city or area and facilitates the search for interesting events in the selected area.
 
-[Live demo](https://meet-and-go-new.netlify.app/home). The application allows you to search for events by interests. Create events. Meet and search for public companies.
-
-## Opportunities
-
-In the application, you can create an account, add contacts for communication, get reputation for organized events, change your profile photo. Create events and invite friends there.
-
-The main purpose of the application is public access to events for everyone. Every event contain a list of participants, number of people, it is possible to go to the profile and look at the participant and his reputation.
-
-
-## Stack
-
-The application is based on React JS, Redux and TypeScript.
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Summarizing all of the above, this application facilitates the process of creating, searching and participating in meetings and events, providing users with the opportunity to establish new connections, spend time with pleasure and expand their social circle.
+## App Demo
+![image](https://github.com/jumpeebunee/meet-and-go-new/assets/105386597/a8494543-e7f4-44e6-97b8-c4a6c5ae1481)
