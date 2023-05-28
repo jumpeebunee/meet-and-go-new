@@ -1,0 +1,83 @@
+.createEventStages {
+  font-size: 22px;
+  line-height: 27px;
+  color: rgba(26, 26, 26, 0.6);
+
+  span {
+    color: #FF906D;
+  }
+}
+
+.createEventHeading {
+  margin-top: 25px;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 29px;
+  color: #1A1A1A;
+}
+
+.createEventContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 50px;
+  padding-bottom: 0px;
+}
+
+.createEventButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 40px;
+}
+
+.createEventList {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.createEventThirdHeader {
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+
+.createEventThirdContent {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+@media (max-width: 414px) {
+  .createEventStages {
+    font-size: 5.31vw;
+    line-height: 6.52vw;
+  }
+  
+  .createEventHeading {
+    margin-top: 6.52vw;
+    font-size: 5.80vw;
+    line-height: 7.00vw;
+  }
+  
+  .createEventButtons {
+    gap: 3.62vw;
+    padding-bottom: 9.66vw;
+  }
+  
+  .createEventList {
+    gap: 6.52vw;
+  }
+
+  .createEventThirdHeader {
+    margin-top: 1.21vw;
+    margin-bottom: 7.25vw;
+  }
+  
+  .createEventThirdContent {
+    margin-top: 6.04vw;
+    gap: 4.83vw;
+  }
+}

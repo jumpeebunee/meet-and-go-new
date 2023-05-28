@@ -1,0 +1,71 @@
+.UserModalContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 0;
+  gap: 30px;
+}
+
+.UserModalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.UserModaList {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.UserModalBtns {
+  padding-bottom: 40px;
+}
+
+.UserModalRemoveBtn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: transparent;
+
+  span {
+    display: block;
+    width: 36px;
+    height: 36px;
+    background-image: url('../../../assets/banned.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+@media (max-width: 414px) {
+  .UserModalContainer {
+    gap: 7.25vw;
+  }
+  
+  .UserModalContent {
+    gap: 4.83vw;
+  }
+  
+  .UserModaList {
+    margin-top: 4.83vw;
+    gap: 3.62vw;
+  }
+  
+  .UserModalBtns {
+    padding-bottom: 9.66vw;
+  }
+
+  .UserModalRemoveBtn {
+    top: 7.25vw;
+    right: 7.25vw;
+  
+    span {
+      width: 8.70vw;
+      height: 8.70vw;
+    }
+  }
+}

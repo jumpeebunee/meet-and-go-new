@@ -1,0 +1,45 @@
+.UsersCounter {
+  display: flex;
+  flex-direction: column;
+}
+
+.UsersCounterInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+
+  button {
+    width: 32px;
+    height: 32px;
+    background: #75D7A1;
+    border-radius: 4px;
+    font-size: 17px;
+    line-height: 21px;
+    color: #FFFFFF;
+  }
+
+  span {
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
+
+@media (max-width: 414px) {
+  .UsersCounterInput {
+    margin-top: 4.83vw;
+  
+    button {
+      width: 7.73vw;
+      height: 7.73vw;
+      border-radius: 0.97vw;
+      font-size: 4.11vw;
+      line-height: 5.07vw;
+    }
+  
+    span {
+      font-size: 3.86vw;
+      line-height: 4.59vw;
+    }
+  }
+}

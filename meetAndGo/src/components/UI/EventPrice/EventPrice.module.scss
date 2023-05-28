@@ -1,0 +1,16 @@
+.EventPrice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.EventPriceDescription {
+  font-size: 16px;
+}
+
+
+@media (max-width: 414px) {
+  .EventPriceDescription {
+    font-size: 3.86vw;
+  }
+}

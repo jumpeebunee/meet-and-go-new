@@ -1,0 +1,37 @@
+.appLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #1A1A1A;
+
+  h2 {
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 51px;
+    color: #FFFFFF;
+  }
+}
+
+.appLoadingContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+@media (max-width: 414px) {
+  .appLoading {
+    h2 {
+      font-size: 10.14vw;
+      line-height: 12.32vw;
+    }
+  }
+  .appLoadingContent {
+    gap: 7.25vw;
+  }
+}

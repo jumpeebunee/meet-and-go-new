@@ -1,0 +1,50 @@
+.EventItem {
+  padding: 20px 20px 22px 20px;
+  background: #F6F6F6;
+  border-radius: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+  h3 {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: rgba(26, 26, 26, 0.9);
+  }
+}
+
+.EventItemContent {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  p {
+    font-size: 14px;
+    line-height: 17px;
+    color: rgba(26, 26, 26, 0.7);
+  }
+}
+
+@media (max-width: 414px) {
+  .EventItem {
+    padding: 4.83vw 4.83vw 5.31vw 4.83vw;
+    border-radius: 4.83vw;
+  
+    h3 {
+      font-size: 4.35vw;
+      line-height: 5.31vw;
+    }
+  }
+  
+  .EventItemContent {
+    margin-top: 2.42vw;
+    gap: 1.21vw;
+  
+    p {
+      font-size: 3.38vw;
+      line-height: 4.11vw;
+    }
+  }
+}

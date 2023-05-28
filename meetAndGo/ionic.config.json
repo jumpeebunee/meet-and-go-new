@@ -1,0 +1,7 @@
+{
+  "name": "meetAndGo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

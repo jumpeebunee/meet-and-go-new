@@ -1,0 +1,49 @@
+.LinkButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #F6F6F6;
+  border-radius: 10px;
+
+  span {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../assets/link.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+.LinkButtonOpened {
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #F6F6F6;
+  border-radius: 10px;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+@media (max-width: 414px) {
+
+  .LinkButtonOpened {
+    padding-left: 4.83vw;
+    padding-right: 4.83vw;
+    border-radius: 2.42vw;
+    font-size: 4.35vw;
+    line-height: 5.31vw;
+  }
+
+  .LinkButton {
+    width: 12.08vw;
+    height: 12.08vw;
+    border-radius: 2.42vw;
+  
+    span {
+      width: 4.83vw;
+      height: 4.83vw;
+    }
+  }
+}  

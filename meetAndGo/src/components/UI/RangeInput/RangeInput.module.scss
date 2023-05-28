@@ -1,0 +1,57 @@
+input[type="range"] {
+  appearance: none;
+  height: 8px;
+  background: #F1F1F1;
+  border-radius: 4px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #282828;
+  cursor: ew-resize;
+  transition: background .3s ease-in-out;
+}
+
+input[type=range]::-webkit-slider-runnable-track  {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+.RangeInput {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.RangeInputValue {
+  margin-top: 10px;
+  text-align: right;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+@media (max-width: 414px) {
+  input[type="range"] {
+    height: 1.93vw;
+    border-radius: 0.97vw;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    height: 4.83vw;
+    width: 4.83vw;
+  }
+  
+  .RangeInput {
+    margin-top: 4.83vw;
+  }
+  
+  .RangeInputValue {
+    margin-top: 2.42vw;
+    font-size: 3.86vw;
+    line-height: 4.59vw;
+  }
+}

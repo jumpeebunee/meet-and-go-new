@@ -1,0 +1,60 @@
+
+@for $i from 1 through 4 {
+  .EventUsersAvatar:nth-child( #{$i}) {
+    right: 10px * $i;
+  }
+}
+
+.EventUsers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.EventUsersTotal {
+  display: flex;
+  align-items: center;
+}
+
+.EventUsersList {
+  height: 25px;
+  position: relative;
+}
+
+.EventUsersAvatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  position: absolute;
+  right: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.EventUsersValue {
+  font-size: 16px;
+}
+
+
+@media (max-width: 414px) {
+  @for $i from 1 through 4 {
+    .EventUsersAvatar:nth-child( #{$i}) {
+      right: 2.42vw * $i;
+    }
+  }
+  
+  .EventUsersList {
+    height: 6.04vw;
+
+  }
+  
+  .EventUsersAvatar {
+    width: 6.04vw;
+    height: 6.04vw;
+  }
+
+  .EventUsersValue {
+    font-size: 3.86vw;
+  }
+}

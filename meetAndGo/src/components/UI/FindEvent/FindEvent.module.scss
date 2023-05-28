@@ -1,0 +1,51 @@
+.FindEvent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.FindEventBtn {
+  padding: 14px 33px;
+  background: #75D7A1;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+
+  &:disabled {
+    opacity: .6;
+  }
+}
+
+.FindEventInput {
+  width: 100%;
+  padding: 14px 20px;
+  background: #F6F6F6;
+  border-radius: 10px;
+  font-size: 18px;
+  line-height: 22px;
+  color: #1A1A1A;
+}
+
+@media (max-width: 414px) {
+  .FindEvent {
+    gap: 3.62vw;
+  }
+  
+  .FindEventBtn {
+    padding: 3.38vw 7.97vw;
+    border-radius: 2.42vw;
+    font-size: 4.35vw;
+    line-height: 5.31vw;
+  }
+  
+  .FindEventInput {
+    padding: 3.38vw 4.83vw;
+    border-radius: 2.42vw;
+    font-size: 4.35vw;
+    line-height: 5.31vw;;
+  }
+  
+}

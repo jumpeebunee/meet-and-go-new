@@ -1,0 +1,104 @@
+.openedEventHeader {
+  margin-top: 30px;
+}
+
+.openedEventHeading {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+}
+
+.openedEventContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 50px;
+  padding-bottom: 0px;
+  position: relative;
+}
+
+.openedEventBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 50px;
+}
+
+.openedEventInputs {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.openedEventContent {
+  margin-top: 30px;
+}
+
+.openedEventRemove {
+  position: absolute;
+  right: 30px;
+  background-color: transparent;
+
+  span {
+    display: block;
+    width: 28px;
+    height: 31px;
+    background-image: url(../../../assets/remove.svg);
+    background-size: contain;
+  }
+}
+
+.openedEventLinks {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: solid 1px rgba(217, 217, 217, 0.2);
+}
+
+@media (max-width: 414px) {
+
+  .openedEventContainer {
+    gap: 12.08vw;
+  }
+
+  .openedEventHeader {
+    margin-top: 7.25vw;
+  }
+  
+  .openedEventHeading {
+    font-size: 7.73vw;
+    line-height: 9.42vw;
+  }
+
+  .openedEventBtns {
+    gap: 3.62vw;
+    padding-bottom: 12.08vw;
+  }
+  
+  .openedEventInputs {
+    margin-top: 6.04vw;
+    gap: 4.83vw;
+  }
+  
+  .openedEventContent {
+    margin-top: 7.25vw;
+  }
+
+  .openedEventRemove {
+    right: 7.25vw;
+  
+    span {
+      width: 6.76vw;
+      height: 7.49vw;
+    }
+  }
+
+  .openedEventLinks {
+    gap: 3.62vw;
+    margin-top: 6.04vw;
+    padding-top: 4.83vw;
+    border-top: solid 0.24vw rgba(217, 217, 217, 0.2);
+  }  
+}

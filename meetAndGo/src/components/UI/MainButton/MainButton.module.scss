@@ -1,0 +1,28 @@
+.mainButton {
+  width: 100%;
+  padding: 20px 40px;
+  background: #1A1A1A;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+  transition: opacity ease .2s;
+
+  &:disabled {
+    opacity: 0.6;
+  }
+
+  &:active {
+    opacity: .9;
+  }
+}
+
+@media (max-width: 414px) {
+  .mainButton {
+    padding: 4.83vw 9.66vw;
+    border-radius: 9.66vw;
+    font-size: 4.35vw;
+    line-height: 5.31vw;
+  }
+}

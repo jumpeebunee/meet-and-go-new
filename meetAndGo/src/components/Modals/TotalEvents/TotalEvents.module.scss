@@ -1,0 +1,92 @@
+.TotalEventsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+  padding-bottom: 0px;
+  align-items: center;
+}
+
+.TotalEventsLoading {
+  ion-spinner {
+      color: #54dc98;
+  }
+}
+
+.TotalEventsHeading {
+  margin-top: 30px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+  color: #1A1A1A;
+}
+
+.TotalEventsContent {
+  margin-top: 35px;
+}
+
+.TotalEventList {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.TotalEventsBtns, .TotalEventsMain {
+  width: 100%;
+}
+
+.TotalEventsBtns {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50px;
+  gap: 15px;
+}
+
+.TotalEventNot {
+  margin-top: 30px;
+  font-size: 16px;
+  line-height: 127.52%;
+  color: rgba(26, 26, 26, 0.7);
+}
+
+.TotalEventsFindEvent {
+  margin-top: 30px;
+}
+
+@media (max-width: 414px) {
+
+  .TotalEventsContainer {
+    gap: 7.25vw;
+  }
+
+  .TotalEventsHeading {
+    margin-top: 7.25vw;
+    font-size: 7.73vw;
+    line-height: 9.42vw;
+  }
+  
+  .TotalEventsContent {
+    margin-top: 8.45vw;
+  }
+  
+  .TotalEventList {
+    margin-top: 7.25vw;
+    gap: 4.83vw;
+  }
+
+  .TotalEventsBtns {
+    padding-bottom: 12.08vw;
+    gap: 3.62vw;
+  }
+  
+  .TotalEventNot {
+    margin-top: 7.25vw;
+    font-size: 3.86vw;
+  }
+
+  .TotalEventsFindEvent {
+    margin-top: 7.25vw;
+  }
+
+}
