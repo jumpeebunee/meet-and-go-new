@@ -1,15 +1,14 @@
 .secondButton {
   width: 100%;
   padding: 20px 40px;
-  background: #F1F1F1;
+  background: #f1f1f1;
   border-radius: 40px;
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
-  color: #1A1A1A;
-  transition: opacity ease .2s;
+  color: var(--mg-main-black);
+  transition: opacity ease 0.2s;
 }
-
 
 @media (max-width: 414px) {
   .secondButton {
@@ -18,5 +17,4 @@
     font-size: 4.35vw;
     line-height: 5.31vw;
   }
-  
 }

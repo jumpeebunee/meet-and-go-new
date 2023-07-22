@@ -1,26 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
-$black-color: #1A1A1A;
+:root {
+  --mg-main-black: #21212f;
+  --mg-main-white: #ffffff;
+  --mg-main-green: #75d7a1;
+  --mg-main-red: #ff6868;
+  --mg-main-yellow: #ffcc39;
+  --mg-main-purple: #8a53ff;
+}
 
 * {
   font-family: Inter;
-  color: black;
+  color: var(--mg-main-black);
 }
 
 body {
-  background-color: #fff;
+  background-color: var(--mg-main-white);
 }
 
 .ion-color-primary {
-  --ion-color-base: #FF906D !important;
+  --ion-color-base: var(--mg-main-red) !important;
 }
 
-.ion-page{
+.ion-page {
   height: 100%;
   overflow: hidden;
 }
 
-.modal-wrapper, .ion-overlay-wrapper {
+.modal-wrapper,
+.ion-overlay-wrapper {
   width: 100%;
   height: 100%;
 }
@@ -37,11 +45,11 @@ body {
   &::placeholder {
     font-size: 18px;
     line-height: 22px;
-    color: #AAAAAA;
+    color: #aaaaaa;
   }
 
   &:focus {
-    outline: 4px #75D7A166 solid;
+    outline: 4px #75d7a166 solid;
   }
 }
 
@@ -67,7 +75,7 @@ body {
   font-weight: 800;
   font-size: 28px;
   line-height: 34px;
-  color: #1A1A1A;
+  color: var(--mg-main-black);
 }
 
 .description {
@@ -84,7 +92,7 @@ body {
 .label {
   font-size: 18px;
   line-height: 22px;
-  color: #1A1A1A;
+  color: var(--mg-main-black);
 }
 
 .label_description {
@@ -105,12 +113,11 @@ body {
 }
 
 @media (max-width: 414px) {
-
   .label {
     font-size: 4.35vw;
     line-height: 5.31vw;
   }
-  
+
   .input {
     padding: 3.86vw 4.11vw;
     border-radius: 2.42vw;
@@ -123,17 +130,17 @@ body {
     font-size: 4.35vw;
     line-height: 5.31vw;
     border-radius: 2.42vw;
-  
+
     &::placeholder {
       font-size: 4.35vw;
       line-height: 5.31vw;
     }
-  
+
     &:focus {
-      outline: 0.97vw #75D7A166 solid;
+      outline: 0.97vw #75d7a166 solid;
     }
   }
-  
+
   .container {
     padding: 9.66vw 7.25vw;
   }
@@ -141,8 +148,8 @@ body {
   .app__container {
     padding: 0px 0px;
     height: 100%;
-  }  
-  
+  }
+
   .auth__container {
     padding-bottom: 21.74vw;
   }
@@ -151,12 +158,12 @@ body {
     font-size: 6.76vw;
     line-height: 8.21vw;
   }
-  
+
   .description {
     font-size: 3.86vw;
     line-height: 4.59vw;
   }
-  
+
   .modal-container {
     padding: 9.66vw 7.25vw;
   }
@@ -165,5 +172,5 @@ body {
     margin-top: 0.72vw;
     font-size: 3.38vw;
     line-height: 4.11vw;
-  }  
+  }
 }

@@ -8,7 +8,7 @@
   font-weight: 800;
   font-size: 24px;
   line-height: 29px;
-  color: #1A1A1A;
+  color: var(--mg-main-black);
 }
 
 .ProfileAboutRep {
@@ -37,19 +37,19 @@
   margin-top: 15px;
   width: 129px;
   height: 2px;
-  background: #FF906D;
+  background: var(--mg-main-red);
 }
 
 @media (max-width: 414px) {
   .ProfileAboutHeading {
-    font-size: 5.80vw;
-    line-height: 7.00vw;
+    font-size: 5.8vw;
+    line-height: 7vw;
   }
-  
+
   .ProfileAboutRep {
     margin-top: 0.72vw;
     gap: 0.72vw;
-  
+
     p {
       font-size: 3.38vw;
       line-height: 4.11vw;
@@ -59,7 +59,7 @@
       height: 4.11vw;
     }
   }
-  
+
   .ProfileAboutBorder {
     margin-top: 3.62vw;
     width: 31.16vw;

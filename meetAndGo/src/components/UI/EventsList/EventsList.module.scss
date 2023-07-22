@@ -12,29 +12,28 @@
 .eventsItem {
   display: inline-block;
   padding: 8px 10px;
-  background-color: #75D7A1;
+  background-color: var(--mg-main-green);
   border-radius: 4px;
-  
+
   button {
     font-weight: 600;
-    color: #FFFFFF;
+    color: var(--mg-main-white);
     background-color: transparent;
     font-size: 14px;
   }
 }
-
 
 @media (max-width: 414px) {
   .eventsList {
     margin-top: 3.14vw;
     column-gap: 2.42vw;
   }
-  
+
   .eventsItem {
     line-height: 10%;
     padding: 1.93vw 2.42vw;
     border-radius: 1.93vw;
-    
+
     button {
       font-size: 3.38vw;
     }

@@ -20,7 +20,7 @@
     font-weight: 800;
     font-size: 24px;
     line-height: 29px;
-    color: #1A1A1A;
+    color: var(--mg-main-black);
   }
 }
 
@@ -67,7 +67,7 @@
   margin-top: 25px;
   width: 129px;
   height: 2px;
-  background-color: #FF906D;
+  background-color: var(--mg-main-red);
 }
 
 //* Image
@@ -82,9 +82,9 @@
       opacity: 1;
     }
     .profileModalImage {
-      opacity: .5;
+      opacity: 0.5;
     }
-    background: #1A1A1A;
+    background: var(--mg-main-black);
   }
 
   input {
@@ -119,7 +119,6 @@
   object-position: center;
 }
 
-
 .profileModalImageLoading {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -129,9 +128,9 @@
 
 .profileModalImageWrapperLoading {
   .profileModalImage {
-    opacity: .5;
+    opacity: 0.5;
   }
-  background: #1A1A1A;
+  background: var(--mg-main-black);
 
   .profileModalImageUpload {
     display: none;
@@ -139,7 +138,7 @@
 }
 
 ion-spinner {
-  color: #fff;
+  color: var(--mg-main-white);
 }
 
 //* List
@@ -151,7 +150,6 @@ ion-spinner {
   padding-top: 33px;
   padding-bottom: 15px;
 }
-
 
 //* Buttons
 
@@ -178,72 +176,71 @@ ion-spinner {
   .profileModal {
     padding: 12.08vw 12.08vw 12.08vw 12.08vw;
   }
-  
+
   //* user
-  
+
   .profileModalUser {
     h3 {
       margin-top: 4.83vw;
-      font-size: 5.80vw;
-      line-height: 7.00vw;
+      font-size: 5.8vw;
+      line-height: 7vw;
     }
   }
-  
+
   //* rating
-  
+
   .profileModalRaiting {
     margin-top: 0.72vw;
   }
-  
+
   .profileModalRaitingWrapper {
     gap: 0.72vw;
   }
-  
+
   .profileModalRatingHeading {
     font-size: 3.38vw;
     line-height: 4.11vw;
   }
-  
+
   .profileModalRatingIcon {
     width: 4.11vw;
     height: 4.11vw;
   }
-  
+
   .profileModalRaitingHow {
     margin-top: 0.72vw;
     font-size: 2.42vw;
-    line-height: 2.90vw;
+    line-height: 2.9vw;
   }
-  
+
   .profileModalRaitingLine {
     margin-top: 6.04vw;
     width: 31.16vw;
     height: 0.48vw;
   }
-  
+
   //* Image
-  
+
   .profileModalImageUpload {
     width: 14.73vw;
     height: 13.29vw;
   }
-  
+
   .profileModalImage {
     width: 41.55vw;
     height: 41.55vw;
   }
-  
+
   //* List
-  
+
   .profileModalList {
     gap: 3.62vw;
     padding-top: 7.97vw;
     padding-bottom: 3.62vw;
   }
-  
-  
+
   //* Buttons
-  
+
   .profileModalBtns {
     gap: 3.62vw;
     padding-bottom: 9.66vw;
@@ -252,8 +249,8 @@ ion-spinner {
   //* logout
 
   .profileModalLogout {
-    width: 5.80vw;
-    height: 5.80vw;
+    width: 5.8vw;
+    height: 5.8vw;
     top: 12.08vw;
     right: 9.66vw;
   }

@@ -9,7 +9,7 @@
     font-weight: 800;
     font-size: 28px;
     line-height: 34px;
-    color: #1A1A1A;
+    color: var(--mg-main-black);
   }
 
   p {
@@ -27,18 +27,18 @@
 @media (max-width: 414px) {
   .AppEventsLimit {
     gap: 7.25vw;
-  
+
     h2 {
       font-size: 6.76vw;
       line-height: 8.21vw;
     }
-  
+
     p {
       margin-top: 4.83vw;
       font-size: 3.86vw;
     }
   }
-  
+
   .AppEventsLimitBtns {
     padding-bottom: 9.66vw;
   }

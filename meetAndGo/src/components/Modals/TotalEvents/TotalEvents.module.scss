@@ -9,7 +9,7 @@
 
 .TotalEventsLoading {
   ion-spinner {
-      color: #54dc98;
+    color: #54dc98;
   }
 }
 
@@ -18,7 +18,7 @@
   font-weight: 700;
   font-size: 32px;
   line-height: 39px;
-  color: #1A1A1A;
+  color: var(--mg-main-black);
 }
 
 .TotalEventsContent {
@@ -32,7 +32,8 @@
   gap: 20px;
 }
 
-.TotalEventsBtns, .TotalEventsMain {
+.TotalEventsBtns,
+.TotalEventsMain {
   width: 100%;
 }
 
@@ -48,7 +49,6 @@
 }
 
 @media (max-width: 414px) {
-
   .TotalEventsContainer {
     gap: 7.25vw;
   }
@@ -58,11 +58,11 @@
     font-size: 7.73vw;
     line-height: 9.42vw;
   }
-  
+
   .TotalEventsContent {
     margin-top: 8.45vw;
   }
-  
+
   .TotalEventList {
     margin-top: 7.25vw;
     gap: 4.83vw;
@@ -71,10 +71,9 @@
   .TotalEventsBtns {
     padding-bottom: 12.08vw;
   }
-  
+
   .TotalEventNot {
     margin-top: 7.25vw;
     font-size: 3.86vw;
   }
-
 }

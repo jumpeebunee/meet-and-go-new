@@ -1,20 +1,20 @@
 .mainButton {
   width: 100%;
   padding: 20px 40px;
-  background: #1A1A1A;
+  background: var(--mg-main-black);
   border-radius: 40px;
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
-  color: #FFFFFF;
-  transition: opacity ease .2s;
+  color: var(--mg-main-white);
+  transition: opacity ease 0.2s;
 
   &:disabled {
     opacity: 0.6;
   }
 
   &:active {
-    opacity: .9;
+    opacity: 0.9;
   }
 }
 

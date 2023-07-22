@@ -5,7 +5,7 @@
   width: 60px;
   height: 60px;
   border-radius: 10px;
-  background-color: #75D7A1;
+  background-color: var(--mg-main-green);
   position: absolute;
   top: 40px;
   left: 30px;
@@ -30,11 +30,10 @@
     left: 7.25vw;
     outline: 0.24vw solid rgba(26, 26, 26, 0.05);
     filter: drop-shadow(0.97vw 2.42vw 3.62vw rgba(0, 0, 0, 0.05));
-  
+
     span {
       width: 6.28vw;
       height: 6.28vw;
     }
   }
-  
 }

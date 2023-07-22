@@ -4,7 +4,7 @@
   color: rgba(26, 26, 26, 0.6);
 
   span {
-    color: #FF906D;
+    color: var(--mg-main-red);
   }
 }
 
@@ -13,7 +13,7 @@
   font-weight: 800;
   font-size: 24px;
   line-height: 29px;
-  color: #1A1A1A;
+  color: var(--mg-main-black);
 }
 
 .createEventContent {
@@ -49,24 +49,23 @@
   gap: 20px;
 }
 
-
 @media (max-width: 414px) {
   .createEventStages {
     font-size: 5.31vw;
     line-height: 6.52vw;
   }
-  
+
   .createEventHeading {
     margin-top: 6.52vw;
-    font-size: 5.80vw;
-    line-height: 7.00vw;
+    font-size: 5.8vw;
+    line-height: 7vw;
   }
-  
+
   .createEventButtons {
     gap: 3.62vw;
     padding-bottom: 9.66vw;
   }
-  
+
   .createEventList {
     gap: 6.52vw;
   }
@@ -75,7 +74,7 @@
     margin-top: 1.21vw;
     margin-bottom: 7.25vw;
   }
-  
+
   .createEventThirdContent {
     margin-top: 6.04vw;
     gap: 4.83vw;

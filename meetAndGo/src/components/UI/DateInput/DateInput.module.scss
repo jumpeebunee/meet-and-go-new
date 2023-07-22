@@ -9,8 +9,8 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
-  color: #FFFFFF;
-  background-color: #1A1A1A;
+  color: var(--mg-main-white);
+  background-color: var(--mg-main-black);
   border-radius: 10px;
 }
 
@@ -18,7 +18,7 @@
   .dateInput {
     gap: 2.42vw;
   }
-  
+
   .dateInputBtn {
     padding: 3.62vw 4.83vw;
     font-size: 3.86vw;

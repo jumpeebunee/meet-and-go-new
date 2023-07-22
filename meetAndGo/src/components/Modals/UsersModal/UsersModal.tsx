@@ -1,13 +1,13 @@
-import { IonContent, IonModal, IonSpinner } from '@ionic/react'
-import { FC, useEffect, useState } from 'react'
-import SecondButton from '../../UI/SecondButton/SecondButton';
-import cl from './UsersModal.module.scss'
-import { IActive, IUser } from '../../../types/types';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../../firebase';
-import UserItem from '../../UI/UserItem/UserItem';
-import { useSelector } from 'react-redux';
-import { openedEvent } from '../../../app/feautures/openedEventSlice';
+import { IonContent, IonModal, IonSpinner } from "@ionic/react";
+import { FC, useEffect, useState } from "react";
+import SecondButton from "../../UI/SecondButton/SecondButton";
+import cl from "./UsersModal.module.scss";
+import { IActive, IUser } from "../../../types/types";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
+import UserItem from "../../UI/UserItem/UserItem";
+import { useSelector } from "react-redux";
+import { openedEvent } from "../../../app/feautures/openedEventSlice";
 
 interface UsersModalProps {
   isOpen: boolean;
@@ -16,8 +16,12 @@ interface UsersModalProps {
   setOpenedUser: (arg: IUser) => void;
 }
 
-const UsersModal:FC<UsersModalProps> = ({isOpen, setIsUserOpen, setOpenedUser, setIsOpen}) => {
-
+const UsersModal: FC<UsersModalProps> = ({
+  isOpen,
+  setIsUserOpen,
+  setOpenedUser,
+  setIsOpen,
+}) => {
   const event = useSelector(openedEvent);
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,10 +30,10 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsUserOpen, setOpenedUser, s
     if (isOpen) {
       getUsers();
     }
-  }, [isOpen])
+  }, [isOpen]);
 
-  const getUsers = async() => {
-    const result:IUser[] = [];
+  const getUsers = async () => {
+    const result: IUser[] = [];
     setIsLoading(true);
 
     for (let i = 0; i < event.activeUsers.length; i++) {
@@ -45,12 +49,12 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsUserOpen, setOpenedUser, s
 
     setIsLoading(false);
     setUsers(result);
-  }
+  };
 
   const handleOpen = (user: IUser) => {
-    setIsUserOpen(true)
+    setIsUserOpen(true);
     setOpenedUser(user);
-  }
+  };
 
   return (
     <IonModal isOpen={isOpen}>
@@ -59,22 +63,32 @@ const UsersModal:FC<UsersModalProps> = ({isOpen, setIsUserOpen, setOpenedUser, s
           <div className={cl.UsersModalHeader}>
             <h2>Участники</h2>
             <p>{event.title}</p>
-            {!isLoading &&
+            {!isLoading && (
               <ul className={cl.UsersModalList}>
-                {users.map(user =>
-                  <UserItem handle={() => handleOpen(user)} key={user.uid} isLeader={event.leader === user.uid} user={user}/>
-                )}
+                {users.map((user) => (
+                  <UserItem
+                    handle={() => handleOpen(user)}
+                    key={user.uid}
+                    isLeader={event.leader === user.uid}
+                    user={user}
+                  />
+                ))}
               </ul>
-            }
+            )}
           </div>
-          {isLoading && <IonSpinner name='circular' style={{color: '#75D7A1'}}></IonSpinner>}
+          {isLoading && (
+            <IonSpinner
+              name="circular"
+              style={{ color: "var(--mg-main-green)" }}
+            ></IonSpinner>
+          )}
           <div className={cl.UsersModalBtns}>
             <SecondButton onClick={() => setIsOpen(false)}>Назад</SecondButton>
           </div>
         </div>
       </IonContent>
     </IonModal>
-  )
-}
+  );
+};
 
-export default UsersModal
+export default UsersModal;

@@ -6,7 +6,7 @@
   padding: 7px;
   width: 176px;
   height: 60px;
-  background-color: #fff;
+  background-color: var(--mg-main-white);
   position: absolute;
   top: 40px;
   right: 30px;
@@ -20,14 +20,14 @@
 .profileBtnImage {
   width: 46px;
   height: 46px;
-  outline: 1px solid #E4E0EB;
+  outline: 1px solid #e4e0eb;
   border-radius: 50%;
 
   img {
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    background-color: #E4E0EB;
+    background-color: #e4e0eb;
     object-fit: cover;
     object-position: center;
   }
@@ -47,11 +47,11 @@
     font-size: 3.86vw;
     line-height: 4.59vw;
   }
-  
+
   .profileBtnImage {
     width: 11.11vw;
     height: 11.11vw;
-    outline: 0.24vw solid #E4E0EB;
+    outline: 0.24vw solid #e4e0eb;
 
     img {
       width: 11.11vw;

@@ -11,7 +11,7 @@
   backdrop-filter: blur(2px);
   opacity: 0;
   visibility: hidden;
-  transition: all ease .4s;
+  transition: all ease 0.4s;
   min-height: 750px;
 }
 
@@ -23,21 +23,20 @@
 .appModalContent {
   width: 368px;
   height: 750px;
-  background-color: #fff;
+  background-color: var(--mg-main-white);
   border-radius: 50px;
   position: relative;
 }
 
 @media (max-width: 414px) {
-
   .appModal {
     min-height: 181.16vw;
     overflow: scroll;
   }
-  
+
   .appModalContent {
     width: 88.89vw;
     height: 181.16vw;
     border-radius: 12.08vw;
-  }  
+  }
 }

@@ -5,7 +5,7 @@
   width: 90px;
   height: 90px;
   position: absolute;
-  background: #1A1A1A;
+  background: var(--mg-main-black);
   border-radius: 50%;
   bottom: 40px;
   left: 50%;
@@ -34,7 +34,7 @@
     width: 21.74vw;
     height: 21.74vw;
     bottom: 9.66vw;
-  
+
     span {
       width: 9.66vw;
       height: 9.66vw;
