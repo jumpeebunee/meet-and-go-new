@@ -1,11 +1,11 @@
 import { useState, FormEvent, FC, useCallback } from "react";
 import cl from "./LoginForm.module.scss";
-import MainButton from "../../UI/MainButton/MainButton";
 import { useForm } from "react-hook-form";
 import { loginConfig } from "../../../formValidation/formValidation";
 import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
 import { ILogin } from "../../../types/types";
 import Input from "../../UI/Input/Input";
+import Button from "../../UI/Button/Button";
 
 interface LoginFormProps {
   handleLogin: (data: ILogin) => void;
@@ -90,7 +90,7 @@ const LoginForm: FC<LoginFormProps> = ({
         )}
       </div>
 
-      <MainButton disabled={isLoading}>Войти</MainButton>
+      <Button disabled={isLoading}>Войти</Button>
     </form>
   );
 };
