@@ -79,7 +79,7 @@ const Register = () => {
               serverError={serverError}
             />
             {!isLoading && (
-              <p className={cl.loginPageToggle}>
+              <p className={`body-m ${cl.Toggle}`}>
                 Уже есть профиль?
                 <IonRouterLink routerDirection="back" routerLink="/login">
                   <span> Войти</span>

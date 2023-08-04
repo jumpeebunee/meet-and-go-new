@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">meetAndGo</string>
+    <string name="title_activity_main">meetAndGo</string>
+    <string name="package_name">meet.and.go</string>
+    <string name="custom_url_scheme">meet.and.go</string>
+</resources>
