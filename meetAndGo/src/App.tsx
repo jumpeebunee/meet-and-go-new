@@ -1,11 +1,17 @@
-import { IonApp, IonContent, NavContext, setupIonicReact } from "@ionic/react";
+import { IonApp, NavContext, setupIonicReact } from "@ionic/react";
 import "@ionic/react/css/core.css";
 import "./styles/normolize.css";
 import "./styles/app.scss";
 import { FC, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase";
-import { collection, doc, getDocs, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  setDoc,
+} from "firebase/firestore";
 import { IEvent, IUser } from "./types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, user } from "./app/feautures/userSlice";
@@ -15,6 +21,7 @@ import AppLoading from "./components/AppLoading/AppLoading";
 import { unactiveEvents } from "./helpers/unactiveEvents";
 import AppEventsLimit from "./components/AppEventsLimit";
 import { errorOptions } from "./data/errorsOptions";
+import { baseUserContent } from "./data/baseUserContent";
 
 setupIonicReact();
 
@@ -30,13 +37,24 @@ const App: FC = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         if (user.email && user.uid && user.displayName) {
-          const querySnapshot = await getDocs(collection(db, "users"));
-          querySnapshot.forEach((doc) => {
-            if (doc.data().uid === user.uid) {
-              const data = doc.data() as IUser;
-              dispatch(addUser(data));
-            }
-          });
+          const querySnapshot = await getDoc(doc(db, "users", user.uid));
+
+          if (!querySnapshot.data()) {
+            const userContent = {
+              ...baseUserContent,
+              uid: user.uid,
+              username: user.displayName,
+              email: user.email,
+            };
+
+            await setDoc(doc(db, "users", user.uid), userContent);
+            await setDoc(doc(db, "emails", user.email), { email: user.email });
+
+            subscribeUserUpdates(user.uid);
+            dispatch(addUser(userContent));
+          } else {
+            dispatch(addUser(querySnapshot.data() as IUser));
+          }
           subscribeUserUpdates(user.uid);
         }
         navigate("/home", "forward");

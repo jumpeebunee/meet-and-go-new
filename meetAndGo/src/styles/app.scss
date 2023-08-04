@@ -121,12 +121,18 @@ body {
   color: var(--ob-main-color, --mg-main-white);
 }
 
+.body-xl {
+  font-size: 18px;
+  font-weight: 600;
+}
+
 .body-l {
   font-size: 18px;
 }
 
 .body-m {
   color: var(--ob-body-color, --mg-main-black);
+  font-weight: 400;
   font-size: 16px;
 }
 
@@ -134,4 +140,3 @@ body {
   font-size: 14px;
   color: var(--ob-body-color, --mg-main-black);
 }
-

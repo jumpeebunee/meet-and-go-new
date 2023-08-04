@@ -6,6 +6,9 @@ import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
 import { ILogin } from "../../../types/types";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
+import { signInWithRedirect } from "firebase/auth";
+import { auth, provider } from "../../../firebase";
+import googleIcon from "../../../assets/icons/L/lcLGoogle.svg";
 
 interface LoginFormProps {
   handleLogin: (data: ILogin) => void;
@@ -41,8 +44,17 @@ const LoginForm: FC<LoginFormProps> = ({
   };
 
   const onSubmit = (data: any) => {
-    console.log(serverError);
     handleLogin(data);
+  };
+
+  const loginWithGoogle = async () => {
+    signInWithRedirect(auth, provider)
+      .then((result: any) => {
+        console.log(result);
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
   };
 
   const currentMessage = useCallback(() => {
@@ -91,6 +103,9 @@ const LoginForm: FC<LoginFormProps> = ({
       </div>
 
       <Button disabled={isLoading}>Войти</Button>
+      <Button onClick={loginWithGoogle} haveIcon={googleIcon} type="secondary">
+        Войти через Google
+      </Button>
     </form>
   );
 };

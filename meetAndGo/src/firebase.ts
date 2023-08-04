@@ -1,4 +1,4 @@
-
+import { GoogleAuthProvider } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -11,10 +11,15 @@ const firebaseConfig = {
   storageBucket: "meet-and-go-new.appspot.com",
   messagingSenderId: "771714448080",
   appId: "1:771714448080:web:ac18135b096bbee62c7cd5",
-  measurementId: "G-HDLLHFJT47"
+  measurementId: "G-HDLLHFJT47",
 };
 
 const app = initializeApp(firebaseConfig);
+
 export const auth = getAuth(app);
+export const provider = new GoogleAuthProvider();
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+auth.languageCode = "it";
+provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
