@@ -1,7 +1,7 @@
 import { IonContent, IonPage, IonRouterLink, NavContext } from "@ionic/react";
 import AuthBanner from "../components/Auth/AuthBanner/AuthBanner";
 import cl from "./styles/loginPage.module.scss";
-import RegisterForm from "../components/RegisterForm";
+import RegisterForm from "../components/Auth/RegisterForm/RegisterForm";
 import { IEvent, IRegister, IUser } from "../types/types";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { setDoc, doc, onSnapshot, collection } from "firebase/firestore";

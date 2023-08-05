@@ -5,7 +5,7 @@ import PasswordVisible from "../../Auth/PasswordVisible/PasswordVisible";
 
 interface InputProps {
   type?: string;
-  register: UseFormRegisterReturn<"email" | "password">;
+  register: UseFormRegisterReturn<"email" | "password" | "fullname">;
   props?: React.InputHTMLAttributes<HTMLInputElement>;
   placeholder: string;
   isPassword?: boolean;

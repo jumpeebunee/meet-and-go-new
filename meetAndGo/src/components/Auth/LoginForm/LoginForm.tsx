@@ -1,7 +1,6 @@
 import { useState, FormEvent, FC, useCallback } from "react";
 import cl from "./LoginForm.module.scss";
 import { useForm } from "react-hook-form";
-import { loginConfig } from "../../../formValidation/formValidation";
 import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
 import { ILogin } from "../../../types/types";
 import Input from "../../UI/Input/Input";
@@ -9,6 +8,10 @@ import Button from "../../UI/Button/Button";
 import { signInWithRedirect } from "firebase/auth";
 import { auth, provider } from "../../../firebase";
 import googleIcon from "../../../assets/icons/L/lcLGoogle.svg";
+import {
+  emailConfig,
+  passwordConfig,
+} from "../../../formValidation/formValidation";
 
 interface LoginFormProps {
   handleLogin: (data: ILogin) => void;
@@ -72,13 +75,13 @@ const LoginForm: FC<LoginFormProps> = ({
       <Input
         placeholder="Email"
         type="email"
-        register={register("email", loginConfig())}
+        register={register("email", emailConfig())}
       />
 
       <Input
         placeholder="Пароль"
         type={isVisible ? "text" : "password"}
-        register={register("password", loginConfig())}
+        register={register("password", passwordConfig())}
         isPasswordVisible={isVisible}
         setIsPasswordVisible={handleChange}
         isPassword
@@ -103,7 +106,12 @@ const LoginForm: FC<LoginFormProps> = ({
       </div>
 
       <Button disabled={isLoading}>Войти</Button>
-      <Button onClick={loginWithGoogle} haveIcon={googleIcon} type="secondary">
+      <Button
+        fullWidth
+        onClick={loginWithGoogle}
+        haveIcon={googleIcon}
+        type="secondary"
+      >
         Войти через Google
       </Button>
     </form>

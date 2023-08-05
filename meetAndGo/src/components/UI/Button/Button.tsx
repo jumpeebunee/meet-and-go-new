@@ -7,6 +7,7 @@ interface ButtonProps {
   onClick?: () => void;
   type?: "main" | "secondary";
   haveIcon?: string;
+  fullWidth?: boolean;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -14,6 +15,7 @@ const Button: FC<ButtonProps> = ({
   disabled,
   type,
   haveIcon,
+  fullWidth = false,
   ...rest
 }) => {
   const styles = {
@@ -24,6 +26,7 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       disabled={disabled}
+      style={{ width: `${fullWidth ? "100%" : ""}` }}
       className={`${cl.Button} ${styles[type || "main"]} ${
         haveIcon ? cl.WithIcon : ""
       }`}
