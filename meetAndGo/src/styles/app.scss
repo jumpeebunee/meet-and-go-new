@@ -5,15 +5,23 @@
   --mg-main-white: #ffffff;
   --mg-main-green: #75d7a1;
   --mg-main-red: #ff6868;
+  --mg-main-orange: #ff906d;
   --mg-main-yellow: #ffcc39;
   --mg-main-purple: #8a53ff;
   --mg-main-gray: #a0a0a6;
   --mg-second-gray: rgba(217, 217, 217, 0.2);
+  --mg-light-gray: #f1f1f1;
+  --mg-second-black: rgba(33, 33, 47, 0.6);
 }
 
 * {
   font-family: Inter;
   color: var(--mg-main-black);
+}
+
+ion-modal {
+  --width: 100%;
+  --height: 100%;
 }
 
 body {
@@ -112,6 +120,11 @@ body {
   border-radius: 10px;
   font-size: 16px;
   line-height: 19px;
+}
+
+.title-xl {
+  font-size: 24px;
+  font-weight: 700;
 }
 
 .title-xxl {
