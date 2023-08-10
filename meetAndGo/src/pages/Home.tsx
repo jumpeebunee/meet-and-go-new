@@ -1,17 +1,16 @@
-import { IonPage } from '@ionic/react';
-import AppMap from '../components/AppMap';
-import { useState } from 'react';
-import ProfileModal from '../components/Modals/Profile/ProfileModal';
-import RaitingModal from '../components/Modals/Raiting/RaitingModal';
-import CreateEvent from '../components/Modals/CreateEvent/CreateEvent';
-import { IUser } from '../types/types';
-import OpenedEvent from '../components/Modals/OpenedEvent/OpenedEvent';
-import TotalEvents from '../components/Modals/TotalEvents/TotalEvents';
-import UsersModal from '../components/Modals/UsersModal/UsersModal';
-import UserModal from '../components/Modals/UserModal/UserModal';
+import { IonPage } from "@ionic/react";
+import AppMap from "../components/AppMap";
+import { useState } from "react";
+import ProfileModal from "../components/Modals/Profile/ProfileModal/ProfileModal";
+import RaitingModal from "../components/Modals/Raiting/RaitingModal";
+import CreateEvent from "../components/Modals/CreateEvent/CreateEvent";
+import { IUser } from "../types/types";
+import OpenedEvent from "../components/Modals/OpenedEvent/OpenedEvent";
+import TotalEvents from "../components/Modals/TotalEvents/TotalEvents";
+import UsersModal from "../components/Modals/UsersModal/UsersModal";
+import UserModal from "../components/Modals/UserModal/UserModal";
 
 const Home: React.FC = () => {
-
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isRaitingOpen, setIsRaitngOpen] = useState(false);
   const [isCreateEventOpen, setIsCreateEventOpen] = useState(false);
@@ -23,7 +22,7 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <div className='container app__container'>
+      <div className="container app__container">
         <AppMap
           setIsProfileOpen={setIsProfileOpen}
           setIsOpenEvent={setIsOpenEvent}
@@ -31,20 +30,17 @@ const Home: React.FC = () => {
           setIsEventsOpen={setIsEventsOpen}
         />
         <ProfileModal
-          isOpen={isProfileOpen} 
+          isOpen={isProfileOpen}
           setIsOpen={setIsProfileOpen}
           setIsRaitngOpen={setIsRaitngOpen}
         />
-        <RaitingModal
-          isOpen={isRaitingOpen} 
-          setIsOpen={setIsRaitngOpen}
-        />
+        <RaitingModal isOpen={isRaitingOpen} setIsOpen={setIsRaitngOpen} />
         <CreateEvent
-          isOpen={isCreateEventOpen} 
+          isOpen={isCreateEventOpen}
           setIsOpen={setIsCreateEventOpen}
         />
         <UsersModal
-          isOpen={isUsersOpen} 
+          isOpen={isUsersOpen}
           setIsOpen={setIsUsersOpen}
           setIsUserOpen={setIsUserOpen}
           setOpenedUser={setOpenedUser}

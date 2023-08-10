@@ -1,0 +1,20 @@
+.Modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  h2 {
+    color: var(--mg-main-black);
+  }
+
+  p {
+    color: var(--mg-second-black);
+  }
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
