@@ -37,34 +37,3 @@
   gap: 15px;
   padding-bottom: 50px;
 }
-
-@media (max-width: 414px) {
-  .ForgotAccContainer {
-    gap: 7.25vw;
-  }
-
-  .ForgotAccContent {
-    margin-top: 4.83vw;
-
-    h2 {
-      font-size: 6.76vw;
-      line-height: 8.21vw;
-    }
-
-    p {
-      font-size: 3.86vw;
-      line-height: 4.59vw;
-    }
-  }
-
-  .ForgotAccContentBody {
-    margin-top: 7.25vw;
-    margin-bottom: 9.66vw;
-    gap: 3.62vw;
-  }
-
-  .ForgotAccBtns {
-    gap: 3.62vw;
-    padding-bottom: 12.08vw;
-  }
-}

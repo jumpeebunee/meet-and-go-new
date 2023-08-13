@@ -27,16 +27,3 @@
   border-radius: 50px;
   position: relative;
 }
-
-@media (max-width: 414px) {
-  .appModal {
-    min-height: 181.16vw;
-    overflow: scroll;
-  }
-
-  .appModalContent {
-    width: 88.89vw;
-    height: 181.16vw;
-    border-radius: 12.08vw;
-  }
-}

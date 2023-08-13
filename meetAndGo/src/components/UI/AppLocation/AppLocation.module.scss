@@ -5,17 +5,8 @@
 .AppLocationWrapper {
   margin-top: 20px;
   margin-bottom: 10px;
-  height: 150px;
-  background-color: #EEEEEE;
+  height: 200px;
+  background-color: #eeeeee;
   border-radius: 15px;
   overflow: hidden;
-}
-
-@media (max-width: 414px) {
-  .AppLocationWrapper {
-    margin-top: 4.83vw;
-    margin-bottom: 2.42vw;
-    height: 36.23vw;
-    border-radius: 3.62vw;
-  }  
 }

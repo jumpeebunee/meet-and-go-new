@@ -28,23 +28,3 @@
     background-image: url(../assets/close.svg);
   }
 }
-
-@media (max-width: 414px) {
-  .searchButton {
-    width: 21.74vw;
-    height: 21.74vw;
-    bottom: 9.66vw;
-
-    span {
-      width: 9.66vw;
-      height: 9.66vw;
-    }
-  }
-
-  .searchButtonClose {
-    span {
-      width: 7.25vw;
-      height: 7.25vw;
-    }
-  }
-}

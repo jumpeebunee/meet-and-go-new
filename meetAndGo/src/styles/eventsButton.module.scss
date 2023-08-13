@@ -20,20 +20,3 @@
     background-size: contain;
   }
 }
-
-@media (max-width: 414px) {
-  .eventsButton {
-    width: 14.49vw;
-    height: 14.49vw;
-    border-radius: 2.42vw;
-    top: 9.66vw;
-    left: 7.25vw;
-    outline: 0.24vw solid rgba(26, 26, 26, 0.05);
-    filter: drop-shadow(0.97vw 2.42vw 3.62vw rgba(0, 0, 0, 0.05));
-
-    span {
-      width: 6.28vw;
-      height: 6.28vw;
-    }
-  }
-}

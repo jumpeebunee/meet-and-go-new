@@ -19,7 +19,7 @@ import { addEvents } from "./app/feautures/eventsSlice";
 import AppNavigation from "./components/AppNavigation";
 import AppLoading from "./components/AppLoading/AppLoading";
 import { unactiveEvents } from "./helpers/unactiveEvents";
-import AppEventsLimit from "./components/AppEventsLimit";
+import AppEventsLimit from "./components/EventLimit/AppEventsLimit";
 import { errorOptions } from "./data/errorsOptions";
 import { baseUserContent } from "./data/baseUserContent";
 
@@ -69,17 +69,21 @@ const App: FC = () => {
     onSnapshot(doc(db, "users", id), (doc) => {
       dispatch(addUser(doc.data() as IUser));
     });
+
     onSnapshot(collection(db, "events"), (doc) => {
       const data: IEvent[] = [];
+
       doc.forEach((d) => {
         const event = d.data() as IEvent;
         const eventDate = new Date(event.date).getTime();
+
         if (eventDate - Date.now() < 0) {
           unactiveEvents(event);
         } else {
           data.push(event);
         }
       });
+
       dispatch(addEvents(data));
     });
   };

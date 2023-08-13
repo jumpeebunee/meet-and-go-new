@@ -9,12 +9,3 @@
   color: var(--mg-main-black);
   transition: opacity ease 0.2s;
 }
-
-@media (max-width: 414px) {
-  .secondButton {
-    padding: 4.83vw 9.66vw;
-    border-radius: 9.66vw;
-    font-size: 4.35vw;
-    line-height: 5.31vw;
-  }
-}

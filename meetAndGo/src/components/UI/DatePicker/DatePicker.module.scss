@@ -1,4 +1,4 @@
-.datePicker {
+.Picker {
   padding: 50px 40px 40px 40px;
   height: 100%;
   display: flex;
@@ -6,8 +6,9 @@
   justify-content: space-between;
 }
 
-@media (max-width: 414px) {
-  .datePicker {
-    padding: 12.08vw 9.66vw 9.66vw 9.66vw;
-  }
+.Wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 350px;
 }
