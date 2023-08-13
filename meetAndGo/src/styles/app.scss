@@ -2,6 +2,7 @@
 
 :root {
   --mg-main-black: #21212f;
+  --mg-loading-black: #363638;
   --mg-main-white: #ffffff;
   --mg-main-green: #75d7a1;
   --mg-main-red: #ff6868;
@@ -116,9 +117,9 @@ body {
 .input {
   width: 100%;
   padding: 16px 17px;
-  background: rgba(217, 217, 217, 0.2);
-  border-radius: 10px;
-  font-size: 16px;
+  background: var(--mg-second-gray);
+  border-radius: 5px;
+  font-size: 14px;
   line-height: 19px;
 }
 

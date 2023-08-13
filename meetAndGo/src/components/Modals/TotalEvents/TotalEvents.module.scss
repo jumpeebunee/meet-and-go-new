@@ -47,33 +47,3 @@
   line-height: 127.52%;
   color: rgba(26, 26, 26, 0.7);
 }
-
-@media (max-width: 414px) {
-  .TotalEventsContainer {
-    gap: 7.25vw;
-  }
-
-  .TotalEventsHeading {
-    margin-top: 7.25vw;
-    font-size: 7.73vw;
-    line-height: 9.42vw;
-  }
-
-  .TotalEventsContent {
-    margin-top: 8.45vw;
-  }
-
-  .TotalEventList {
-    margin-top: 7.25vw;
-    gap: 4.83vw;
-  }
-
-  .TotalEventsBtns {
-    padding-bottom: 12.08vw;
-  }
-
-  .TotalEventNot {
-    margin-top: 7.25vw;
-    font-size: 3.86vw;
-  }
-}

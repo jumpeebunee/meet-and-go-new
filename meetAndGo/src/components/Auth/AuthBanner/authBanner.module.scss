@@ -15,16 +15,3 @@
 .Title {
   --ob-main-color: var(--mg-main-white);
 }
-
-@media (max-width: 414px) {
-  .Banner {
-    padding: 22.71vw 7.25vw 9.66vw 7.25vw;
-    border-radius: 2.42vw;
-
-    p {
-      margin-top: 3.14vw;
-      font-size: 4.35vw;
-      line-height: 5.31vw;
-    }
-  }
-}

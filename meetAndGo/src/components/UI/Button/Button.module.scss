@@ -7,6 +7,10 @@
   color: var(--mg-main-white);
   background-color: var(--mg-main-black);
   border-radius: 10px;
+
+  &:disabled {
+    opacity: 0.8;
+  }
 }
 
 .Button_secondary {

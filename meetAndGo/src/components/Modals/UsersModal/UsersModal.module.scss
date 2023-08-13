@@ -14,7 +14,7 @@
   h2 {
     font-weight: 800;
     font-size: 32px;
-    line-height: 39px;  
+    line-height: 39px;
   }
 
   p {
@@ -35,34 +35,4 @@
 .UsersModalBtns {
   padding-bottom: 30px;
   width: 100%;
-}
-
-@media (max-width: 414px) {
-  .UsersModalHeader {
-    margin-top: 7.25vw;
-  
-    h2 {
-      font-size: 7.73vw;
-      line-height: 9.42vw;  
-    }
-  
-    p {
-      margin-top: 1.21vw;
-      font-size: 3.38vw;
-      line-height: 4.11vw;
-    }
-  }
-  
-  .UsersModalList {
-    gap: 6.04vw;
-    margin-top: 9.66vw;
-  }
-
-  .UsersModalBtns {
-    padding-bottom: 9.66vw;
-  }
-
-  .UsersModalContainer {
-    gap: 7.25vw;
-  }
 }

@@ -27,24 +27,3 @@
     position: absolute;
   }
 }
-
-@media (max-width: 414px) {
-  .TabButton {
-    gap: 6.04vw;
-    padding-bottom: 2.42vw;
-    border-bottom: solid 0.48vw #f4f4f4;
-  }
-
-  .TabButtonBtn {
-    font-size: 3.86vw;
-    line-height: 4.59vw;
-  }
-
-  .TabButtonBtnActive {
-    &::before {
-      content: "";
-      height: 0.48vw;
-      bottom: -2.9vw;
-    }
-  }
-}
