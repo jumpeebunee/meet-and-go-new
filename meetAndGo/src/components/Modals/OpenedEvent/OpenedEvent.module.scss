@@ -1,20 +1,11 @@
-.openedEventHeader {
-  margin-top: 30px;
-}
-
-.openedEventHeading {
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 39px;
-}
-
-.openedEventContainer {
+.Container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 50px;
   padding-bottom: 0px;
   position: relative;
+  height: 100%;
 }
 
 .openedEventBtns {
@@ -22,17 +13,6 @@
   flex-direction: column;
   gap: 15px;
   padding-bottom: 50px;
-}
-
-.openedEventInputs {
-  margin-top: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.openedEventContent {
-  margin-top: 30px;
 }
 
 .openedEventRemove {

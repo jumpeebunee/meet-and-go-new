@@ -1,10 +1,11 @@
-import { FC } from 'react'
-import cl from './OpenedEvent.module.scss';
-import MainButton from '../../UI/MainButton/MainButton';
-import SecondButton from '../../UI/SecondButton/SecondButton';
-import { useSelector } from 'react-redux';
-import { openedEvent } from '../../../app/feautures/openedEventSlice';
-import { user } from '../../../app/feautures/userSlice';
+import { FC } from "react";
+import cl from "./OpenedEvent.module.scss";
+import MainButton from "../../UI/MainButton/MainButton";
+import SecondButton from "../../UI/SecondButton/SecondButton";
+import { useSelector } from "react-redux";
+import { openedEvent } from "../../../app/feautures/openedEventSlice";
+import { user } from "../../../app/feautures/userSlice";
+import Button from "../../UI/Button/Button";
 
 interface OpenedEventButtonsProps {
   activeEvent: boolean;
@@ -17,26 +18,52 @@ interface OpenedEventButtonsProps {
   totalUsers: number;
 }
 
-const OpenedEvennttButtons:FC<OpenedEventButtonsProps> = ({activeEvent, isLoading, isEnded, handleLeave, handleEnter, setIsOpen, totalActiveUsers, totalUsers}) => {
-
-  const {leader} = useSelector(openedEvent);
-  const {uid} = useSelector(user);
+const OpenedEvennttButtons: FC<OpenedEventButtonsProps> = ({
+  activeEvent,
+  isLoading,
+  isEnded,
+  handleLeave,
+  handleEnter,
+  setIsOpen,
+  totalActiveUsers,
+  totalUsers,
+}) => {
+  const { leader } = useSelector(openedEvent);
+  const { uid } = useSelector(user);
 
   return (
     <div className={cl.openedEventBtns}>
-      {activeEvent
-      ? <MainButton disabled={isLoading || isEnded} onClick={handleLeave}>{leader === uid ? 'Удалить': 'Покинуть'}</MainButton>
-      : 
+      {activeEvent ? (
+        <div>
+          <Button
+            fullWidth
+            disabled={isLoading || isEnded}
+            onClick={handleLeave}
+          >
+            {" "}
+            {leader === uid ? "Удалить" : "Покинуть"}
+          </Button>
+        </div>
+      ) : (
         <>
-          {(totalActiveUsers === totalUsers)
-            ? <></>
-            : <MainButton disabled={isLoading || isEnded} onClick={handleEnter}>Присоединиться</MainButton>
-          }
+          {totalActiveUsers === totalUsers ? (
+            <></>
+          ) : (
+            <Button
+              fullWidth
+              disabled={isLoading || isEnded}
+              onClick={handleEnter}
+            >
+              Присоединиться
+            </Button>
+          )}
         </>
-      }
-      <SecondButton onClick={() => setIsOpen(false)}>Назад</SecondButton>
+      )}
+      <Button type="secondaryGrey" onClick={() => setIsOpen(false)}>
+        Назад
+      </Button>
     </div>
-  )
-}
+  );
+};
 
 export default OpenedEvennttButtons;

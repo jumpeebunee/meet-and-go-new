@@ -18,8 +18,9 @@ const AppLocation: FC<AppLocationProps> = ({
 }) => {
   return (
     <div>
-      <label className="label">Локация</label>
-      <div className="label_description">{location}</div>
+      <label className="body-l">Локация</label>
+      <div className={`body-s ${cl.Subtitle} ${cl.Location}`}>{location}</div>
+
       <YMaps query={{ apikey: API_KEY }}>
         <div className={cl.AppLocationWrapper}>
           <Map
@@ -33,7 +34,8 @@ const AppLocation: FC<AppLocationProps> = ({
           </Map>
         </div>
       </YMaps>
-      <div className="label_description">{address}</div>
+
+      <div className={`body-s ${cl.Subtitle} ${cl.Address}`}>{address}</div>
     </div>
   );
 };

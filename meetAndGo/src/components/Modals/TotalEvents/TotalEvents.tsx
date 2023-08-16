@@ -1,14 +1,15 @@
-import { IonContent, IonModal, IonSpinner } from '@ionic/react'
-import cl from './TotalEvents.module.scss'
-import { FC, useEffect, useState } from 'react'
-import SecondButton from '../../UI/SecondButton/SecondButton';
-import { useSelector } from 'react-redux';
-import { user } from '../../../app/feautures/userSlice';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../../firebase';
-import { IEvent } from '../../../types/types';
-import TotalEventsHeader from './TotalEventsHeader';
-import TotalEventsList from './TotalEventsList';
+import { IonContent, IonModal, IonSpinner } from "@ionic/react";
+import cl from "./TotalEvents.module.scss";
+import { FC, useEffect, useState } from "react";
+import SecondButton from "../../UI/SecondButton/SecondButton";
+import { useSelector } from "react-redux";
+import { user } from "../../../app/feautures/userSlice";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
+import { IEvent } from "../../../types/types";
+import TotalEventsHeader from "./TotalEventsHeader";
+import TotalEventsList from "./TotalEventsList";
+import Button from "../../UI/Button/Button";
 
 interface TotalEventsProps {
   isOpen: boolean;
@@ -16,11 +17,14 @@ interface TotalEventsProps {
   setIsOpenEvent: (arg: boolean) => void;
 }
 
-const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent}) => {
-
+const TotalEvents: FC<TotalEventsProps> = ({
+  isOpen,
+  setIsOpen,
+  setIsOpenEvent,
+}) => {
   const currentUser = useSelector(user);
 
-  const [currentState, setCurrentState] = useState('active');
+  const [currentState, setCurrentState] = useState("active");
   const [events, setEvents] = useState<IEvent[]>([]);
   const [archiveEvents, setArchiveEvents] = useState<IEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,9 +35,9 @@ const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent}) =
     } else {
       setEvents([]);
     }
-  }, [isOpen])
+  }, [isOpen]);
 
-  const getEvent = async() => {
+  const getEvent = async () => {
     const result = [];
 
     setIsLoading(true);
@@ -50,24 +54,42 @@ const TotalEvents:FC<TotalEventsProps> = ({isOpen, setIsOpen, setIsOpenEvent}) =
     }
     setArchiveEvents(currentUser.archive);
     setIsLoading(false);
-  }
+  };
 
   return (
     <IonModal isOpen={isOpen}>
       <IonContent>
-        <div className={`modal-container ${cl.TotalEventsContainer}`}>
+        <div className={`container ${cl.TotalEventsContainer}`}>
           <div className={cl.TotalEventsMain}>
-            <TotalEventsHeader currentState={currentState} setCurrentState={setCurrentState}/>
-            {!isLoading && <TotalEventsList events={events} setIsOpenEvent={setIsOpenEvent}/>}
+            <TotalEventsHeader
+              currentState={currentState}
+              setCurrentState={setCurrentState}
+            />
+            {!isLoading && (
+              <TotalEventsList
+                events={events}
+                setIsOpenEvent={setIsOpenEvent}
+              />
+            )}
           </div>
-          {isLoading && <div className={cl.TotalEventsLoading}><IonSpinner name="circular"></IonSpinner></div>}
+          {isLoading && (
+            <div className={cl.TotalEventsLoading}>
+              <IonSpinner name="circular"></IonSpinner>
+            </div>
+          )}
           <div className={cl.TotalEventsBtns}>
-            <SecondButton onClick={() => setIsOpen(false)}>Назад</SecondButton>
+            <Button
+              fullWidth
+              type="secondaryGrey"
+              onClick={() => setIsOpen(false)}
+            >
+              Назад
+            </Button>
           </div>
         </div>
       </IonContent>
     </IonModal>
-  )
-}
+  );
+};
 
-export default TotalEvents
+export default TotalEvents;

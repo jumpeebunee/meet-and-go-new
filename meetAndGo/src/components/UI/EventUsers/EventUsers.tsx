@@ -2,11 +2,6 @@ import { FC } from "react";
 import cl from "./EventUsers.module.scss";
 import { IActive } from "../../../types/types";
 
-type IAvatar = {
-  id: string;
-  image: string;
-};
-
 interface EventUsersProps {
   users: number;
   currentUsers?: number | null;
@@ -42,7 +37,8 @@ const EventUsers: FC<EventUsersProps> = ({
 
   return (
     <div style={style} className={cl.EventUsers}>
-      <div className="label">Участники</div>
+      <div className="body-l">Участники</div>
+
       <div onClick={handle} className={cl.EventUsersTotal}>
         {!usersAvatars ? (
           <ul className={cl.EventUsersList}>{...eventUsers}</ul>
@@ -57,7 +53,8 @@ const EventUsers: FC<EventUsersProps> = ({
             ))}
           </ul>
         )}
-        <div className={cl.EventUsersValue}>
+
+        <div className="body-l">
           {currentUsers || "1"}/{users}
         </div>
       </div>
