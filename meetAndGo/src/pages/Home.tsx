@@ -1,5 +1,5 @@
 import { IonPage } from "@ionic/react";
-import AppMap from "../components/AppMap";
+import AppMap from "../components/AppMap/AppMap";
 import { useState } from "react";
 import ProfileModal from "../components/Modals/Profile/ProfileModal/ProfileModal";
 import RaitingModal from "../components/Modals/Raiting/RaitingModal";
@@ -29,33 +29,40 @@ const Home: React.FC = () => {
           setIsCreateEventOpen={setIsCreateEventOpen}
           setIsEventsOpen={setIsEventsOpen}
         />
+
         <ProfileModal
           isOpen={isProfileOpen}
           setIsOpen={setIsProfileOpen}
           setIsRaitngOpen={setIsRaitngOpen}
         />
+
         <RaitingModal isOpen={isRaitingOpen} setIsOpen={setIsRaitngOpen} />
+
         <CreateEvent
           isOpen={isCreateEventOpen}
           setIsOpen={setIsCreateEventOpen}
         />
+
         <UsersModal
           isOpen={isUsersOpen}
           setIsOpen={setIsUsersOpen}
           setIsUserOpen={setIsUserOpen}
           setOpenedUser={setOpenedUser}
         />
+
         <UserModal
           isOpen={isUserOpen}
           setIsOpen={setIsUserOpen}
           openedUser={openedUser}
           setOpenedUser={setOpenedUser}
         />
+
         <OpenedEvent
           isOpen={isOpenEvent}
           setIsOpen={setIsOpenEvent}
           setIsUsersOpen={setIsUsersOpen}
         />
+
         <TotalEvents
           isOpen={isEventsOpen}
           setIsOpen={setIsEventsOpen}

@@ -1,13 +1,11 @@
 import { FC } from "react";
-import cl from "./OpenedEvent.module.scss";
-import MainButton from "../../UI/MainButton/MainButton";
-import SecondButton from "../../UI/SecondButton/SecondButton";
+import cl from "./Buttons.module.scss";
 import { useSelector } from "react-redux";
-import { openedEvent } from "../../../app/feautures/openedEventSlice";
-import { user } from "../../../app/feautures/userSlice";
-import Button from "../../UI/Button/Button";
+import { openedEvent } from "../../../../../app/feautures/openedEventSlice";
+import { user } from "../../../../../app/feautures/userSlice";
+import Button from "../../../../UI/Button/Button";
 
-interface OpenedEventButtonsProps {
+interface ButtonsProps {
   activeEvent: boolean;
   isLoading: boolean;
   isEnded: boolean;
@@ -18,7 +16,7 @@ interface OpenedEventButtonsProps {
   totalUsers: number;
 }
 
-const OpenedEvennttButtons: FC<OpenedEventButtonsProps> = ({
+const Buttons: FC<ButtonsProps> = ({
   activeEvent,
   isLoading,
   isEnded,
@@ -32,7 +30,7 @@ const OpenedEvennttButtons: FC<OpenedEventButtonsProps> = ({
   const { uid } = useSelector(user);
 
   return (
-    <div className={cl.openedEventBtns}>
+    <div className={cl.Buttons}>
       {activeEvent ? (
         <div>
           <Button
@@ -59,6 +57,7 @@ const OpenedEvennttButtons: FC<OpenedEventButtonsProps> = ({
           )}
         </>
       )}
+
       <Button type="secondaryGrey" onClick={() => setIsOpen(false)}>
         Назад
       </Button>
@@ -66,4 +65,4 @@ const OpenedEvennttButtons: FC<OpenedEventButtonsProps> = ({
   );
 };
 
-export default OpenedEvennttButtons;
+export default Buttons;

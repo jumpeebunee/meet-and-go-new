@@ -1,32 +1,31 @@
 import { FC } from "react";
-import cl from "../ProfileInfo/ProfileInfo.module.scss";
+import cl from "./Info.module.scss";
 
-interface ProfileInfoProps {
+interface InfoProps {
   username: string;
   raiting: number;
   setIsRaitngOpen: (arg: boolean) => void;
 }
 
-const ProfileInfo: FC<ProfileInfoProps> = ({
-  username,
-  raiting,
-  setIsRaitngOpen,
-}) => {
+const Info: FC<InfoProps> = ({ username, raiting, setIsRaitngOpen }) => {
   return (
     <>
       <h3 className="title-xl">{username}</h3>
-      <div className={cl.Raiting}>
-        <div className={cl.RaitingWrapper}>
+
+      <div className={cl.Content}>
+        <div className={cl.Wrapper}>
           <div className={cl.Title}>Моя репутация: {raiting}</div>
           <span className={cl.Icon}></span>
         </div>
+
         <button onClick={() => setIsRaitngOpen(true)} className={cl.Button}>
           Как повысить?
         </button>
+
         <div className={cl.Line}></div>
       </div>
     </>
   );
 };
 
-export default ProfileInfo;
+export default Info;

@@ -8,14 +8,7 @@
   height: 100%;
 }
 
-.openedEventBtns {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding-bottom: 50px;
-}
-
-.openedEventRemove {
+.RemoveButton {
   position: absolute;
   right: 30px;
   background-color: transparent;

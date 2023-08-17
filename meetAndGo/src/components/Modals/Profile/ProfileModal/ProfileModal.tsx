@@ -5,8 +5,8 @@ import { user } from "../../../../app/feautures/userSlice";
 import { doc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../../../../firebase";
 import ErrorMessage from "../../../UI/ErrorMessage/ErrorMessage";
-import ProfileUser from "../ProfileUser";
-import ProfileList from "../ProfileList/ProfileList";
+import ProfileUser from "../Elements/User/User";
+import ProfileList from "../Elements/List/List";
 import { IonContent, IonModal } from "@ionic/react";
 import { PHONE_REG, TOWN_REG } from "../../../../constants/constants";
 import Button from "../../../UI/Button/Button";
@@ -98,15 +98,12 @@ const ProfileModal: FC<ProfileModalProps> = ({
               setPhoneField={setPhoneField}
             />
 
-            <button
-              onClick={handleLogout}
-              className={cl.profileModalLogout}
-            ></button>
+            <button onClick={handleLogout} className={cl.Logout}></button>
 
             {isError && <ErrorMessage>{isError}</ErrorMessage>}
           </div>
 
-          <div className={cl.buttons}>
+          <div className={cl.Buttons}>
             <Button onClick={handleEdit} fullWidth>
               {isEdit ? "Сохранить" : "Изменить"}
             </Button>

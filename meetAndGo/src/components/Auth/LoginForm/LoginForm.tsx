@@ -7,7 +7,6 @@ import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import { signInWithRedirect } from "firebase/auth";
 import { auth, provider } from "../../../firebase";
-import googleIcon from "../../../assets/icons/L/lcLGoogle.svg";
 import {
   emailConfig,
   passwordConfig,
@@ -50,6 +49,7 @@ const LoginForm: FC<LoginFormProps> = ({
     handleLogin(data);
   };
 
+  /*
   const loginWithGoogle = async () => {
     signInWithRedirect(auth, provider)
       .then((result: any) => {
@@ -59,6 +59,7 @@ const LoginForm: FC<LoginFormProps> = ({
         console.log(e);
       });
   };
+  */
 
   const currentMessage = useCallback(() => {
     if (errors.email) {
@@ -106,14 +107,14 @@ const LoginForm: FC<LoginFormProps> = ({
       </div>
 
       <Button disabled={isLoading}>Войти</Button>
-      <Button
+      {/* <Button
         fullWidth
         onClick={loginWithGoogle}
         haveIcon={googleIcon}
         type="secondary"
       >
         Войти через Google
-      </Button>
+      </Button> */}
     </form>
   );
 };

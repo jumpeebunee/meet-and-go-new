@@ -4,21 +4,26 @@ import {
   GeolocationControl,
   SearchControl,
 } from "@pbe/react-yandex-maps";
-import { API_KEY, MAP_CENTER } from "../data/yamapsApi";
-import cl from "../styles/AppMap.module.scss";
-import EventsButton from "./EventsButton";
-import SearchButton from "./SearchButton";
-import ProfileButton from "./ProfileButton";
+import { API_KEY, MAP_CENTER } from "../../data/yamapsApi";
+import cl from "./AppMap.module.scss";
+import EventsButton from "../EventsButton/EventsButton";
+import SearchButton from "../SearchButton/SearchButton";
+import ProfileButton from "../ProfileButton/ProfileButton";
 import { FC, useState } from "react";
 import { useSelector } from "react-redux";
-import { events } from "../app/feautures/eventsSlice";
-import { userImage } from "../app/feautures/userSlice";
-import { IEvent } from "../types/types";
-import AppPlacemark from "./AppPlacemark";
+import { events } from "../../app/feautures/eventsSlice";
+import { userImage } from "../../app/feautures/userSlice";
+import { IEvent } from "../../types/types";
+import AppPlacemark from "../AppPlacemark";
 import { useDispatch } from "react-redux";
-import { changeCoords, changeDate } from "../app/feautures/createEventSlice";
-import { changeOpened } from "../app/feautures/openedEventSlice";
-import { getIsoDate } from "../helpers/getIsoDate";
+import { changeCoords, changeDate } from "../../app/feautures/createEventSlice";
+import { changeOpened } from "../../app/feautures/openedEventSlice";
+import { getIsoDate } from "../../helpers/getIsoDate";
+import {
+  mapOptions,
+  geolocationOptions,
+  searchOptions,
+} from "../../constants/mapOptions";
 
 interface AppMapProps {
   setIsProfileOpen: (arg: boolean) => void;
@@ -34,6 +39,7 @@ const AppMap: FC<AppMapProps> = ({
   setIsEventsOpen,
 }) => {
   const dispatch = useDispatch();
+
   const image = useSelector(userImage);
   const currentEvents = useSelector(events);
 
@@ -48,6 +54,7 @@ const AppMap: FC<AppMapProps> = ({
 
   const openEvent = (event: IEvent) => {
     setIsOpenEvent(true);
+
     dispatch(changeOpened(event));
   };
 
@@ -55,39 +62,29 @@ const AppMap: FC<AppMapProps> = ({
     <YMaps query={{ apikey: API_KEY }}>
       <Map
         onClick={(e: any) => createEvent(e)}
-        className={cl.appMap}
+        className={cl.Map}
         defaultState={MAP_CENTER}
-        options={{
-          restrictMapArea: [
-            [85.23618, -178.9],
-            [-73.87011, 181],
-          ],
-        }}
+        options={mapOptions}
       >
         {currentEvents.map((event) => (
           <AppPlacemark key={event.id} event={event} openEvent={openEvent} />
         ))}
+
         {!isSearch && (
           <div>
-            <GeolocationControl
-              options={{ float: "left", position: { top: 40, left: 30 } }}
-            />
-            <SearchControl
-              options={{
-                size: "medium",
-                float: "right",
-                position: { top: 40, right: 30 },
-              }}
-            />
+            <GeolocationControl options={geolocationOptions} />
+            <SearchControl options={searchOptions} />
           </div>
         )}
       </Map>
+
       {isSearch && (
         <div>
           <EventsButton handle={() => setIsEventsOpen(true)} />
           <ProfileButton image={image} setIsProfileOpen={setIsProfileOpen} />
         </div>
       )}
+
       <SearchButton isSearch={isSearch} setIsSearch={setIsSearch} />
     </YMaps>
   );

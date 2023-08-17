@@ -17,7 +17,7 @@ import { unactiveEvents } from "../../../helpers/unactiveEvents";
 import { openedEvent } from "../../../app/feautures/openedEventSlice";
 import Header from "./elements/Header/Header";
 import Content from "./elements/Content/Content";
-import OpenedEventButtons from "./OpenedEventButtons";
+import Buttons from "./elements/Buttons/Buttons";
 
 interface OpenedEventProps {
   isOpen: boolean;
@@ -183,7 +183,7 @@ const OpenedEvent: FC<OpenedEventProps> = ({
       <IonContent>
         <div className={`container ${cl.Container}`}>
           {currentUser.role === "ADMIN" && (
-            <button onClick={removeEvent} className={cl.openedEventRemove}>
+            <button onClick={removeEvent} className={cl.RemoveButton}>
               <span></span>
             </button>
           )}
@@ -201,7 +201,7 @@ const OpenedEvent: FC<OpenedEventProps> = ({
             )}
           </div>
 
-          <OpenedEventButtons
+          <Buttons
             activeEvent={activeEvent}
             isLoading={isLoading}
             isEnded={isEnded}

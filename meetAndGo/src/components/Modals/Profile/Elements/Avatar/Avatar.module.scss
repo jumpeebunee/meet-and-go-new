@@ -1,0 +1,71 @@
+.Loading {
+  background: var(--mg-main-black);
+
+  .Avatar {
+    opacity: 0.5;
+  }
+
+  .Upload {
+    display: none;
+  }
+}
+
+.Wrapper {
+  position: relative;
+  border-radius: 50%;
+
+  &:hover {
+    .Upload {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .Avatar {
+      opacity: 0.5;
+    }
+
+    background: var(--mg-main-black);
+  }
+
+  input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+.Avatar {
+  width: 172px;
+  height: 172px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.Upload {
+  display: block;
+  width: 61px;
+  height: 55px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+  opacity: 0;
+  background-image: url(../../../../../assets/changeImage.svg);
+}
+
+.Spinner {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+}
+
+ion-spinner {
+  color: var(--mg-main-white);
+}

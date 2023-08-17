@@ -1,9 +1,9 @@
 import { FC } from "react";
-import ProfileItem from "../ProfileItem/ProfileItem";
-import ProfileItemEditable from "../ProfileItemEditable/ProfileItemEditable";
-import cl from "./ProfileList.module.scss";
+import ProfileItem from "../Item/Item";
+import ProfileItemEditable from "../EditableItem/EditableItem";
+import cl from "./List.module.scss";
 
-interface ProfileListProps {
+interface ListProps {
   totalMeets: number;
   createdMeets: number;
   townField: string;
@@ -13,7 +13,7 @@ interface ProfileListProps {
   setPhoneField: (arg: string) => void;
 }
 
-const ProfileList: FC<ProfileListProps> = ({
+const List: FC<ListProps> = ({
   totalMeets,
   createdMeets,
   setPhoneField,
@@ -47,4 +47,4 @@ const ProfileList: FC<ProfileListProps> = ({
   );
 };
 
-export default ProfileList;
+export default List;

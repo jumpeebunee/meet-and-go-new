@@ -28,12 +28,14 @@ setupIonicReact();
 const App: FC = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(user);
+
   const { navigate } = useContext(NavContext);
 
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
+
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         if (user.email && user.uid && user.displayName) {
@@ -101,4 +103,5 @@ const App: FC = () => {
     return <IonApp>{isLoading ? <AppLoading /> : <AppNavigation />}</IonApp>;
   }
 };
+
 export default App;

@@ -5,7 +5,7 @@ import SecondButton from "../../UI/SecondButton/SecondButton";
 import { IUser } from "../../../types/types";
 import ProfileAvatar from "../../UI/ProfileAvatar/ProfileAvatar";
 import ProfileAbout from "../../UI/ProfileAbout/ProfileAbout";
-import ProfileItem from "../Profile/ProfileItem/ProfileItem";
+import ProfileItem from "../Profile/Elements/Item/Item";
 import { useSelector } from "react-redux";
 import { user } from "../../../app/feautures/userSlice";
 import { doc, updateDoc } from "firebase/firestore";

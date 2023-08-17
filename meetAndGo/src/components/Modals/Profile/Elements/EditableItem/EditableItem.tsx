@@ -1,7 +1,7 @@
 import { FC } from "react";
-import cl from "./ProfileItemEditable.module.scss";
+import cl from "./EditableItem.module.scss";
 
-interface ProfileItemEditableProps {
+interface EditableItemProps {
   title: string;
   isEdit: boolean;
   current: string;
@@ -9,7 +9,7 @@ interface ProfileItemEditableProps {
   handleChange: (arg: string) => void;
 }
 
-const ProfileItemEditable: FC<ProfileItemEditableProps> = ({
+const EditableItem: FC<EditableItemProps> = ({
   title,
   isEdit,
   current,
@@ -35,4 +35,4 @@ const ProfileItemEditable: FC<ProfileItemEditableProps> = ({
   );
 };
 
-export default ProfileItemEditable;
+export default EditableItem;
