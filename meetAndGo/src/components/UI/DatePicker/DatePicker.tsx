@@ -1,9 +1,9 @@
-import cl from "./DatePicker.module.scss";
 import { IonDatetime, IonModal } from "@ionic/react";
-import MainButton from "../../UI/MainButton/MainButton";
+import type { FC } from "react";
+
 import { getIsoDate } from "../../../helpers/getIsoDate";
-import { FC } from "react";
 import Button from "../Button/Button";
+import cl from "./DatePicker.module.scss";
 
 interface DatePickerProps {
   isOpen: boolean;

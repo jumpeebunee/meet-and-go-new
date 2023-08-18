@@ -1,13 +1,14 @@
-import { FC, useState } from "react";
-import cl from "./User.module.scss";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { auth, db, storage } from "../../../../../firebase";
 import { updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
+
 import { updateImage } from "../../../../../app/feautures/userSlice";
+import { auth, db, storage } from "../../../../../firebase";
 import Avatar from "../Avatar/Avatar";
 import ProfileInfo from "../Info/Info";
+import cl from "./User.module.scss";
 
 interface UserProps {
   image: string;
@@ -33,8 +34,12 @@ const User: FC<UserProps> = ({ image, username, raiting, setIsRaitngOpen }) => {
 
     uploadTask.on(
       "state_changed",
-      (snapshot) => {},
-      (error) => {},
+      () => {
+        console.log("Uploading Image");
+      },
+      (error) => {
+        console.log(error.message);
+      },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
           try {
@@ -50,7 +55,10 @@ const User: FC<UserProps> = ({ image, username, raiting, setIsRaitngOpen }) => {
               const userRef = doc(db, "users", userUid);
               await updateDoc(userRef, { image: downloadURL });
             }
-          } catch (error: any) {
+          } catch (error) {
+            if (error instanceof Error) {
+              console.log(error.message);
+            }
           } finally {
             setIsLoading(false);
           }

@@ -1,7 +1,7 @@
 import { FC } from "react";
-import SecondButton from "../UI/SecondButton/SecondButton";
-import cl from "./AppEventsLimit.module.scss";
+
 import Button from "../UI/Button/Button";
+import cl from "./AppEventsLimit.module.scss";
 
 interface AppEventsLimitProps {
   title: string;

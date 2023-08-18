@@ -1,4 +1,5 @@
 import React, { FC, ReactNode } from 'react'
+
 import cl from './MainButton.module.scss'
 
 interface MainButtonProps {

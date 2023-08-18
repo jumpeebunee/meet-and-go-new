@@ -1,21 +1,20 @@
-import { FC, useState } from "react";
-import cl from "../../createEvent.module.scss";
-import DateInput from "../../../../UI/DateInput/DateInput";
-import EventNameInput from "../EventNameInput/EventNameInput";
-import DatePicker from "../../../../UI/DatePicker/DatePicker";
-import LabelInput from "../../../../UI/LabelInput/LabelInput";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
-  changeName,
   changeDate,
   changeLocation,
+  changeName,
   eventData,
 } from "../../../../../app/feautures/createEventSlice";
+import DateInput from "../../../../UI/DateInput/DateInput";
+import DatePicker from "../../../../UI/DatePicker/DatePicker";
 import ErrorMessage from "../../../../UI/ErrorMessage/ErrorMessage";
+import LabelInput from "../../../../UI/LabelInput/LabelInput";
+import cl from "../../createEvent.module.scss";
+import EventNameInput from "../EventNameInput/EventNameInput";
 
-interface FirstStageEventProps {}
-
-const FirstStageEvent: FC<FirstStageEventProps> = () => {
+const FirstStageEvent = () => {
   const [isOpenDate, setIsOpenDate] = useState(false);
 
   const dispatch = useDispatch();

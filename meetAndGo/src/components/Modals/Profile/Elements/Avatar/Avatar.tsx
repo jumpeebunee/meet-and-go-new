@@ -1,6 +1,7 @@
-import { FC } from "react";
-import cl from "./Avatar.module.scss";
 import { IonSpinner } from "@ionic/react";
+import { FC } from "react";
+
+import cl from "./Avatar.module.scss";
 
 interface AvatarProps {
   isLoading: boolean;

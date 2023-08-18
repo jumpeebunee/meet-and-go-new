@@ -1,4 +1,5 @@
 import { FC, FormEvent } from "react";
+
 import cl from "./PasswordVisible.module.scss";
 
 interface PasswordVisibleProps {

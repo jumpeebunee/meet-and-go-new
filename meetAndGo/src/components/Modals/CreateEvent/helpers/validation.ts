@@ -1,15 +1,15 @@
 export const validateName = (title: string) => {
-  if (title.length < 4) {
-    throw new Error("Имя события слишком короткое");
+  if (title.length <= 2) {
+    throw new Error("Название события слишком короткое");
   } else if (title.length > 30) {
-    throw new Error("Имя события слишком длинное");
+    throw new Error("Название события слишком длинное");
   }
 
   return 1;
 };
 
 export const validateLocation = (location: string) => {
-  if (location.length < 6) {
+  if (location.length < 2) {
     throw new Error("Локация события слишком короткая");
   } else if (location.length > 20) {
     throw new Error("Локация события слишком длинная");
@@ -27,7 +27,7 @@ export const validateDate = (date: Date) => {
 };
 
 export const validateAddress = (address: string) => {
-  if (address.length < 6) {
+  if (address.length < 5) {
     throw new Error("Адрес события слишком короткий");
   } else if (address.length > 50) {
     throw new Error("Адрес события слишком длинный");

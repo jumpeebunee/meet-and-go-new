@@ -1,29 +1,30 @@
 import {
-  YMaps,
-  Map,
   GeolocationControl,
+  Map,
   SearchControl,
+  YMaps,
 } from "@pbe/react-yandex-maps";
-import { API_KEY, MAP_CENTER } from "../../data/yamapsApi";
-import cl from "./AppMap.module.scss";
-import EventsButton from "../EventsButton/EventsButton";
-import SearchButton from "../SearchButton/SearchButton";
-import ProfileButton from "../ProfileButton/ProfileButton";
 import { FC, useState } from "react";
 import { useSelector } from "react-redux";
-import { events } from "../../app/feautures/eventsSlice";
-import { userImage } from "../../app/feautures/userSlice";
-import { IEvent } from "../../types/types";
-import AppPlacemark from "../AppPlacemark";
 import { useDispatch } from "react-redux";
+
 import { changeCoords, changeDate } from "../../app/feautures/createEventSlice";
+import { events } from "../../app/feautures/eventsSlice";
 import { changeOpened } from "../../app/feautures/openedEventSlice";
-import { getIsoDate } from "../../helpers/getIsoDate";
+import { userImage } from "../../app/feautures/userSlice";
 import {
-  mapOptions,
   geolocationOptions,
+  mapOptions,
   searchOptions,
 } from "../../constants/mapOptions";
+import { API_KEY, MAP_CENTER } from "../../data/yamapsApi";
+import { getIsoDate } from "../../helpers/getIsoDate";
+import { IEvent } from "../../types/types";
+import AppPlacemark from "../AppPlacemark";
+import EventsButton from "../EventsButton/EventsButton";
+import ProfileButton from "../ProfileButton/ProfileButton";
+import SearchButton from "../SearchButton/SearchButton";
+import cl from "./AppMap.module.scss";
 
 interface AppMapProps {
   setIsProfileOpen: (arg: boolean) => void;

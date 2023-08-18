@@ -1,6 +1,7 @@
 import { FC } from "react";
-import ProfileItem from "../Item/Item";
+
 import ProfileItemEditable from "../EditableItem/EditableItem";
+import ProfileItem from "../Item/Item";
 import cl from "./List.module.scss";
 
 interface ListProps {

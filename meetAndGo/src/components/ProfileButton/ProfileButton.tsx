@@ -1,5 +1,6 @@
-import cl from "./ProfileButton.module.scss";
 import { FC } from "react";
+
+import cl from "./ProfileButton.module.scss";
 
 interface ProfileButtonProps {
   image: string;

@@ -1,5 +1,6 @@
 import { Placemark } from "@pbe/react-yandex-maps";
 import { FC } from "react";
+
 import { getMapAppMark } from "../data/yamapsApi";
 import { IEvent } from "../types/types";
 

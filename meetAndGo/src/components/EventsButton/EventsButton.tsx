@@ -1,8 +1,9 @@
 import { FC } from "react";
+
 import cl from "./EventsButton.module.scss";
 
 interface EventsButtonProps {
-  handle: Function;
+  handle: () => void;
 }
 
 const EventsButton: FC<EventsButtonProps> = ({ handle }) => {

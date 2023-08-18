@@ -1,15 +1,15 @@
 import { IonContent, IonModal, IonSpinner } from "@ionic/react";
-import cl from "./TotalEvents.module.scss";
-import { FC, useEffect, useState } from "react";
-import SecondButton from "../../UI/SecondButton/SecondButton";
-import { useSelector } from "react-redux";
-import { user } from "../../../app/feautures/userSlice";
 import { doc, getDoc } from "firebase/firestore";
+import { FC, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+import { user } from "../../../app/feautures/userSlice";
 import { db } from "../../../firebase";
-import { IEvent } from "../../../types/types";
+import type { IEvent } from "../../../types/types";
+import Button from "../../UI/Button/Button";
+import cl from "./TotalEvents.module.scss";
 import TotalEventsHeader from "./TotalEventsHeader";
 import TotalEventsList from "./TotalEventsList";
-import Button from "../../UI/Button/Button";
 
 interface TotalEventsProps {
   isOpen: boolean;

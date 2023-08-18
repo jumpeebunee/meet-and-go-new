@@ -1,8 +1,9 @@
-import cl from "./EventButtons.module.scss";
-import { useSelector } from "react-redux";
-import { eventData } from "../../../../../app/feautures/createEventSlice";
 import { FC } from "react";
+import { useSelector } from "react-redux";
+
+import { eventData } from "../../../../../app/feautures/createEventSlice";
 import Button from "../../../../UI/Button/Button";
+import cl from "./EventButtons.module.scss";
 
 interface CreateEventBtns {
   checkValid: () => void;

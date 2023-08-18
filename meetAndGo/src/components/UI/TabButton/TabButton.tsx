@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import cl from './TabButton.module.scss';
 
 interface TabButtonProps {

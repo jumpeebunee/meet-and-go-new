@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import cl from "./Header.module.scss";
 
 interface OpenedEventHeaderProps {

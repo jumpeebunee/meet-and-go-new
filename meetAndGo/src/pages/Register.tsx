@@ -1,17 +1,18 @@
 import { IonContent, IonPage, IonRouterLink, NavContext } from "@ionic/react";
-import AuthBanner from "../components/Auth/AuthBanner/AuthBanner";
-import cl from "./styles/loginPage.module.scss";
-import RegisterForm from "../components/Auth/RegisterForm/RegisterForm";
-import { IEvent, IRegister, IUser } from "../types/types";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { setDoc, doc, onSnapshot, collection } from "firebase/firestore";
-import { auth, db } from "../firebase";
+import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
 import { useContext, useState } from "react";
-import { baseUserContent } from "../data/baseUserContent";
 import { useDispatch } from "react-redux";
-import { addUser } from "../app/feautures/userSlice";
+
 import { addEvents } from "../app/feautures/eventsSlice";
+import { addUser } from "../app/feautures/userSlice";
+import AuthBanner from "../components/Auth/AuthBanner/AuthBanner";
+import RegisterForm from "../components/Auth/RegisterForm/RegisterForm";
+import { baseUserContent } from "../data/baseUserContent";
+import { auth, db } from "../firebase";
 import { unactiveEvents } from "../helpers/unactiveEvents";
+import { IEvent, IRegister, IUser } from "../types/types";
+import cl from "./styles/loginPage.module.scss";
 
 const Register = () => {
   const dispatch = useDispatch();

@@ -1,13 +1,13 @@
 import { IonContent, IonPage, IonRouterLink, NavContext } from "@ionic/react";
-import AuthBanner from "../components/Auth/AuthBanner/AuthBanner";
-import LoginForm from "../components/Auth/LoginForm/LoginForm";
-import cl from "./styles/loginPage.module.scss";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
 import { useContext, useState } from "react";
-import ForgotAcc from "../components/Auth/ForgotAcc/ForgotAcc";
-import { ILogin } from "../types/types";
 
+import AuthBanner from "../components/Auth/AuthBanner/AuthBanner";
+import ForgotAcc from "../components/Auth/ForgotAcc/ForgotAcc";
+import LoginForm from "../components/Auth/LoginForm/LoginForm";
+import { auth } from "../firebase";
+import type { ILogin } from "../types/types";
+import cl from "./styles/loginPage.module.scss";
 const Login = () => {
   const [serverError, setServerError] = useState("");
   const [isLoading, setIsLoading] = useState(false);

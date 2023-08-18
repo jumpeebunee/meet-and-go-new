@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import { IEvent } from '../../../types/types'
 import EventItem from '../EventItem/EventItem';
 import cl from './TotalEvents.module.scss'

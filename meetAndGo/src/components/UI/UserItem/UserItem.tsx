@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import cl from './UserItem.module.scss';
+
 import { IUser } from '../../../types/types';
+import cl from './UserItem.module.scss';
 
 interface UserItemProps {
   user: IUser;

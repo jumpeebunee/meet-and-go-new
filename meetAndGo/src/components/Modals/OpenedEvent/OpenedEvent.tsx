@@ -1,6 +1,4 @@
 import { IonContent, IonModal } from "@ionic/react";
-import { FC, useEffect, useState } from "react";
-import cl from "./OpenedEvent.module.scss";
 import {
   arrayRemove,
   arrayUnion,
@@ -9,15 +7,18 @@ import {
   increment,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { user } from "../../../app/feautures/userSlice";
-import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
-import { unactiveEvents } from "../../../helpers/unactiveEvents";
+
 import { openedEvent } from "../../../app/feautures/openedEventSlice";
-import Header from "./elements/Header/Header";
-import Content from "./elements/Content/Content";
+import { user } from "../../../app/feautures/userSlice";
+import { db } from "../../../firebase";
+import { unactiveEvents } from "../../../helpers/unactiveEvents";
+import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
 import Buttons from "./elements/Buttons/Buttons";
+import Content from "./elements/Content/Content";
+import Header from "./elements/Header/Header";
+import cl from "./OpenedEvent.module.scss";
 
 interface OpenedEventProps {
   isOpen: boolean;
@@ -127,7 +128,7 @@ const OpenedEvent: FC<OpenedEventProps> = ({
 
     try {
       if (event.leader === currentUser.uid) {
-        for (let user of event.activeUsers) {
+        for (const user of event.activeUsers) {
           const ref = doc(db, "users", user.id);
           await updateDoc(ref, {
             activeMeets: arrayRemove(event.id),
@@ -163,7 +164,7 @@ const OpenedEvent: FC<OpenedEventProps> = ({
     setIsError("");
 
     try {
-      for (let user of event.activeUsers) {
+      for (const user of event.activeUsers) {
         const ref = doc(db, "users", user.id);
         await updateDoc(ref, { activeMeets: arrayRemove(event.id) });
       }

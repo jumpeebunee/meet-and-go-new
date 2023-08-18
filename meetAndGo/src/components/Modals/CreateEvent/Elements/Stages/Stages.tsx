@@ -1,8 +1,9 @@
-import cl from "./styles/Stages.module.scss";
 import { useSelector } from "react-redux";
+
 import { eventData } from "../../../../../app/feautures/createEventSlice";
 import FirstStageEvent from "./FirstStage";
 import SecondStageEvent from "./SecondStage";
+import cl from "./styles/Stages.module.scss";
 import ThirdStageEvent from "./ThirdStage";
 
 const MAX_STAGES = 3;

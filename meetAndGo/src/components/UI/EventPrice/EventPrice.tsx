@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import cl from "./EventPrice.module.scss";
 
 interface EventPriceProps {

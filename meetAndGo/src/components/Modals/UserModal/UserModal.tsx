@@ -1,15 +1,16 @@
 import { IonContent, IonModal } from "@ionic/react";
-import { FC } from "react";
-import cl from "./UserModal.module.scss";
-import SecondButton from "../../UI/SecondButton/SecondButton";
-import { IUser } from "../../../types/types";
-import ProfileAvatar from "../../UI/ProfileAvatar/ProfileAvatar";
-import ProfileAbout from "../../UI/ProfileAbout/ProfileAbout";
-import ProfileItem from "../Profile/Elements/Item/Item";
-import { useSelector } from "react-redux";
-import { user } from "../../../app/feautures/userSlice";
 import { doc, updateDoc } from "firebase/firestore";
+import { FC } from "react";
+import { useSelector } from "react-redux";
+
+import { user } from "../../../app/feautures/userSlice";
 import { db } from "../../../firebase";
+import { IUser } from "../../../types/types";
+import ProfileAbout from "../../UI/ProfileAbout/ProfileAbout";
+import ProfileAvatar from "../../UI/ProfileAvatar/ProfileAvatar";
+import SecondButton from "../../UI/SecondButton/SecondButton";
+import ProfileItem from "../Profile/Elements/Item/Item";
+import cl from "./UserModal.module.scss";
 
 interface UserModalProps {
   isOpen: boolean;

@@ -1,6 +1,7 @@
 import { FC } from "react";
-import cl from "./DateInput.module.scss";
+
 import { getFormatedDate } from "../../../helpers/getFormatedDate";
+import cl from "./DateInput.module.scss";
 
 interface DateInputProps {
   eventDate: string;

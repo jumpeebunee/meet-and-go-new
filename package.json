@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "eslint-plugin-simple-import-sort": "^4.0.0"
+  }
+}

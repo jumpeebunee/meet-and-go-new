@@ -1,7 +1,8 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { getIsoDate } from "../../helpers/getIsoDate";
 import { getRandomColor } from "../../helpers/getRandomColor";
+import type { RootState } from "../store";
 
 type IEventData = {
   stage: number;
@@ -13,21 +14,21 @@ type IEventData = {
   users: number;
   price: string;
   color: number;
-  coords: number[],
-}
+  coords: number[];
+};
 
 const BASE_CONFIG_DATA = {
   stage: 1,
-  name: '',
+  name: "",
   date: getIsoDate(),
-  location: '',
-  address: '',
-  validError: '',
+  location: "",
+  address: "",
+  validError: "",
   users: 2,
-  price: '0',
+  price: "0",
   color: getRandomColor(),
   coords: [],
-}
+};
 
 interface createEventSliceProps {
   data: IEventData;
@@ -35,10 +36,10 @@ interface createEventSliceProps {
 
 const initialState: createEventSliceProps = {
   data: BASE_CONFIG_DATA,
-}
+};
 
 const createEventSlice = createSlice({
-  name: 'createEvent',
+  name: "createEvent",
   initialState,
   reducers: {
     changeStage(state, action: PayloadAction<number>) {
@@ -74,9 +75,21 @@ const createEventSlice = createSlice({
     clearState(state) {
       state.data = BASE_CONFIG_DATA;
     },
-  }
-})
+  },
+});
 
 export default createEventSlice.reducer;
-export const { changeStage, changeName, changeDate, changeLocation, changeColor, changeError, clearState, changeAddress, changeUsers, changePrice, changeCoords } = createEventSlice.actions;
-export const eventData = ((state: RootState) => state.createEvent.data);
+export const {
+  changeStage,
+  changeName,
+  changeDate,
+  changeLocation,
+  changeColor,
+  changeError,
+  clearState,
+  changeAddress,
+  changeUsers,
+  changePrice,
+  changeCoords,
+} = createEventSlice.actions;
+export const eventData = (state: RootState) => state.createEvent.data;

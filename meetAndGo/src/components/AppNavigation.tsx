@@ -1,5 +1,6 @@
 import { IonRouterOutlet } from "@ionic/react";
 import { Redirect, Route } from "react-router";
+
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";

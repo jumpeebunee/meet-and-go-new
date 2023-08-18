@@ -1,24 +1,23 @@
-import cl from "../../createEvent.module.scss";
-import LabelInput from "../../../../UI/LabelInput/LabelInput";
-import { FC, useEffect } from "react";
 import axios from "axios";
-import UsersCounter from "../../../../UI/UsersCounter/UsersCounter";
-import RangeInput from "../../../../UI/RangeInput/RangeInput";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   changeAddress,
-  changeUsers,
   changePrice,
+  changeUsers,
   eventData,
 } from "../../../../../app/feautures/createEventSlice";
 import ErrorMessage from "../../../../UI/ErrorMessage/ErrorMessage";
-
-interface SecondStageProps {}
+import LabelInput from "../../../../UI/LabelInput/LabelInput";
+import RangeInput from "../../../../UI/RangeInput/RangeInput";
+import UsersCounter from "../../../../UI/UsersCounter/UsersCounter";
+import cl from "../../createEvent.module.scss";
 
 const BASE_GEOCODE_URL = "https://api.geocodify.com/v2/reverse";
 const BASE_GEOCODE_KEY = "9164b0a5c6f2637aa65ef1a4285ca68779bfc9e2&lat";
 
-const SecondStageEvent: FC<SecondStageProps> = () => {
+const SecondStageEvent = () => {
   const dispatch = useDispatch();
   const fullEvent = useSelector(eventData);
 

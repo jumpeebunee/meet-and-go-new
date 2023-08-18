@@ -1,16 +1,15 @@
-import { useState, FormEvent, FC, useCallback } from "react";
-import cl from "./LoginForm.module.scss";
+import { FC, FormEvent, useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
-import { ILogin } from "../../../types/types";
-import Input from "../../UI/Input/Input";
-import Button from "../../UI/Button/Button";
-import { signInWithRedirect } from "firebase/auth";
-import { auth, provider } from "../../../firebase";
+
 import {
   emailConfig,
   passwordConfig,
 } from "../../../formValidation/formValidation";
+import type { ILogin } from "../../../types/types";
+import Button from "../../UI/Button/Button";
+import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
+import Input from "../../UI/Input/Input";
+import cl from "./LoginForm.module.scss";
 
 interface LoginFormProps {
   handleLogin: (data: ILogin) => void;

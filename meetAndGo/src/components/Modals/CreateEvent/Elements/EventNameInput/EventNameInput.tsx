@@ -1,6 +1,7 @@
 import { FC } from "react";
-import cl from "./EventNameInput.module.scss";
+
 import EventsList from "../EventsList/EventsList";
+import cl from "./EventNameInput.module.scss";
 
 interface EventNameInputProps {
   eventName: string;

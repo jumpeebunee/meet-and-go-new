@@ -1,14 +1,15 @@
 import { IonPage } from "@ionic/react";
-import AppMap from "../components/AppMap/AppMap";
 import { useState } from "react";
+
+import AppMap from "../components/AppMap/AppMap";
+import CreateEvent from "../components/Modals/CreateEvent/CreateEvent";
+import OpenedEvent from "../components/Modals/OpenedEvent/OpenedEvent";
 import ProfileModal from "../components/Modals/Profile/ProfileModal/ProfileModal";
 import RaitingModal from "../components/Modals/Raiting/RaitingModal";
-import CreateEvent from "../components/Modals/CreateEvent/CreateEvent";
-import { IUser } from "../types/types";
-import OpenedEvent from "../components/Modals/OpenedEvent/OpenedEvent";
 import TotalEvents from "../components/Modals/TotalEvents/TotalEvents";
-import UsersModal from "../components/Modals/UsersModal/UsersModal";
 import UserModal from "../components/Modals/UserModal/UserModal";
+import UsersModal from "../components/Modals/UsersModal/UsersModal";
+import { IUser } from "../types/types";
 
 const Home: React.FC = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);

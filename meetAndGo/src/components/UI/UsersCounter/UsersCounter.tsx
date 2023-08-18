@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import cl from './UsersCounter.module.scss'
 
 interface UsersCounterProps {

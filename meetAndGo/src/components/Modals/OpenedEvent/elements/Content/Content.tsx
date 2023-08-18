@@ -1,10 +1,11 @@
 import { FC } from "react";
-import cl from "./Content.module.scss";
-import AppLocation from "../../../../UI/AppLocation/AppLocation";
-import EventUsers from "../../../../UI/EventUsers/EventUsers";
-import EventPrice from "../../../../UI/EventPrice/EventPrice";
 import { useSelector } from "react-redux";
+
 import { openedEvent } from "../../../../../app/feautures/openedEventSlice";
+import AppLocation from "../../../../UI/AppLocation/AppLocation";
+import EventPrice from "../../../../UI/EventPrice/EventPrice";
+import EventUsers from "../../../../UI/EventUsers/EventUsers";
+import cl from "./Content.module.scss";
 
 interface OpenedEventContentProps {
   setIsUsersOpen: (arg: boolean) => void;

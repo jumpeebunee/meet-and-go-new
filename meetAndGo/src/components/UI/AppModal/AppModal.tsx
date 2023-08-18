@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react'
+
 import cl from './AppModal.module.scss'
 
 interface AppModalProps {

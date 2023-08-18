@@ -1,15 +1,15 @@
-export type ILogin = {
+export interface ILogin {
   email: string;
   password: string;
 }
 
-export type IRegister = {
+export interface IRegister {
   email: string;
   password: string;
   fullname: string;
 }
 
-export type IUser = {
+export interface IUser {
   email: string;
   interests: string[];
   phone: string;
@@ -18,7 +18,7 @@ export type IUser = {
   username: string;
   reputation: number;
   totalMeets: number;
-  currentCreated: number
+  currentCreated: number;
   createdMeets: number;
   image: string;
   archive: IEvent[];
@@ -27,13 +27,13 @@ export type IUser = {
   isBanned: boolean;
 }
 
-export type IActive = {
+export interface IActive {
   id: string;
   image: string;
   reputation: number;
 }
 
-export type IEvent = {
+export interface IEvent {
   activeUsers: IActive[];
   address: string;
   contribution: string;

@@ -1,8 +1,5 @@
-import { FC, useState } from "react";
-import cl from "./createEvent.module.scss";
 import { IonContent, IonModal } from "@ionic/react";
 import { nanoid } from "@reduxjs/toolkit";
-import { user } from "../../../app/feautures/userSlice";
 import {
   arrayUnion,
   doc,
@@ -10,18 +7,22 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../../../firebase";
-import { useSelector, useDispatch } from "react-redux";
+import { FC, useState } from "react";
+import { useDispatch,useSelector } from "react-redux";
+
 import {
   changeError,
   clearState,
   eventData,
 } from "../../../app/feautures/createEventSlice";
 import { changeStage } from "../../../app/feautures/createEventSlice";
+import { user } from "../../../app/feautures/userSlice";
+import { errorOptions } from "../../../data/errorsOptions";
+import { db } from "../../../firebase";
+import AppEventsLimit from "../../EventLimit/AppEventsLimit";
+import cl from "./createEvent.module.scss";
 import CreateEventBtns from "./Elements/EventButtons/EventButtons";
 import CreateEventStages from "./Elements/Stages/Stages";
-import AppEventsLimit from "../../EventLimit/AppEventsLimit";
-import { errorOptions } from "../../../data/errorsOptions";
 import {
   validateAddress,
   validateDate,

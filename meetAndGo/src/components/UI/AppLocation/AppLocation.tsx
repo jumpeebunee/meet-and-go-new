@@ -1,7 +1,8 @@
-import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
-import { API_KEY, MAP_CENTER, getMapAppMark } from "../../../data/yamapsApi";
-import cl from "./AppLocation.module.scss";
+import { Map, Placemark,YMaps } from "@pbe/react-yandex-maps";
 import { FC } from "react";
+
+import { API_KEY, getMapAppMark,MAP_CENTER } from "../../../data/yamapsApi";
+import cl from "./AppLocation.module.scss";
 
 interface AppLocationProps {
   eventCords: number[];

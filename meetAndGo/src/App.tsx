@@ -1,10 +1,6 @@
 import { IonApp, NavContext, setupIonicReact } from "@ionic/react";
 import "@ionic/react/css/core.css";
-import "./styles/normolize.css";
-import "./styles/app.scss";
-import { FC, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "./firebase";
 import {
   collection,
   doc,
@@ -12,16 +8,21 @@ import {
   onSnapshot,
   setDoc,
 } from "firebase/firestore";
-import { IEvent, IUser } from "./types/types";
+import { FC, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, user } from "./app/feautures/userSlice";
+
 import { addEvents } from "./app/feautures/eventsSlice";
-import AppNavigation from "./components/AppNavigation";
+import { addUser, user } from "./app/feautures/userSlice";
 import AppLoading from "./components/AppLoading/AppLoading";
-import { unactiveEvents } from "./helpers/unactiveEvents";
+import AppNavigation from "./components/AppNavigation";
 import AppEventsLimit from "./components/EventLimit/AppEventsLimit";
-import { errorOptions } from "./data/errorsOptions";
 import { baseUserContent } from "./data/baseUserContent";
+import { errorOptions } from "./data/errorsOptions";
+import { auth, db } from "./firebase";
+import { unactiveEvents } from "./helpers/unactiveEvents";
+import "./styles/app.scss";
+import "./styles/normolize.css";
+import { IEvent, IUser } from "./types/types";
 
 setupIonicReact();
 

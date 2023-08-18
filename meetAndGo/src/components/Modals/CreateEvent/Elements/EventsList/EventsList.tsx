@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import cl from "./EventsList.module.scss";
 
 const BASE_EVENT_NAMES = [

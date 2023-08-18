@@ -1,15 +1,16 @@
-import cl from "./ProfileModal.module.scss";
+import { IonContent, IonModal } from "@ionic/react";
+import { doc, updateDoc } from "firebase/firestore";
 import { FC, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
+
 import { user } from "../../../../app/feautures/userSlice";
-import { doc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../../../../firebase";
-import ErrorMessage from "../../../UI/ErrorMessage/ErrorMessage";
-import ProfileUser from "../Elements/User/User";
-import ProfileList from "../Elements/List/List";
-import { IonContent, IonModal } from "@ionic/react";
 import { PHONE_REG, TOWN_REG } from "../../../../constants/constants";
+import { auth, db } from "../../../../firebase";
 import Button from "../../../UI/Button/Button";
+import ErrorMessage from "../../../UI/ErrorMessage/ErrorMessage";
+import ProfileList from "../Elements/List/List";
+import ProfileUser from "../Elements/User/User";
+import cl from "./ProfileModal.module.scss";
 
 interface ProfileModalProps {
   isOpen: boolean;

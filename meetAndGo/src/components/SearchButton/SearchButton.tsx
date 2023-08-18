@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import cl from "./SearchButton.module.scss";
 
 interface SearchButtonProps {

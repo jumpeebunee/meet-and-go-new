@@ -1,13 +1,14 @@
 import { IonContent, IonModal } from '@ionic/react';
-import cl from './ForgotAcc.module.scss';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 import { FC, useState } from 'react';
-import SecondButton from '../../UI/SecondButton/SecondButton';
+
+import { auth, db } from '../../../firebase';
+import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 import LabelInput from '../../UI/LabelInput/LabelInput';
 import MainButton from '../../UI/MainButton/MainButton';
-import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../../../firebase';
-import { sendPasswordResetEmail } from 'firebase/auth';
+import SecondButton from '../../UI/SecondButton/SecondButton';
+import cl from './ForgotAcc.module.scss';
 
 interface ForgotAccProps {
   isOpen: boolean;

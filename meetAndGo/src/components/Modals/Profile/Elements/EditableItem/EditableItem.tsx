@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import cl from "./EditableItem.module.scss";
 
 interface EditableItemProps {

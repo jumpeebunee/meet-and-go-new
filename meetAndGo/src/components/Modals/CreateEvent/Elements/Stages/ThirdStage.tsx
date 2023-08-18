@@ -1,20 +1,20 @@
-import { FC, useEffect } from "react";
-import cl from "../../createEvent.module.scss";
-import AppLocation from "../../../../UI/AppLocation/AppLocation";
-import EventUsers from "../../../../UI/EventUsers/EventUsers";
-import EventPrice from "../../../../UI/EventPrice/EventPrice";
-import { eventData } from "../../../../../app/feautures/createEventSlice";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import ErrorMessage from "../../../../UI/ErrorMessage/ErrorMessage";
 import { useDispatch } from "react-redux";
+
+import { eventData } from "../../../../../app/feautures/createEventSlice";
 import { changeColor } from "../../../../../app/feautures/createEventSlice";
 import { getRandomColor } from "../../../../../helpers/getRandomColor";
+import AppLocation from "../../../../UI/AppLocation/AppLocation";
+import ErrorMessage from "../../../../UI/ErrorMessage/ErrorMessage";
+import EventPrice from "../../../../UI/EventPrice/EventPrice";
+import EventUsers from "../../../../UI/EventUsers/EventUsers";
+import cl from "../../createEvent.module.scss";
 
-interface ThirdStageProps {}
-
-const ThirdStageEvent: FC<ThirdStageProps> = () => {
+const ThirdStageEvent = () => {
   const dispatch = useDispatch();
   const fullEvent = useSelector(eventData);
+
   const currentDate = new Date(fullEvent.date).toLocaleDateString("ru-RU", {
     day: "numeric",
     month: "long",

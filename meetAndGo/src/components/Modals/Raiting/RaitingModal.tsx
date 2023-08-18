@@ -1,8 +1,8 @@
-import { FC } from "react";
-import SecondButton from "../../UI/SecondButton/SecondButton";
-import cl from "./raitingModal.module.scss";
 import { IonModal } from "@ionic/react";
+import type { FC } from "react";
+
 import Button from "../../UI/Button/Button";
+import cl from "./raitingModal.module.scss";
 
 interface RaitingModalProps {
   isOpen: boolean;

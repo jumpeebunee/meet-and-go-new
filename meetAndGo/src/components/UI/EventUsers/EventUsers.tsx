@@ -1,6 +1,7 @@
 import { FC } from "react";
-import cl from "./EventUsers.module.scss";
+
 import { IActive } from "../../../types/types";
+import cl from "./EventUsers.module.scss";
 
 interface EventUsersProps {
   users: number;

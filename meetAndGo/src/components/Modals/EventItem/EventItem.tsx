@@ -1,8 +1,9 @@
 import { FC } from 'react'
-import cl from './EventItem.module.scss'
-import { IEvent } from '../../../types/types'
 import { useDispatch } from 'react-redux';
+
 import { changeOpened } from '../../../app/feautures/openedEventSlice';
+import { IEvent } from '../../../types/types'
+import cl from './EventItem.module.scss'
 
 interface EventItemProps {
   event: IEvent;

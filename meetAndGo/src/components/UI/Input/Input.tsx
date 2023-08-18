@@ -1,7 +1,8 @@
-import cl from "./Input.module.scss";
 import { FC, FormEvent } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
+
 import PasswordVisible from "../../Auth/PasswordVisible/PasswordVisible";
+import cl from "./Input.module.scss";
 
 interface InputProps {
   type?: string;

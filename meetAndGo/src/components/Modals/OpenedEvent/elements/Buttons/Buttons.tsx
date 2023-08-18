@@ -1,9 +1,10 @@
 import { FC } from "react";
-import cl from "./Buttons.module.scss";
 import { useSelector } from "react-redux";
+
 import { openedEvent } from "../../../../../app/feautures/openedEventSlice";
 import { user } from "../../../../../app/feautures/userSlice";
 import Button from "../../../../UI/Button/Button";
+import cl from "./Buttons.module.scss";
 
 interface ButtonsProps {
   activeEvent: boolean;

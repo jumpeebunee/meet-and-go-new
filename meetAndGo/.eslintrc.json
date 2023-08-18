@@ -1,0 +1,40 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": ["tsconfig.json"]
+  },
+  "ignorePatterns": [
+    "vite.config.ts",
+    "vite-end-d.ts",
+    "capacitor.config.ts",
+    "cypress.config.ts",
+    "test.cy.ts",
+    "commands.ts",
+    "e2e.ts"
+  ],
+  "plugins": ["react", "simple-import-sort"],
+  "rules": {
+    "sort-imports": "off",
+    "import/order": "off",
+    "simple-import-sort/sort": "error",
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "semi",
+          "requireLast": true
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": true
+        }
+      }
+    ]
+  }
+}

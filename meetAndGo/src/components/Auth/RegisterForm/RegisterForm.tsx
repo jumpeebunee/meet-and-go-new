@@ -1,9 +1,6 @@
 import { FC, FormEvent, useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import cl from "./RegisterForm.module.scss";
-import MainButton from "../../UI/MainButton/MainButton";
-import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
-import PasswordVisible from "../PasswordVisible/PasswordVisible";
+
 import {
   emailConfig,
   nameConfig,
@@ -11,7 +8,9 @@ import {
 } from "../../../formValidation/formValidation";
 import { IRegister } from "../../../types/types";
 import Button from "../../UI/Button/Button";
+import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
 import Input from "../../UI/Input/Input";
+import cl from "./RegisterForm.module.scss";
 
 interface RegisterFormProps {
   handleRegister: (data: IRegister) => void;

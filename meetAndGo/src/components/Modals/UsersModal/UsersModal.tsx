@@ -1,13 +1,14 @@
 import { IonContent, IonModal, IonSpinner } from "@ionic/react";
-import { FC, useEffect, useState } from "react";
-import SecondButton from "../../UI/SecondButton/SecondButton";
-import cl from "./UsersModal.module.scss";
-import { IActive, IUser } from "../../../types/types";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
-import UserItem from "../../UI/UserItem/UserItem";
+import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
 import { openedEvent } from "../../../app/feautures/openedEventSlice";
+import { db } from "../../../firebase";
+import type { IUser } from "../../../types/types";
+import SecondButton from "../../UI/SecondButton/SecondButton";
+import UserItem from "../../UI/UserItem/UserItem";
+import cl from "./UsersModal.module.scss";
 
 interface UsersModalProps {
   isOpen: boolean;
@@ -37,7 +38,7 @@ const UsersModal: FC<UsersModalProps> = ({
     setIsLoading(true);
 
     for (let i = 0; i < event.activeUsers.length; i++) {
-      let user = event.activeUsers[i];
+      const user = event.activeUsers[i];
       const docRef = doc(db, "users", user.id);
       const docSnap = await getDoc(docRef);
       if (user.id === event.leader) {

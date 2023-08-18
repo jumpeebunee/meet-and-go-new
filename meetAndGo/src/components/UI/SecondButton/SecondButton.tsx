@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react'
+
 import cl from './SecondButton.module.scss'
 
 

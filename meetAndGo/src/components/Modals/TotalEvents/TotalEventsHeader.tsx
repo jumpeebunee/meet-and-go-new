@@ -1,6 +1,7 @@
 import { FC } from "react";
-import cl from "./TotalEvents.module.scss";
+
 import TabButton from "../../UI/TabButton/TabButton";
+import cl from "./TotalEvents.module.scss";
 
 interface TotalEventsHeaderProps {
   currentState: string;
